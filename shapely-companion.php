@@ -37,3 +37,10 @@ require_once plugin_dir_path( __FILE__ ) . '/inc/shapely-helper.php';
  * Load Import Demo Content Functionality
  */
 require_once plugin_dir_path( __FILE__ ) . '/inc/shapely-demo-content.php';
+
+/**
+ * WooCoomerce Support
+ */
+if ( class_exists( 'WooCommerce' ) ) {
+	require_once plugin_dir_path( __FILE__ ) . '/inc/shapely-woo-setup.php';
+}
