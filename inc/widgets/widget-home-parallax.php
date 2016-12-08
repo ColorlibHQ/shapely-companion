@@ -220,12 +220,12 @@ class shapely_home_parallax extends WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance                 = array();
-		$instance['title']        = ( ! empty( $new_instance['title'] ) ) ? stripslashes( $new_instance['title'] ) : '';
+		$instance['title']        = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
 		$instance['image_src']    = ( ! empty( $new_instance['image_src'] ) ) ? esc_url_raw( $new_instance['image_src'] ) : '';
-		$instance['image_pos']    = ( ! empty( $new_instance['image_pos'] ) ) ? stripslashes( $new_instance['image_pos'] ) : '';
-		$instance['body_content'] = ( ! empty( $new_instance['body_content'] ) ) ? stripslashes( $new_instance['body_content'] ) : '';
-		$instance['button1']      = ( ! empty( $new_instance['button1'] ) ) ? stripslashes( $new_instance['button1'] ) : '';
-		$instance['button2']      = ( ! empty( $new_instance['button2'] ) ) ? stripslashes( $new_instance['button2'] ) : '';
+		$instance['image_pos']    = ( ! empty( $new_instance['image_pos'] ) ) ? strip_tags( $new_instance['image_pos'] ) : '';
+		$instance['body_content'] = ( ! empty( $new_instance['body_content'] ) ) ? strip_tags( $new_instance['body_content'] ) : '';
+		$instance['button1']      = ( ! empty( $new_instance['button1'] ) ) ? strip_tags( $new_instance['button1'] ) : '';
+		$instance['button2']      = ( ! empty( $new_instance['button2'] ) ) ? strip_tags( $new_instance['button2'] ) : '';
 		$instance['button1_link'] = ( ! empty( $new_instance['button1_link'] ) ) ? esc_url_raw( $new_instance['button1_link'] ) : '';
 		$instance['button2_link'] = ( ! empty( $new_instance['button2_link'] ) ) ? esc_url_raw( $new_instance['button2_link'] ) : '';
 

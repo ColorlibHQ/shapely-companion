@@ -43,7 +43,7 @@ class shapely_home_clients extends WP_Widget {
 								for ( $i = 0; $i < count( $logos['img'] ); $i ++ ) {
 									if ( $logos['img'] != '' && $logos['link'] != '' ) { ?>
 										<li>
-										<a href="<?php echo esc_url_raw( $logos['link'][ $i ]); ?>">
+										<a href="<?php echo esc_url_raw( $logos['link'][ $i ] ); ?>">
 											<img alt="<?php _e( 'Logos', 'shapely' ); ?>"
 											     src="<?php echo esc_url_raw( $logos['img'][ $i ] ); ?>"/>
 										</a>

@@ -15,6 +15,10 @@
     display: inline-block;
 }
 
+#demo_content p {
+    width: initial;
+}
+
 .newsmag-media-control img {
     width: 100%;
     height: auto;

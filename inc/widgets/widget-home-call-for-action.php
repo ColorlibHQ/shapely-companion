@@ -7,8 +7,9 @@
 class shapely_home_CFA extends WP_Widget {
 	function __construct() {
 
-		$widget_ops = array( 'classname'   => 'shapely_home_CFA',
-		                     'description' => esc_html__( "[Shapely] Call for Action Section", 'shapely' )
+		$widget_ops = array(
+			'classname'   => 'shapely_home_CFA',
+			'description' => esc_html__( "[Shapely] Call for Action Section", 'shapely' )
 		);
 		parent::__construct( 'shapely_home_CFA', esc_html__( '[Shapely] Call for Action Section For FrontPage', 'shapely' ), $widget_ops );
 	}
@@ -104,8 +105,8 @@ class shapely_home_CFA extends WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance                = array();
-		$instance['title']       = ( ! empty( $new_instance['title'] ) ) ? stripslashes( $new_instance['title'] ) : '';
-		$instance['button']      = ( ! empty( $new_instance['button'] ) ) ? stripslashes( $new_instance['button'] ) : '';
+		$instance['title']       = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
+		$instance['button']      = ( ! empty( $new_instance['button'] ) ) ? strip_tags( $new_instance['button'] ) : '';
 		$instance['button_link'] = ( ! empty( $new_instance['button_link'] ) ) ? esc_url_raw( $new_instance['button_link'] ) : '';
 
 		return $instance;

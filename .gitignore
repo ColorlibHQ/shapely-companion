@@ -2,3 +2,5 @@
 /node_modules/
 .idea/
 /.standard.json
+/gruntfile.js
+/package.json

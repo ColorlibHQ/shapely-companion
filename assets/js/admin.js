@@ -17,8 +17,7 @@ jQuery(document).ready(function () {
 					currentButton.next('.spinner').removeClass('is-active');
 					currentButton.parent().parent().find('.updated-message').show();
 				}
-			},
-
+			}
 		});
 
 	});
