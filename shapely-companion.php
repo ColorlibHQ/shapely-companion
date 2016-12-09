@@ -44,3 +44,8 @@ require_once plugin_dir_path( __FILE__ ) . '/inc/shapely-demo-content.php';
 if ( class_exists( 'WooCommerce' ) ) {
 	require_once plugin_dir_path( __FILE__ ) . '/inc/shapely-woo-setup.php';
 }
+
+/**
+ * Epsilon Framework
+ */
+require_once plugin_dir_path( __FILE__ ) . '/inc/class-epsilon-framework.php';
