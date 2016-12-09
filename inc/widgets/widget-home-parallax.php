@@ -6,6 +6,10 @@
  */
 class shapely_home_parallax extends WP_Widget {
 	function __construct() {
+		add_action( 'admin_init', array( $this, 'enqueue' ) );
+		add_action( 'customize_controls_enqueue_scripts', array( $this, 'enqueue' ) );
+		add_action( 'customize_preview_init', array( $this, 'enqueue' ) );
+
 
 		$widget_ops = array(
 			'classname'   => 'shapely_home_parallax',
@@ -14,16 +18,22 @@ class shapely_home_parallax extends WP_Widget {
 		parent::__construct( 'shapely_home_parallax', esc_html__( '[Shapely] Parralax Section For FrontPage', 'shapely' ), $widget_ops );
 	}
 
+	public function enqueue() {
+		wp_enqueue_style( 'epsilon-styles', plugins_url( 'epsilon-framework/assets/css/style.css', dirname( __FILE__ ) ) );
+		wp_enqueue_script( 'epsilon-object', plugins_url( 'epsilon-framework/assets/js/epsilon.js', dirname( __FILE__ ) ), array( 'jquery' ) );
+	}
+
 	function widget( $args, $instance ) {
 		extract( $args );
-		$title        = isset( $instance['title'] ) ? $instance['title'] : '';
-		$image_src    = isset( $instance['image_src'] ) ? $instance['image_src'] : '';
-		$image_pos    = isset( $instance['image_pos'] ) ? $instance['image_pos'] : esc_html__( 'left', 'shapely' );
-		$body_content = isset( $instance['body_content'] ) ? $instance['body_content'] : '';
-		$button1      = isset( $instance['button1'] ) ? $instance['button1'] : '';
-		$button2      = isset( $instance['button2'] ) ? $instance['button2'] : '';
-		$button1_link = isset( $instance['button1_link'] ) ? $instance['button1_link'] : '';
-		$button2_link = isset( $instance['button2_link'] ) ? $instance['button2_link'] : '';
+		$title         = isset( $instance['title'] ) ? $instance['title'] : '';
+		$image_src     = isset( $instance['image_src'] ) ? $instance['image_src'] : '';
+		$image_pos     = isset( $instance['image_pos'] ) ? $instance['image_pos'] : esc_html__( 'left', 'shapely' );
+		$body_content  = isset( $instance['body_content'] ) ? $instance['body_content'] : '';
+		$button1       = isset( $instance['button1'] ) ? $instance['button1'] : '';
+		$button2       = isset( $instance['button2'] ) ? $instance['button2'] : '';
+		$button1_link  = isset( $instance['button1_link'] ) ? $instance['button1_link'] : '';
+		$button2_link  = isset( $instance['button2_link'] ) ? $instance['button2_link'] : '';
+		$border_bottom = isset( $instance['border_bottom'] ) ? $instance['border_bottom'] : '';
 
 		echo $before_widget;
 
@@ -36,6 +46,9 @@ class shapely_home_parallax extends WP_Widget {
 		$class6 = ( $image_pos == 'left' ) ? 'col-md-7 col-sm-6 text-center mb-xs-24' : '';
 		$class7 = ( $image_pos == 'background-full' ) ? 'fullscreen' : '';
 
+		if ( $border_bottom == 'on' ) {
+			$class1 .= ' border-bottom';
+		}
 		/**
 		 * Widget Content
 		 */
@@ -82,8 +95,7 @@ class shapely_home_parallax extends WP_Widget {
 				</div><?php
 				} ?>
 		</section>
-
-
+		<div class="clearfix"></div>
 		<?php
 
 		echo $after_widget;
@@ -114,6 +126,9 @@ class shapely_home_parallax extends WP_Widget {
 		}
 		if ( ! isset( $instance['button2_link'] ) ) {
 			$instance['button2_link'] = '';
+		}
+		if ( ! isset( $instance['border_bottom'] ) ) {
+			$instance['border_bottom'] = '';
 		}
 		?>
 
@@ -205,6 +220,21 @@ class shapely_home_parallax extends WP_Widget {
 			       id="<?php echo esc_attr( $this->get_field_id( 'button2_link' ) ); ?>"
 			       class="widefat"/>
 		</p>
+
+		<div class="checkbox_switch">
+				<span class="customize-control-title onoffswitch_label">
+                    <?php _e( 'Border botton', 'shapely' ); ?>
+				</span>
+			<div class="onoffswitch">
+				<input type="checkbox" id="<?php echo esc_attr( $this->get_field_name( 'border_bottom' ) ); ?>"
+				       name="<?php echo esc_attr( $this->get_field_name( 'border_bottom' ) ); ?>"
+				       class="onoffswitch-checkbox"
+				       value="on"
+					<?php checked( $instance['border_bottom'], 'on' ); ?>>
+				<label class="onoffswitch-label"
+				       for="<?php echo esc_attr( $this->get_field_name( 'border_bottom' ) ); ?>"></label>
+			</div>
+		</div>
 		<?php
 	}
 
@@ -219,15 +249,16 @@ class shapely_home_parallax extends WP_Widget {
 	 * @return array Updated safe values to be saved.
 	 */
 	public function update( $new_instance, $old_instance ) {
-		$instance                 = array();
-		$instance['title']        = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
-		$instance['image_src']    = ( ! empty( $new_instance['image_src'] ) ) ? esc_url_raw( $new_instance['image_src'] ) : '';
-		$instance['image_pos']    = ( ! empty( $new_instance['image_pos'] ) ) ? strip_tags( $new_instance['image_pos'] ) : '';
-		$instance['body_content'] = ( ! empty( $new_instance['body_content'] ) ) ? strip_tags( $new_instance['body_content'] ) : '';
-		$instance['button1']      = ( ! empty( $new_instance['button1'] ) ) ? strip_tags( $new_instance['button1'] ) : '';
-		$instance['button2']      = ( ! empty( $new_instance['button2'] ) ) ? strip_tags( $new_instance['button2'] ) : '';
-		$instance['button1_link'] = ( ! empty( $new_instance['button1_link'] ) ) ? esc_url_raw( $new_instance['button1_link'] ) : '';
-		$instance['button2_link'] = ( ! empty( $new_instance['button2_link'] ) ) ? esc_url_raw( $new_instance['button2_link'] ) : '';
+		$instance                  = array();
+		$instance['title']         = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
+		$instance['image_src']     = ( ! empty( $new_instance['image_src'] ) ) ? esc_url_raw( $new_instance['image_src'] ) : '';
+		$instance['image_pos']     = ( ! empty( $new_instance['image_pos'] ) ) ? strip_tags( $new_instance['image_pos'] ) : '';
+		$instance['body_content']  = ( ! empty( $new_instance['body_content'] ) ) ? strip_tags( $new_instance['body_content'] ) : '';
+		$instance['button1']       = ( ! empty( $new_instance['button1'] ) ) ? strip_tags( $new_instance['button1'] ) : '';
+		$instance['button2']       = ( ! empty( $new_instance['button2'] ) ) ? strip_tags( $new_instance['button2'] ) : '';
+		$instance['button1_link']  = ( ! empty( $new_instance['button1_link'] ) ) ? esc_url_raw( $new_instance['button1_link'] ) : '';
+		$instance['button2_link']  = ( ! empty( $new_instance['button2_link'] ) ) ? esc_url_raw( $new_instance['button2_link'] ) : '';
+		$instance['border_bottom'] = ( ! empty( $new_instance['border_bottom'] ) ) ? strip_tags( $new_instance['border_bottom'] ) : '';
 
 		return $instance;
 	}

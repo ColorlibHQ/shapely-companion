@@ -6,12 +6,20 @@
  */
 class shapely_categories extends WP_Widget {
 	function __construct() {
+		add_action( 'admin_init', array( $this, 'enqueue' ) );
+		add_action( 'customize_controls_enqueue_scripts', array( $this, 'enqueue' ) );
+		add_action( 'customize_preview_init', array( $this, 'enqueue' ) );
 
 		$widget_ops = array(
 			'classname'   => 'shapely-cats',
 			'description' => esc_html__( "Shapely Categories", 'shapely' )
 		);
 		parent::__construct( 'shapely-cats', esc_html__( '[Shapely] Categories', 'shapely' ), $widget_ops );
+	}
+
+	public function enqueue() {
+		wp_enqueue_style( 'epsilon-styles', plugins_url( 'epsilon-framework/assets/css/style.css', dirname( __FILE__ ) ) );
+		wp_enqueue_script( 'epsilon-object', plugins_url( 'epsilon-framework/assets/js/epsilon.js', dirname( __FILE__ ) ), array( 'jquery' ) );
 	}
 
 	function widget( $args, $instance ) {
@@ -32,9 +40,6 @@ class shapely_categories extends WP_Widget {
 		?>
 		<div class="cats-widget nolist">
 
-			<?php if ( is_string( $enable_count ) || $enable_count == '' ) {
-				$enable_count = 0;
-			} ?>
 			<ul class="category-list"><?php
 
 				$args = array(
@@ -49,7 +54,7 @@ class shapely_categories extends WP_Widget {
 
 				$variable = wp_list_categories( $args );
 
-				if ( (bool) $enable_count ) {
+				if ( $enable_count == 'on') {
 					$variable = str_replace( "(", "<span>", $variable );
 					$variable = str_replace( ")", "</span>", $variable );
 				} else {
@@ -98,15 +103,21 @@ class shapely_categories extends WP_Widget {
 			       class="widefat"/>
 		</p>
 
-		<p><label>
-				<input type="checkbox"
+
+		<div class="checkbox_switch">
+				<span class="customize-control-title onoffswitch_label">
+                    <?php _e( 'Enable Posts Count', 'shapely' ); ?>
+				</span>
+			<div class="onoffswitch">
+				<input type="checkbox" id="<?php echo esc_attr( $this->get_field_name( 'enable_count' ) ); ?>"
 				       name="<?php echo esc_attr( $this->get_field_name( 'enable_count' ) ); ?>"
-				       id="<?php echo esc_attr( $this->get_field_id( 'enable_count' ) ); ?>"
-				       value="1"
-					<?php checked( $instance['enable_count'], 1 ) ?>
-				/>
-				<?php esc_html_e( 'Enable Posts Count', 'shapely' ) ?></label>
-		</p>
+				       class="onoffswitch-checkbox"
+				       value="on"
+					<?php checked( $instance['enable_count'], 'on' ); ?>>
+				<label class="onoffswitch-label"
+				       for="<?php echo esc_attr( $this->get_field_name( 'enable_count' ) ); ?>"></label>
+			</div>
+		</div>
 
 		<?php
 	}
@@ -125,7 +136,7 @@ class shapely_categories extends WP_Widget {
 		$instance                 = array();
 		$instance['title']        = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
 		$instance['limit']        = ( ! empty( $new_instance['limit'] ) ) ? absint( $new_instance['limit'] ) : '';
-		$instance['enable_count'] = ( ! empty( $new_instance['enable_count'] ) ) ? absint( $new_instance['enable_count'] ) : '';
+		$instance['enable_count'] = ( ! empty( $new_instance['enable_count'] ) ) ? strip_tags( $new_instance['enable_count'] ) : '';
 
 		return $instance;
 	}
