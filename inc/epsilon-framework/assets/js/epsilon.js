@@ -45,5 +45,5 @@
 	$(document).on('widget-updated widget-added', function (a, selector) {
 		EpsilonFramework.rangeSliders(selector);
 	});
-	
+
 })(jQuery);

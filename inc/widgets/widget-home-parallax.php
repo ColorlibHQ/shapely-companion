@@ -223,7 +223,7 @@ class shapely_home_parallax extends WP_Widget {
 
 		<div class="checkbox_switch">
 				<span class="customize-control-title onoffswitch_label">
-                    <?php _e( 'Border botton', 'shapely' ); ?>
+                    <?php _e( 'Border bottom', 'shapely' ); ?>
 				</span>
 			<div class="onoffswitch">
 				<input type="checkbox" id="<?php echo esc_attr( $this->get_field_name( 'border_bottom' ) ); ?>"
