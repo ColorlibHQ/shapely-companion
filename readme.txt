@@ -10,7 +10,7 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
 Shapely Companion is a companion plugin for Shapely WordPress theme by Colorlib.com.
 == Description ==
 
-Shapely Companion is a companion for Shapely One Page WordPress theme by Colorlib.com. This plugin won't do anything for other free or premium WordPress themes and you need to download and install <a href="https://colorlib.com/wp/themes/Shapely/" target="_blank" rel="friend">Shapely</a>. If you are having problems with Shapely theme or its companion plugin the fastest way to receive help is via our theme <a href="http://colorlib.com/wp/forums" target="_blank" rel="friend">support forum</a>.
+Shapely Companion is a companion for Shapely One Page WordPress theme by Colorlib.com. This plugin won't do anything for other free or premium WordPress themes and you need to download and install <a href="https://colorlib.com/wp/themes/Shapely/" target="_blank" rel="friend">Shapely</a>. If you are having problems with Shapely theme or its companion plugin the fastest way to receive help is via our theme <a href="https://colorlib.com/wp/forums" target="_blank" rel="friend">support forum</a>.
 
 This plugin will add necessary WordPress widgets and allow to import demo content which will help you to with website setup.
 

@@ -1,11 +1,11 @@
 <?php
 /*
  * Plugin Name:       Shapely Companion
- * Plugin URI:        http://colorlib.com/wp/themes/shapely/
+ * Plugin URI:        https://colorlib.com/wp/themes/shapely/
  * Description:       Shapely Companion is a companion plugin for Shapely theme.
  * Version:           1.0.2
  * Author:            Colorlib
- * Author URI:        http://colorlib.com
+ * Author URI:        https://colorlib.com
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       shapely-companion
