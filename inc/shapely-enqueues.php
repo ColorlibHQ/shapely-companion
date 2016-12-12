@@ -24,7 +24,7 @@ function shapely_companion_admin_scripts( $hook ) {
 }
 
 
-function epsilon_customize_preview_js() {
+function shapely_customize_preview_js() {
 	wp_enqueue_script( 'epsilon_customizer', plugins_url( '/inc/epsilon-framework/assets/js/previewer.js', dirname( __FILE__ ) ), array( 'customize-preview' ), false, true );
 
 	wp_localize_script( 'epsilon_customizer', 'WPUrls', array(
@@ -34,7 +34,7 @@ function epsilon_customize_preview_js() {
 	) );
 }
 
-function epsilon_customizer_enqueue_scripts() {
+function shapely_customizer_enqueue_scripts() {
 	/*
 	 * Our Customizer script
 	 *
@@ -48,5 +48,5 @@ function epsilon_customizer_enqueue_scripts() {
 	) );
 }
 
-add_action( 'customize_controls_enqueue_scripts', 'epsilon_customizer_enqueue_scripts' );
-add_action( 'customize_preview_init', 'epsilon_customize_preview_js' );
+add_action( 'customize_controls_enqueue_scripts', 'shapely_customizer_enqueue_scripts' );
+add_action( 'customize_preview_init', 'shapely_customize_preview_js' );
