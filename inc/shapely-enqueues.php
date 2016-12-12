@@ -34,4 +34,19 @@ function epsilon_customize_preview_js() {
 	) );
 }
 
+function epsilon_customizer_enqueue_scripts() {
+	/*
+	 * Our Customizer script
+	 *
+	 * Dependencies: Customizer Controls script (core)
+	 */
+	wp_enqueue_script( 'customizer-scripts', plugins_url( '/inc/epsilon-framework/assets/js/customizer.js', dirname( __FILE__ ) ), array( 'customize-controls' ), false, true );
+	wp_localize_script( 'customizer-scripts', 'WPUrls', array(
+		'siteurl' => get_option( 'siteurl' ),
+		'theme'   => get_template_directory_uri(),
+		'ajaxurl' => admin_url( 'admin-ajax.php' )
+	) );
+}
+
+add_action( 'customize_controls_enqueue_scripts', 'epsilon_customizer_enqueue_scripts' );
 add_action( 'customize_preview_init', 'epsilon_customize_preview_js' );
