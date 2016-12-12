@@ -8,8 +8,9 @@ class shapely_home_testimonial extends WP_Widget {
 	function __construct() {
 
 		$widget_ops = array(
-			'classname'   => 'shapely_home_testimonial',
-			'description' => esc_html__( "Shapely Testimonial Widget Section", 'shapely' )
+			'classname'                   => 'shapely_home_testimonial',
+			'description'                 => esc_html__( "Shapely Testimonial Widget Section", 'shapely' ),
+			'customize_selective_refresh' => true
 		);
 		parent::__construct( 'shapely_home_testimonial', esc_html__( '[Shapely] Testimonial Section For FrontPage', 'shapely' ), $widget_ops );
 	}
@@ -39,7 +40,7 @@ class shapely_home_testimonial extends WP_Widget {
 
 			if ( $testimonial_query->have_posts() ) : ?>
 				<section class="parallax-section testimonial-section">
-				<div class="parallax-window" data-parallax="scroll" data-image-src="<?php echo $image_src; ?>"
+				<div class="parallax-window" data-parallax="scroll" data-image-src="<?php echo esc_url($image_src); ?>"
 				     style="height: 500px;">
 					<div class="container align-transform">
 						<div class="parallax-text image-bg testimonial">
@@ -116,20 +117,21 @@ class shapely_home_testimonial extends WP_Widget {
 			       class="widefat"/>
 		</p>
 
-		<p>
+		<p class="shapely-media-control"
+		   data-delegate-container="<?php echo esc_attr( $this->get_field_id( 'image_src' ) ) ?>">
 			<label
-				for="<?php echo esc_attr( $this->get_field_name( 'image_src' ) ); ?>"><?php _e( 'Background Parallax Image:', 'shapely' ); ?></label>
-			<input name="<?php echo esc_attr( $this->get_field_name( 'image_src' ) ); ?>"
-			       id="<?php echo esc_attr( $this->get_field_id( 'image_src' ) ); ?>" class="widefat image_src"
-			       type="hidden"
-			       value="<?php echo esc_url( $instance['image_src'] ); ?>"/><br><br>
-			<button id="<?php echo esc_attr( $this->get_field_id( 'image_src_button' ) ); ?>"
-			        class="button button-primary custom_media_button"
-			        data-fieldid="<?php echo esc_attr( $this->get_field_id( 'image_src' ) ); ?>"><?php _e( 'Upload Image', 'shapely' ); ?></button>
-			<img class="image_demo" id="img_demo_<?php echo esc_attr( $this->get_field_id( 'image_src' ) ); ?>"
-			     width="100px"
-			     height="100px" style="margin-left: 20px; vertical-align: top;"
-			     src="<?php echo esc_url( $instance['image_src'] ); ?>"/>
+				for="<?php echo esc_attr( $this->get_field_id( 'image_src' ) ); ?>"><?php _e( 'Background Parallax Image:', 'shapely' );
+				?>:</label>
+
+			<img src="<?php echo esc_url( $instance['image_src'] ); ?>"/>
+
+			<input type="hidden"
+			       name="<?php echo esc_attr( $this->get_field_name( 'image_src' ) ); ?>"
+			       id="<?php echo esc_attr( $this->get_field_id( 'image_src' ) ); ?>"
+			       value="<?php echo esc_url( $instance['image_src'] ); ?>"
+			       class="image-id blazersix-media-control-target">
+
+			<button type="button" class="button upload-button"><?php _e( 'Choose Image', 'shapely' ); ?></button>
 		</p>
 
 		<?php

@@ -22,3 +22,16 @@ function shapely_companion_admin_scripts( $hook ) {
 		wp_enqueue_style( 'font-awesome', get_template_directory_uri() . '/inc/css/font-awesome.min.css' );
 	}
 }
+
+
+function epsilon_customize_preview_js() {
+	wp_enqueue_script( 'epsilon_customizer', plugins_url( '/inc/epsilon-framework/assets/js/previewer.js', dirname( __FILE__ ) ), array( 'customize-preview' ), false, true );
+
+	wp_localize_script( 'epsilon_customizer', 'WPUrls', array(
+		'siteurl' => get_option( 'siteurl' ),
+		'theme'   => get_template_directory_uri(),
+		'ajaxurl' => admin_url( 'admin-ajax.php' )
+	) );
+}
+
+add_action( 'customize_preview_init', 'epsilon_customize_preview_js' );

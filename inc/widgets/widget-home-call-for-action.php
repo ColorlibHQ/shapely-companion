@@ -9,7 +9,8 @@ class shapely_home_CFA extends WP_Widget {
 
 		$widget_ops = array(
 			'classname'   => 'shapely_home_CFA',
-			'description' => esc_html__( "[Shapely] Call for Action Section", 'shapely' )
+			'description' => esc_html__( "[Shapely] Call for Action Section", 'shapely' ),
+			'customize_selective_refresh' => true
 		);
 		parent::__construct( 'shapely_home_CFA', esc_html__( '[Shapely] Call for Action Section For FrontPage', 'shapely' ), $widget_ops );
 	}
@@ -54,13 +55,13 @@ class shapely_home_CFA extends WP_Widget {
 
 
 	function form( $instance ) {
-		if ( ! isset( $instance['title'] ) ) {
+		if ( empty( $instance['title'] ) ) {
 			$instance['title'] = '';
 		}
-		if ( ! isset( $instance['button'] ) ) {
+		if ( empty( $instance['button'] ) ) {
 			$instance['button'] = '';
 		}
-		if ( ! isset( $instance['button_link'] ) ) {
+		if ( empty( $instance['button_link'] ) ) {
 			$instance['button_link'] = '';
 		}
 		?>

@@ -16,6 +16,7 @@ jQuery(document).ready(function () {
 					currentButton.removeClass('disabled');
 					currentButton.next('.spinner').removeClass('is-active');
 					currentButton.parent().parent().find('.updated-message').show();
+					location.reload();
 				}
 			}
 		});

@@ -8,8 +8,9 @@ class shapely_home_clients extends WP_Widget {
 	function __construct() {
 
 		$widget_ops = array(
-			'classname'   => 'shapely_home_clients',
-			'description' => esc_html__( "Shapely Client Section That Displays Logos In A Slider", 'shapely' )
+			'classname'                   => 'shapely_home_clients',
+			'description'                 => esc_html__( "Shapely Client Section That Displays Logos In A Slider", 'shapely' ),
+			'customize_selective_refresh' => true
 		);
 		parent::__construct( 'shapely_home_clients', esc_html__( '[Shapely] Client Section For FrontPage', 'shapely' ), $widget_ops );
 	}

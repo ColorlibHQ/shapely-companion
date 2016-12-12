@@ -79,7 +79,6 @@ function shapely_companion_import_content() {
 			update_option( 'show_on_front', 'page' );
 			update_option( 'page_on_front', $frontpage_id );
 			update_option( 'page_for_posts', $blog_id );
-
 			shapely_companion_add_default_widgets();
 
 
@@ -87,9 +86,7 @@ function shapely_companion_import_content() {
 			shapely_companion_add_default_widgets();
 		}
 
-		$shapely_show_required_actions                               = get_option( 'shapely_show_required_actions' );
-		$shapely_show_required_actions['shapely-req-import-content'] = true;
-		update_option( 'shapely_show_required_actions', $shapely_show_required_actions );
+		update_option( 'shapely_imported_demo', true );
 
 		echo 'succes';
 	} else {

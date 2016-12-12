@@ -8,8 +8,9 @@ class shapely_social_widget extends WP_Widget {
 	function __construct() {
 
 		$widget_ops = array(
-			'classname'   => 'shapely-social',
-			'description' => esc_html__( "shapely Social Widget", 'shapely' )
+			'classname'                   => 'shapely-social',
+			'description'                 => esc_html__( "shapely Social Widget", 'shapely' ),
+			'customize_selective_refresh' => true
 		);
 		parent::__construct( 'shapely-social', esc_html__( '[Shapely] Social Widget', 'shapely' ), $widget_ops );
 	}

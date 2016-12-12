@@ -8,8 +8,9 @@ class shapely_home_portfolio extends WP_Widget {
 	function __construct() {
 
 		$widget_ops = array(
-			'classname'   => 'shapely_home_portfolio',
-			'description' => esc_html__( "Shapely Porfolio for Home Widget Section", 'shapely' )
+			'classname'                   => 'shapely_home_portfolio',
+			'description'                 => esc_html__( "Shapely Porfolio for Home Widget Section", 'shapely' ),
+			'customize_selective_refresh' => true
 		);
 		parent::__construct( 'shapely_home_portfolio', esc_html__( '[Shapely] Porfolio for Home Widget Section', 'shapely' ), $widget_ops );
 	}

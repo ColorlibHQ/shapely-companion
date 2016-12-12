@@ -11,8 +11,9 @@ class shapely_categories extends WP_Widget {
 		add_action( 'customize_preview_init', array( $this, 'enqueue' ) );
 
 		$widget_ops = array(
-			'classname'   => 'shapely-cats',
-			'description' => esc_html__( "Shapely Categories", 'shapely' )
+			'classname'                   => 'shapely-cats',
+			'description'                 => esc_html__( "Shapely Categories", 'shapely' ),
+			'customize_selective_refresh' => true
 		);
 		parent::__construct( 'shapely-cats', esc_html__( '[Shapely] Categories', 'shapely' ), $widget_ops );
 	}
@@ -25,7 +26,7 @@ class shapely_categories extends WP_Widget {
 	function widget( $args, $instance ) {
 		extract( $args );
 		$title        = isset( $instance['title'] ) ? $instance['title'] : esc_html__( 'Categories', 'shapely' );
-		$enable_count = $instance['enable_count'] ? $instance['enable_count'] : '';
+		$enable_count = !empty( $instance['enable_count'] ) ? $instance['enable_count'] : '';
 
 		$limit = isset( $instance['limit'] ) ? $instance['limit'] : 4;
 
@@ -54,12 +55,12 @@ class shapely_categories extends WP_Widget {
 
 				$variable = wp_list_categories( $args );
 
-				if ( $enable_count == 'on') {
+				if ( $enable_count == 'on' ) {
 					$variable = str_replace( "(", "<span>", $variable );
 					$variable = str_replace( ")", "</span>", $variable );
 				} else {
-					$pattern = '/\([0-9]+\)/';
-					$variable = preg_replace($pattern, '', $variable);
+					$pattern  = '/\([0-9]+\)/';
+					$variable = preg_replace( $pattern, '', $variable );
 				}
 
 				echo $variable; ?></ul>

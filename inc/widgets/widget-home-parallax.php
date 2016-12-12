@@ -12,8 +12,9 @@ class shapely_home_parallax extends WP_Widget {
 
 
 		$widget_ops = array(
-			'classname'   => 'shapely_home_parallax',
-			'description' => esc_html__( "Shapely FrontPage Parallax Section", 'shapely' )
+			'classname'                   => 'shapely_home_parallax',
+			'description'                 => esc_html__( "Shapely FrontPage Parallax Section", 'shapely' ),
+			'customize_selective_refresh' => true
 		);
 		parent::__construct( 'shapely_home_parallax', esc_html__( '[Shapely] Parralax Section For FrontPage', 'shapely' ), $widget_ops );
 	}

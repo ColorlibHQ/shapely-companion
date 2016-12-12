@@ -8,8 +8,9 @@ class shapely_home_features extends WP_Widget {
 	function __construct() {
 
 		$widget_ops = array(
-			'classname'   => 'shapely_home_features',
-			'description' => esc_html__( "Widget to set Features in Home Section", 'shapely' )
+			'classname'                   => 'shapely_home_features',
+			'description'                 => esc_html__( "Widget to set Features in Home Section", 'shapely' ),
+			'customize_selective_refresh' => true
 		);
 
 		parent::__construct( 'shapely_home_features', esc_html__( '[Shapely] Features Section For FrontPage', 'shapely' ), $widget_ops );
