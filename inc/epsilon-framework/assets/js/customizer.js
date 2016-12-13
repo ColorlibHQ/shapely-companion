@@ -35,7 +35,6 @@
 				case 'customize-control-sidebars_widgets-sidebar-home':
 					$.each(widgetList, function ($k, $v) {
 						var individualId = $(this).attr('data-widget-id');
-						console.log(individualId.search('shapely'));
 						if ( individualId.search('shapely') === -1 ) {
 							$(this).hide();
 						}

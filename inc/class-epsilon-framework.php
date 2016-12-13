@@ -19,7 +19,7 @@ if ( ! class_exists( 'Epsilon_Framework' ) ) {
 	}
 
 	function epsilon_customize_register() {
-		$controls = array( 'slider-control', 'toggle' );
+		$controls = array( 'slider-control', 'toggle', 'color-scheme' );
 		$epsilon  = new Epsilon_Framework( $controls );
 	}
 

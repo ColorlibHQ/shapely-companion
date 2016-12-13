@@ -49,3 +49,8 @@ if ( class_exists( 'WooCommerce' ) ) {
  * Epsilon Framework
  */
 require_once plugin_dir_path( __FILE__ ) . '/inc/class-epsilon-framework.php';
+
+/**
+ * Color schemes
+ */
+require_once plugin_dir_path( __FILE__ ) . '/inc/class-epsilon-color-scheme.php';
