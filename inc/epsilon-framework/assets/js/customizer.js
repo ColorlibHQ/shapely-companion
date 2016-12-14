@@ -15,7 +15,7 @@
 			 */
 			var parent = $(this).parent(),
 					id = parent.attr('id'),
-					search = $('#widgets-search'),
+					search = $('#widgets-search').parent(),
 					widgetList = $('#available-widgets-list').find('.widget-tpl');
 
 			/**
@@ -39,8 +39,8 @@
 							$(this).hide();
 						}
 
-						search.attr('disabled', true);
 					});
+					search.hide();
 					break;
 
 				case 'customize-control-sidebars_widgets-sidebar-1':
@@ -51,13 +51,12 @@
 					$.each(widgetList, function ($k, $v) {
 						var individualId = $(this).attr('data-widget-id');
 						if ( individualId.search('shapely') !== -1 ) {
-							console.log($k);
 							$(this).hide();
 						}
 
-						search.attr('disabled', true);
 					});
-						break;
+					search.hide();
+					break;
 			}
 		});
 	});
