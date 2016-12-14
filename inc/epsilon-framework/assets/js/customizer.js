@@ -42,6 +42,22 @@
 						search.attr('disabled', true);
 					});
 					break;
+
+				case 'customize-control-sidebars_widgets-sidebar-1':
+				case 'customize-control-sidebars_widgets-footer-widget-1':
+				case 'customize-control-sidebars_widgets-footer-widget-2':
+				case 'customize-control-sidebars_widgets-footer-widget-3':
+				case 'customize-control-sidebars_widgets-footer-widget-4':
+					$.each(widgetList, function ($k, $v) {
+						var individualId = $(this).attr('data-widget-id');
+						if ( individualId.search('shapely') !== -1 ) {
+							console.log($k);
+							$(this).hide();
+						}
+
+						search.attr('disabled', true);
+					});
+						break;
 			}
 		});
 	});

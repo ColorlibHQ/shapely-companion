@@ -36,10 +36,7 @@ jQuery(function ($) {
 				return this._frame;
 
 			this._frame = wp.media({
-				title   : 'Image',
-				library : {
-					type: 'image'
-				},
+				title   : 'Media',
 				button  : {
 					text: 'Update'
 				},
@@ -56,18 +53,24 @@ jQuery(function ($) {
 			var id = $('.attachments').find('.selected').attr('data-id');
 			var selector = $('.shapely-media-control').find(mediaControl.selector);
 
+			console.log($('.attachments').find('.selected'));
 			if ( !selector.length ) {
 				return false;
 			}
 
 			var data = {
-				action         : 'shapely_get_attachment_image',
-				attachment_id  : id,
-				attachment_size: mediaControl.size
+				action         : 'shapely_get_attachment_media',
+				attachment_id  : id
 			};
 
 			jQuery.post(ajaxurl, data, function (response) {
-				$(mediaControl.container).find('img').attr('src', response);
+				var ext = response.substr( (response.lastIndexOf('.') +1) );
+				if(ext == 'mp4'){
+					$(mediaControl.container).find('.video-path').text(response);
+				} else {
+					$(mediaControl.container).find('img').attr('src', response);
+				}
+
 				selector.val(response).change();
 			});
 		},
@@ -85,6 +88,19 @@ jQuery(function ($) {
 				mediaControl.selector = '#' + id;
 				mediaControl.frame().open();
 			});
+
+			context.on('click', '.shapely-media-control > .remove-button', function (e) {
+				e.preventDefault();
+				var container = $(this).parent(),
+						sibling = container.find('.image-id'),
+						img = container.find('img'),
+						span = container.find('.video-path');
+
+				img.attr('src', '');
+				span.text('');
+				console.log(span);
+				sibling.val('').trigger('change');
+			})
 		}
 	};
 

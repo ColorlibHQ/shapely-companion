@@ -58,18 +58,17 @@ class shapely_home_parallax extends WP_Widget {
 			if ( ( $image_pos == 'background-full' || $image_pos == 'background-small' ) && $image_src != '' ) { ?>
 			<div class="parallax-window <?php echo esc_attr( $class7 ); ?>" data-parallax="scroll"
 			     data-image-src="<?php echo esc_url( $image_src ); ?>">
-				<div class="<?php echo ( $image_pos == 'background-full' ) ? 'align-transform' : ''; ?>"><?php
-					}
-					else { ?>
-					<div class="container"><?php
-						} ?>
+				<div class="<?php echo ( $image_pos == 'background-full' ) ? 'align-transform' : ''; ?>">
+					<?php } else { ?>
+					<div class="container">
+						<?php } ?>
 
 						<div class="<?php echo esc_attr( $class4 ); ?>">
 
 							<?php
 							if ( ( $image_pos == 'left' || $image_pos == 'top' ) && $image_src != '' ) { ?>
 							<div class="<?php echo esc_attr( $class6 ); ?>">
-								<img class="cast-shadow" alt="<?php echo esc_attr( $title ); ?>"
+								<img class="cast-shadow img-responsive" alt="<?php echo esc_attr( $title ); ?>"
 								     src="<?php echo esc_url( $image_src ); ?>">
 								</div><?php
 							} ?>
@@ -86,15 +85,15 @@ class shapely_home_parallax extends WP_Widget {
 							<?php
 							if ( ( $image_pos == 'right' || $image_pos == 'bottom' ) && $image_src != '' ) { ?>
 							<div class="<?php echo esc_attr( $class5 ); ?>">
-								<img class="cast-shadow" alt="<?php echo esc_attr( $title ); ?>"
+								<img class="cast-shadow img-responsive" alt="<?php echo esc_attr( $title ); ?>"
 								     src="<?php echo esc_url( $image_src ); ?>">
 								</div><?php
 							} ?>
 						</div>
 					</div>
 					<?php if ( $image_pos == 'background-full' || $image_pos == 'background-small' ) { ?>
-				</div><?php
-				} ?>
+				</div>
+				<?php } ?>
 		</section>
 		<div class="clearfix"></div>
 		<?php
@@ -157,6 +156,7 @@ class shapely_home_parallax extends WP_Widget {
 			       class="image-id blazersix-media-control-target">
 
 			<button type="button" class="button upload-button"><?php _e( 'Choose Image', 'shapely' ); ?></button>
+			<button type="button" class="button remove-button"><?php _e( 'Remove Image', 'shapely' ); ?></button>
 		</p>
 
 		<p><label

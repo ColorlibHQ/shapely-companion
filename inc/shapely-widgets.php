@@ -19,7 +19,8 @@ function shapely_companion_widgets_init() {
 		'home-portfolio',
 		'home-testimonials',
 		'recent-posts',
-		'social'
+		'social',
+		'video'
 	);
 
 	foreach ( $widgets as $widget ) {
@@ -32,6 +33,7 @@ function shapely_companion_widgets_init() {
 	register_widget( 'shapely_home_features' );
 	register_widget( 'shapely_home_CFA' );
 	register_widget( 'shapely_home_clients' );
+	register_widget( 'shapely_video' );
 
 	if ( defined( 'JETPACK__VERSION' ) ) {
 		register_widget( 'shapely_home_testimonial' );

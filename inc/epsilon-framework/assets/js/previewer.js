@@ -68,7 +68,6 @@
 				jQuery('.testimonial-section .parallax-window').css('height', jQuery('.testimonial-section .parallax-window .container').outerHeight() + 150);
 				jQuery(window).trigger('resize').trigger('scroll');
 			}
-
 		});
 	});
 
