@@ -18,13 +18,16 @@ if ( ! class_exists( 'Epsilon_Framework' ) ) {
 		}
 	}
 
-	function epsilon_customize_register() {
+	function shapely_customize_register_epsilon() {
 		$controls = array( 'slider-control', 'toggle', 'color-scheme' );
 		$epsilon  = new Epsilon_Framework( $controls );
+	}
 
+	function shapely_customize_register_remove() {
 		global $wp_customize;
 		$wp_customize->remove_control( 'blogdescription' );
 	}
+	add_action( 'customize_register', 'shapely_customize_register_epsilon' );
+	add_action( 'customize_register', 'shapely_customize_register_remove', 50 );
 
-	add_action( 'customize_register', 'epsilon_customize_register', 50 );
 }
