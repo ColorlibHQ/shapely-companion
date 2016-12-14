@@ -59,13 +59,13 @@ jQuery(function ($) {
 			}
 
 			var data = {
-				action         : 'shapely_get_attachment_media',
-				attachment_id  : id
+				action       : 'shapely_get_attachment_media',
+				attachment_id: id
 			};
 
 			jQuery.post(ajaxurl, data, function (response) {
-				var ext = response.substr( (response.lastIndexOf('.') +1) );
-				if(ext == 'mp4'){
+				var ext = response.substr((response.lastIndexOf('.') + 1));
+				if ( ext == 'mp4' ) {
 					$(mediaControl.container).find('.video-path').text(response);
 				} else {
 					$(mediaControl.container).find('img').attr('src', response);

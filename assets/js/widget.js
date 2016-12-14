@@ -45,7 +45,6 @@ jQuery(document).ready(function ($) {
 			jQuery(newClone).next('li').find('img').attr('src', '');
 		});
 	}
-
 });
 
 
