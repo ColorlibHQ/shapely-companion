@@ -168,7 +168,7 @@ ul.macho-upsell-requirements {
     font-style: italic;
 }
 
-#available-widgets-list [class^='newsmag_'], #available-widgets-list [class*=' newsmag_'], #available-widgets-list [class^='newsmag-'], #available-widgets-list [class*=' newsmag-'] {
+#available-widgets-list [class^='shapely_'], #available-widgets-list [class*=' shapely_'], #available-widgets-list [class^='shapely-'], #available-widgets-list [class*=' shapely-'] {
     background: rgba(0, 115, 170, 0.05) !important;
 }
 

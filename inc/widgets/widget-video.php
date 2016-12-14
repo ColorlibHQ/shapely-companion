@@ -81,11 +81,6 @@ class Shapely_Video extends WP_Widget {
 	 * @return string;
 	 */
 	public function form( $instance ) {
-		wp_enqueue_media();
-		wp_enqueue_style( 'newsmag_media_upload_css', get_template_directory_uri() . '/inc/assets/css/upload-media.css' );
-		wp_enqueue_script( 'newsmag_media_upload_js', get_template_directory_uri() . '/inc/assets/js/upload-media.js', array( 'jquery' ) );
-
-
 		$defaults = array(
 			'autoplay'     => 'on',
 			'video_id'     => '',
