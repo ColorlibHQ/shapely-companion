@@ -21,6 +21,9 @@ class Shapely_Video extends WP_Widget {
 	function widget( $args, $instance ) {
 
 		$terminate = false;
+		if ( empty( $instance['video_type'] ) ) {
+			$instance['video_type'] = 'youtube';
+		}
 		switch ( $instance['video_type'] ) {
 			case 'youtube':
 				if ( empty( $instance['youtube_id'] ) ) {

@@ -188,16 +188,18 @@ if ( ! class_exists( 'Epsilon_Color_Scheme' ) ) {
 				.woocommerce button.button,
 		        .woocommerce input.button,
 		        .btn.searchsubmit,
-		        input[type="submit"]{
+		        input[type="submit"],
+		        .video-widget .video-controls button{
 					background:%1$s;
 					border-color:%1$s;
 				}
-
+				
 				.btn-filled:hover, 
 				.btn:visited:hover,
 				.btn.searchsubmit:hover,
 				.image-bg .btn.btn-filled:hover,
-				input[type="submit"]:hover{
+				input[type="submit"]:hover,
+				.video-widget .video-controls button{
 					background:%7$s;
 					border-color:%7$s;
 				}
@@ -206,6 +208,10 @@ if ( ! class_exists( 'Epsilon_Color_Scheme' ) ) {
 					border-color:%1$s;
 				}
 				
+				
+				.feature-1 i,
+				.feature-2 i,
+				.feature-3 i,
 				.comment-reply, a:visited, a{
 					color:%1$s;
 				}
