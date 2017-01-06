@@ -135,9 +135,9 @@ class shapely_categories extends WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance                 = array();
-		$instance['title']        = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
+		$instance['title']        = ( ! empty( $new_instance['title'] ) ) ? esc_html( $new_instance['title'] ) : '';
 		$instance['limit']        = ( ! empty( $new_instance['limit'] ) ) ? absint( $new_instance['limit'] ) : '';
-		$instance['enable_count'] = ( ! empty( $new_instance['enable_count'] ) ) ? strip_tags( $new_instance['enable_count'] ) : '';
+		$instance['enable_count'] = ( ! empty( $new_instance['enable_count'] ) ) ? esc_html( $new_instance['enable_count'] ) : '';
 
 		return $instance;
 	}
