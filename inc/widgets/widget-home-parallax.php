@@ -34,8 +34,8 @@ class shapely_home_parallax extends WP_Widget
         $image_src = isset($instance['image_src']) ? $instance['image_src'] : '';
         $image_pos = isset($instance['image_pos']) ? $instance['image_pos'] : esc_html__('left', 'shapely');
         $body_content = isset($instance['body_content']) ? html_entity_decode($instance['body_content']) : '';
-        $button1 = isset($instance['button1']) ? $instance['button1'] : '';
-        $button2 = isset($instance['button2']) ? $instance['button2'] : '';
+        $button1 = isset($instance['button1']) ? html_entity_decode($instance['button1']) : '';
+        $button2 = isset($instance['button2']) ? html_entity_decode($instance['button2']) : '';
         $button1_link = isset($instance['button1_link']) ? $instance['button1_link'] : '';
         $button2_link = isset($instance['button2_link']) ? $instance['button2_link'] : '';
         $border_bottom = isset($instance['border_bottom']) ? $instance['border_bottom'] : '';
@@ -81,8 +81,8 @@ class shapely_home_parallax extends WP_Widget
                                 <div class="<?php echo esc_attr($class3); ?>"><?php
                                     echo ($title != '') ? (($image_pos == 'background-full') || ($image_pos == 'background-small')) ? '<h1>' . $title . '</h1>' : '<h3>' . $title . '</h3>' : '';
                                     echo ($body_content != '') ? '<p class="mb32">' . $body_content . '</p>' : '';
-                                    echo ($button2 != '' && $button2_link != '') ? '<a class="btn btn-lg btn-white" href="' . esc_url($button2_link) . '">' . esc_html($button2) . '</a>' : '';
-                                    echo ($button1 != '' && $button1_link != '') ? '<a class="btn btn-lg btn-filled" href="' . esc_url($button1_link) . '">' . esc_html($button1) . '</a>' : ''; ?>
+                                    echo ($button2 != '' && $button2_link != '') ? '<a class="btn btn-lg btn-white" href="' . esc_url($button2_link) . '">' . $button2 . '</a>' : '';
+                                    echo ($button1 != '' && $button1_link != '') ? '<a class="btn btn-lg btn-filled" href="' . esc_url($button1_link) . '">' . $button1 . '</a>' : ''; ?>
                                 </div>
                             </div>
                             <!--end of row-->
