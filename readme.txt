@@ -52,7 +52,7 @@ You can still use Shapely theme without this plugin but you won't be able to imp
 
 == Changelog ==
 
-= 1.0.4 =
+= 1.0.5 =
 * Updated demo content importer
 
 = 1.0.3 =
