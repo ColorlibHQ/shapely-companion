@@ -3,18 +3,18 @@ Contributors: colorlibplugins, silkalns
 Tags: woocommerce, widgets, plugin, demo, companion, home page, one page, parallax, social, portfolio, projects
 Requires at least: 3.8
 Tested up to: 4.7
-Stable tag: 1.0.2
+Stable tag: 1.0.4
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 Shapely Companion is a companion plugin for Shapely WordPress theme by Colorlib.com.
 == Description ==
 
-Shapely Companion is a companion for Shapely One Page WordPress theme by Colorlib.com. This plugin won't do anything for other free or premium WordPress themes and you need to download and install <a href="https://colorlib.com/wp/themes/Shapely/" target="_blank" rel="friend">Shapely</a>. If you are having problems with Shapely theme or its companion plugin the fastest way to receive help is via our theme <a href="https://colorlib.com/wp/forums" target="_blank" rel="friend">support forum</a>.
+Shapely Companion is a companion for Shapely One Page WordPress theme by Colorlib.com. This plugin won't do anything for other free or premium WordPress themes and you need to download and install <a href="https://colorlib.com/wp/themes/shapely/" target="_blank">Shapely</a>. If you are having problems with Shapely theme or its companion plugin the fastest way to receive help is via our theme <a href="https://colorlib.com/wp/forums" target="_blank">support forum</a>.
 
 This plugin will add necessary WordPress widgets and allow to import demo content which will help you to with website setup.
 
-While Shapely is a great one page WordPress theme it might not be for everyone therefore you might want to check other free <a href="https://colorlib.com/wp/themes/" target="_blank" rel="friend">WordPress themes</a> that are created by Colorlib.
+While Shapely is a great one page WordPress theme it might not be for everyone therefore you might want to check other free <a href="https://colorlib.com/wp/themes/" target="_blank">WordPress themes</a> that are created by Colorlib.
 
 = Plugin Options =
 
@@ -28,7 +28,7 @@ Colorlib is the best and by far the most popular source for free and premium Wor
 
 = Further Reading =
 
-If you are new to WordPress but are dedicated to <a href="https://colorlib.com/wp/how-to-make-a-website/" target="_blank" rel="friend">make a website</a> on your own Colorlib is the right place to start. Usually the trickiest part is to choose the right hosting because all hosting providers are not equal. We have outlined the <a href="https://colorlib.com/wp/wordpress-hosting/" target="_blank" rel="friend">best WordPress hosting</a> providers and we hope you'll find them useful. We can also help with WordPress related <a href="https://colorlib.com/wp/fix-error-establishing-database-connection-wordpress/" target="_blank" rel="friend">errors</a> and problems.
+If you are new to WordPress but are dedicated to <a href="https://colorlib.com/wp/how-to-make-a-website/" target="_blank" >make a website</a> on your own Colorlib is the right place to start. Usually the trickiest part is to choose the right hosting because all hosting providers are not equal. We have outlined the best <a href="https://colorlib.com/wp/wordpress-hosting/" target="_blank"> WordPress hosting</a> providers and we hope you'll find them useful.
 
 
 == Installation ==
@@ -51,7 +51,13 @@ Currently it works only with Shapely theme.
 You can still use Shapely theme without this plugin but you won't be able to import demo content and use theme specific widgets that you see on front page of theme demo.
 
 == Changelog ==
+
+
+= 1.0.3 =
+* Updated escape functions to allow users to enter minimal HTML in textareas
+
 = 1.0.2 =
 * Various bug fixes.
+
 = 1.0.0 =
 * Initial release.

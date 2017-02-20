@@ -73,7 +73,7 @@ function shapely_companion_import_content() {
 			                                ) );
 
 			if ( - 1 != $frontpage_id ) {
-				update_post_meta( $frontpage_id, '_wp_page_template', 'template-home.php' );
+				update_post_meta( $frontpage_id, '_wp_page_template', 'page-templates/template-home.php' );
 			} // end if
 
 			update_option( 'show_on_front', 'page' );
