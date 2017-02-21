@@ -54,6 +54,7 @@ You can still use Shapely theme without this plugin but you won't be able to imp
 
 = 1.0.5 =
 * Updated demo content importer
+* Allow html on title,description,buttons of Shapely Parallax Widget
 
 = 1.0.3 =
 * Updated escape functions to allow users to enter minimal HTML in textareas

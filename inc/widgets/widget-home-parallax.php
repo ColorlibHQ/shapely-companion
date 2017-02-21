@@ -79,10 +79,10 @@ class shapely_home_parallax extends WP_Widget
 
                             <div class="<?php echo esc_attr($class2); ?>">
                                 <div class="<?php echo esc_attr($class3); ?>"><?php
-                                    echo ($title != '') ? (($image_pos == 'background-full') || ($image_pos == 'background-small')) ? '<h1>' . esc_html($title) . '</h1>' : '<h3>' . esc_html($title) . '</h3>' : '';
-                                    echo ($body_content != '') ? '<p class="mb32">' . esc_html($body_content) . '</p>' : '';
-                                    echo ($button2 != '' && $button2_link != '') ? '<a class="btn btn-lg btn-white" href="' . esc_url($button2_link) . '">' . esc_html($button2) . '</a>' : '';
-                                    echo ($button1 != '' && $button1_link != '') ? '<a class="btn btn-lg btn-filled" href="' . esc_url($button1_link) . '">' . esc_html($button1) . '</a>' : ''; ?>
+                                    echo ($title != '') ? (($image_pos == 'background-full') || ($image_pos == 'background-small')) ? '<h1>' . wp_kses_post($title) . '</h1>' : '<h3>' . wp_kses_post($title) . '</h3>' : '';
+                                    echo ($body_content != '') ? '<p class="mb32">' . wp_kses_post($body_content) . '</p>' : '';
+                                    echo ($button2 != '' && $button2_link != '') ? '<a class="btn btn-lg btn-white" href="' . esc_url($button2_link) . '">' . wp_kses_post($button2) . '</a>' : '';
+                                    echo ($button1 != '' && $button1_link != '') ? '<a class="btn btn-lg btn-filled" href="' . esc_url($button1_link) . '">' . wp_kses_post($button1) . '</a>' : ''; ?>
                                 </div>
                             </div>
                             <!--end of row-->
