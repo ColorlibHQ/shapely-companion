@@ -16,6 +16,7 @@ function shapely_companion_widgets_init() {
 		'home-clients',
 		'home-features',
 		'home-parallax',
+		'home-contact',
 		'home-portfolio',
 		'home-testimonials',
 		'recent-posts',
@@ -30,10 +31,12 @@ function shapely_companion_widgets_init() {
 	register_widget( 'shapely_recent_posts' );
 	register_widget( 'shapely_categories' );
 	register_widget( 'shapely_home_parallax' );
+	register_widget( 'shapely_home_parallax' );
 	register_widget( 'shapely_home_features' );
 	register_widget( 'shapely_home_CFA' );
 	register_widget( 'shapely_home_clients' );
 	register_widget( 'shapely_video' );
+	register_widget( 'shapely_home_contact' );
 
 	if ( defined( 'JETPACK__VERSION' ) ) {
 		register_widget( 'shapely_home_testimonial' );

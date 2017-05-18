@@ -14,8 +14,10 @@ class Shapely_Video extends WP_Widget {
 	}
 
 	public function enqueue() {
-		wp_enqueue_style( 'epsilon-styles', plugins_url( 'epsilon-framework/assets/css/style.css', dirname( __FILE__ ) ) );
-		wp_enqueue_script( 'epsilon-object', plugins_url( 'epsilon-framework/assets/js/epsilon.js', dirname( __FILE__ ) ), array( 'jquery' ) );
+		if ( is_admin() && ! is_customize_preview() ) {
+            wp_enqueue_style( 'epsilon-styles', get_template_directory_uri() . '/inc/libraries/epsilon-framework/assets/css/style.css' );
+            wp_enqueue_script( 'epsilon-object', get_template_directory_uri() . '/inc/libraries/epsilon-framework/assets/js/epsilon.js', array( 'jquery' ) );
+        }
 	}
 
 	function widget( $args, $instance ) {
@@ -55,7 +57,7 @@ class Shapely_Video extends WP_Widget {
 			<div class="video-widget col-xs-12"
 				<?php echo ( ! empty( $instance['video_height'] ) && empty( $instance['full_height'] ) ) ? 'style="height:' . esc_attr( $instance['video_height'] ) . 'px"' : ''; ?>
 				 data-vide-bg="mp4:<?php echo ! empty( $instance['video_id'] ) ? esc_attr( $instance['video_id'] ) : ''; ?>, poster:<?php echo esc_url( $instance['image_src'] ); ?>"
-				 data-vide-options="loop: false, muted: true, position: 0% 0% <?php echo ! empty( $instance['autoplay'] ) ? ',autoplay: true' : ',autoplay:false'; ?>">
+				 data-vide-options="loop: false, position: 0% 0% <?php echo ! empty( $instance['autoplay'] ) ? ',autoplay: true' : ',autoplay:false'; ?><?php echo ! empty( $instance['mute'] ) ? ',muted: true' : ',muted:false'; ?>">
 			<span class="video-controls">
 				<button class="play-button"><icon class="fa fa-play"></icon></button>
 				<button class="pause-button"><icon class="fa fa-pause"></icon></button>
@@ -64,6 +66,7 @@ class Shapely_Video extends WP_Widget {
 		<?php elseif ( $instance['video_type'] == 'youtube' ): ?>
 			<div <?php echo ! empty( $instance['youtube_id'] ) ? 'data-video-id="' . esc_attr( $instance['youtube_id'] ) . '"' : '' ?>
 				data-autoplay="<?php echo ! empty( $instance['autoplay'] ) ? '1' : '0'; ?>"
+				data-mute="<?php echo ! empty( $instance['mute'] ) ? '1' : '0'; ?>"
 				class="video-widget youtube"
 				<?php echo ( ! empty( $instance['video_height'] ) && empty( $instance['full_height'] ) ) ? 'style="height:' . esc_attr( $instance['video_height'] ) . 'px"' : ''; ?>>
 				<span class="video-controls">
@@ -86,6 +89,7 @@ class Shapely_Video extends WP_Widget {
 	public function form( $instance ) {
 		$defaults = array(
 			'autoplay'     => 'on',
+			'mute'     	   => 'on',
 			'video_id'     => '',
 			'video_type'   => 'youtube',
 			'youtube_id'   => '',
@@ -126,6 +130,21 @@ class Shapely_Video extends WP_Widget {
 					<?php checked( $instance['autoplay'], 'on' ); ?>>
 				<label class="onoffswitch-label"
 				       for="<?php echo esc_attr( $this->get_field_name( 'autoplay' ) ); ?>"></label>
+			</div>
+		</div>
+
+		<div class="checkbox_switch">
+				<span class="customize-control-title onoffswitch_label">
+                    <?php _e( 'Mute', 'shapely' ); ?>
+				</span>
+			<div class="onoffswitch">
+				<input type="checkbox" id="<?php echo esc_attr( $this->get_field_name( 'mute' ) ); ?>"
+				       name="<?php echo esc_attr( $this->get_field_name( 'mute' ) ); ?>"
+				       class="onoffswitch-checkbox"
+				       value="on"
+					<?php checked( $instance['mute'], 'on' ); ?>>
+				<label class="onoffswitch-label"
+				       for="<?php echo esc_attr( $this->get_field_name( 'mute' ) ); ?>"></label>
 			</div>
 		</div>
 
@@ -222,6 +241,7 @@ class Shapely_Video extends WP_Widget {
 		$instance['image_src']    = ( ! empty( $new_instance['image_src'] ) ) ? esc_url_raw( $new_instance['image_src'] ) : '';
 		$instance['video_height'] = ( ! empty( $new_instance['video_height'] ) ) ? absint( $new_instance['video_height'] ) : '';
 		$instance['autoplay']     = ( ! empty( $new_instance['autoplay'] ) ) ? strip_tags( $new_instance['autoplay'] ) : '';
+		$instance['mute']         = ( ! empty( $new_instance['mute'] ) ) ? strip_tags( $new_instance['mute'] ) : '';
 		$instance['video_type']   = ( ! empty( $new_instance['video_type'] ) ) ? strip_tags( $new_instance['video_type'] ) : '';
 		$instance['full_height']  = ( ! empty( $new_instance['full_height'] ) ) ? strip_tags( $new_instance['full_height'] ) : '';
 

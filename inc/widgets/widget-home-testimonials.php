@@ -46,7 +46,7 @@ class shapely_home_testimonial extends WP_Widget {
 						<div class="parallax-text image-bg testimonial">
 							<div class="row">
 								<div class="col-sm-12 text-center">
-									<h3><?php echo esc_html( $title ); ?></h3>
+									<h3><?php echo wp_kses_post( $title ); ?></h3>
 								</div>
 							</div>
 							<!--end of row-->
@@ -149,7 +149,7 @@ class shapely_home_testimonial extends WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance              = array();
-		$instance['title']     = ( ! empty( $new_instance['title'] ) ) ? esc_html( $new_instance['title'] ) : '';
+		$instance['title']     = ( ! empty( $new_instance['title'] ) ) ? wp_kses_post( $new_instance['title'] ) : '';
 		$instance['limit']     = ( ! empty( $new_instance['limit'] ) && is_numeric( $new_instance['limit'] ) ) ? absint( $new_instance['limit'] ) : '';
 		$instance['image_src'] = ( ! empty( $new_instance['image_src'] ) ) ? esc_url_raw( $new_instance['image_src'] ) : '';
 

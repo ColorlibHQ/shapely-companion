@@ -31,8 +31,8 @@ class shapely_home_portfolio extends WP_Widget {
 			<section class="projects bg-dark pb0">
 				<div class="container">
 					<div class="col-sm-12 text-center">
-						<h3 class="mb32"><?php echo esc_html( $title ); ?></h3>
-						<p class="mb40"><?php echo esc_html( $body_content ); ?></p>
+						<h3 class="mb32"><?php echo wp_kses_post( $title ); ?></h3>
+						<p class="mb40"><?php echo wp_kses_post( $body_content ); ?></p>
 					</div>
 				</div><?php
 
@@ -55,10 +55,18 @@ class shapely_home_portfolio extends WP_Widget {
 
 					while ( $portfolio_query->have_posts() ) : $portfolio_query->the_post();
 
-						if ( has_post_thumbnail() ) { ?>
+						if ( has_post_thumbnail() ) { 
+
+							$permalink = get_the_permalink();
+							$url = get_post_meta( get_the_ID(), 'shapely_companion_portfolio_link', true );
+							if ( $url ) {
+								$permalink = $url;
+							}
+
+							?>
 							<div class="col-md-3 col-sm-6 masonry-item project fadeIn">
 							<div class="image-tile inner-title hover-reveal text-center">
-								<a href="<?php the_permalink(); ?>" title="<?php the_title_attribute(); ?>">
+								<a href="<?php echo esc_url($permalink); ?>" title="<?php the_title_attribute(); ?>">
 									<?php the_post_thumbnail( 'full' ); ?>
 									<div class="title"><?php
 										the_title( '<h5 class="mb0">', '</h5>' );
@@ -109,7 +117,7 @@ class shapely_home_portfolio extends WP_Widget {
 
 		<textarea name="<?php echo esc_attr( $this->get_field_name( 'body_content' ) ); ?>"
 		          id="<?php echo esc_attr( $this->get_field_id( 'body_content' ) ); ?>"
-		          class="widefat"><?php echo esc_attr( $instance['body_content'] ); ?></textarea>
+		          class="widefat"><?php echo wp_kses_post( $instance['body_content'] ); ?></textarea>
 		</p><?php
 	}
 
@@ -125,7 +133,7 @@ class shapely_home_portfolio extends WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance                 = array();
-		$instance['title']        = ( ! empty( $new_instance['title'] ) ) ? esc_html( $new_instance['title'] ) : '';
+		$instance['title']        = ( ! empty( $new_instance['title'] ) ) ? wp_kses_post( $new_instance['title'] ) : '';
 		$instance['body_content'] = ( ! empty( $new_instance['body_content'] ) ) ? wp_kses_post( $new_instance['body_content'] ) : '';
 
 		return $instance;
