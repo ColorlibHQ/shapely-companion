@@ -9,7 +9,7 @@ class shapely_recent_posts extends WP_Widget {
 	function __construct() {
 
 		$widget_ops = array(
-			'classname'                   => 'shapely-recent-posts col-sm-12 text-center',
+			'classname'                   => 'shapely-recent-posts text-center',
 			'description'                 => esc_html__( "Widget to show recent posts with thumbnails", 'shapely' ),
 			'customize_selective_refresh' => true
 		);
@@ -18,7 +18,7 @@ class shapely_recent_posts extends WP_Widget {
 
 	function widget( $args, $instance ) {
 		extract( $args );
-		$title = isset( $instance['title'] ) ? $instance['title'] : __( 'recent Posts', 'shapely' );
+		$title = isset( $instance['title'] ) ? $instance['title'] : __( 'Recent Posts', 'shapely' );
 		$limit = isset( $instance['limit'] ) ? $instance['limit'] : 5;
 
 		echo $before_widget;

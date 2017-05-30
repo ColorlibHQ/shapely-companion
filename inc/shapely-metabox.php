@@ -22,10 +22,10 @@ function shapely_companion_add_post_meta_boxes() {
 
   add_meta_box(
     'shapely-companion-portfolio-link',      // Unique ID
-    esc_html__( 'Portfolion link', 'example' ),    // Title
+    esc_html__( 'Custom Portfolio Link', 'shapely' ),    // Title
     'shapely_companion_portfolio_link',   // Callback function
     'jetpack-portfolio',         // Admin page (or post type)
-    'normal',         // Context
+    'side',         // Context
     'high'         // Priority
   );
 }
@@ -36,7 +36,7 @@ function shapely_companion_portfolio_link( $post ) { ?>
   <?php wp_nonce_field( basename( __FILE__ ), 'shapely_companion_portfolio_link_nonce' ); ?>
 
   <p>
-    <label for="shapely-companion-portfolio-link"><?php _e( "This URL will replace the permalink in Portfolio widget.", 'example' ); ?></label>
+    <label for="shapely-companion-portfolio-link"><?php _e( "Use this if you'd like to link your custom portfolio/project works to external websites. Defaults to dedicated portfolio URL.", 'shapely' ); ?></label>
     <br />
     <input class="widefat" type="text" name="shapely-companion-portfolio-link" id="shapely-companion-portfolio-link" value="<?php echo esc_url( get_post_meta( $post->ID, 'shapely_companion_portfolio_link', true ) ); ?>" size="30" />
   </p>

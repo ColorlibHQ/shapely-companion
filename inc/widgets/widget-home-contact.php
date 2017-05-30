@@ -44,7 +44,7 @@ class shapely_home_contact extends WP_Widget
         $atts = '';
         $class = '';
         if ( $image_src != '' ) {
-            $atts = 'data-parallax="scroll" data-image-src="'.esc_url($image_src).'"';
+            $atts = 'data-parallax="scroll" data-image-src="'.esc_url($image_src).'" class="parallax-window"';
             $class = ' image-bg cover';
         }
 
