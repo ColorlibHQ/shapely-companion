@@ -31,7 +31,6 @@ script:
 - grunt textdomain
 - "$PHPCS_DIR/scripts/phpcs -p -s -v -n ./*.php --standard=./phpcs.ruleset.xml --extensions=php"
 - "$PHPCS_DIR/scripts/phpcs -p -s -v -n ./**/*.php --standard=./phpcs.ruleset.xml --extensions=php"
-  email: false
 cache:
   directories:
   - node_modules
