@@ -44,27 +44,28 @@ class Shapely_Categories extends WP_Widget {
 
 			<ul class="category-list"><?php
 
-				$args = array(
-					'echo'       => 0,
-					'show_count' => (int) $limit,
-					'title_li'   => '',
-					'depth'      => 1,
-					'orderby'    => 'count',
-					'order'      => 'DESC',
-					'number'     => $limit,
-				);
+										$args = array(
+											'echo'       => 0,
+											'show_count' => (int) $limit,
+											'title_li'   => '',
+											'depth'      => 1,
+											'orderby'    => 'count',
+											'order'      => 'DESC',
+											'number'     => $limit,
+										);
 
 									  $variable = wp_list_categories( $args );
 
 									  if ( 'on' == $enable_count ) {
-										  $variable = str_replace( '(', '<span>', $variable );
-										  $variable = str_replace( ')', '</span>', $variable );
+															  $variable = str_replace( '(', '<span>', $variable );
+															  $variable = str_replace( ')', '</span>', $variable );
 										} else {
 											$pattern  = '/\([0-9]+\)/';
 											$variable = preg_replace( $pattern, '', $variable );
 										}
 
-										echo $variable; ?></ul>
+										echo $variable; ?>
+			</ul>
 
 		</div><!-- end widget content -->
 

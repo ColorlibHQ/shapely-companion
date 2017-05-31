@@ -193,17 +193,17 @@ if ( ! class_exists( 'Epsilon_Dashboard' ) ) {
 			<ul>
 				<?php
 				foreach ( $this->items as $item ) {
+					$query_args = array(
+						'utm_campaign' => 'feed',
+						'utm_medium'   => 'dashboard_widget',
+					);
 					?>
 					<li class="epsilon-dw-feed-item">
 						<span class="epsilon-dw-date-container">
 							<span class="epsilon-dw-day-container"><?php echo date( 'd', $item['date'] ); ?></span> 
 							<span class="epsilon-dw-month-container"><?php echo substr( date( 'M', $item['date'] ), 0, 3 ); ?></span>
 						</span>
-							<a href="<?php echo add_query_arg(
-									array(
-										'utm_campaign' => 'feed',
-										'utm_medium'   => 'dashboard_widget',
-									), $item['link'] ); ?>" target="_blank"><?php echo $item['title']; ?></a>
+						<a href="<?php echo add_query_arg( $query_args, $item['link'] ); ?>" target="_blank"><?php echo $item['title']; ?></a>
 						<div class="clear"></div>
 					</li>
 					<?php
