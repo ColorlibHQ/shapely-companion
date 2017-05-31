@@ -21,7 +21,7 @@ function shapely_companion_widgets_init() {
 		'home-testimonials',
 		'recent-posts',
 		'social',
-		'video'
+		'video',
 	);
 
 	foreach ( $widgets as $widget ) {

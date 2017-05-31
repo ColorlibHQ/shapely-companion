@@ -10,7 +10,7 @@ function shapely_companion_admin_scripts( $hook ) {
 	wp_localize_script( 'shapely-companion-admin-js', 'shapelyCompanion', array(
 		'ajaxurl' => admin_url( 'admin-ajax.php' ),
 	) );
-	if ( 'widgets.php' == $hook  || 'customize.php' == $hook  ) {
+	if ( 'widgets.php' == $hook  || 'customize.php' == $hook ) {
 		wp_enqueue_media();
 		wp_enqueue_script( 'shapely_cloneya_js', plugins_url( 'assets/js/vendor/jquery-cloneya.min.js', dirname( __FILE__ ) ), array( 'jquery' ) );
 		wp_enqueue_script( 'widget-js', plugins_url( 'assets/js/widget.js', dirname( __FILE__ ) ), array( 'media-upload' ), '1.0', true );
