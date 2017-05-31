@@ -44,6 +44,12 @@ shapely_companion_dashboard_widget();
 require_once plugin_dir_path( __FILE__ ) . 'inc/shapely-widgets.php';
 
 /**
+ * Load Enqueues
+ */
+require_once plugin_dir_path( __FILE__ ) . '/inc/shapely-enqueues.php';
+
+
+/**
  * Load Helper
  */
 require_once plugin_dir_path( __FILE__ ) . '/inc/shapely-helper.php';

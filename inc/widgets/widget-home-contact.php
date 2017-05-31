@@ -74,17 +74,17 @@ class shapely_home_contact extends WP_Widget
                             <?php
 
                                 if ( $phone != '' ) {
-                                    echo '<p class="mb0"><strong>'.__( 'Phone :', 'shapely' ).'</strong></p>';
+                                    echo '<p class="mb0"><strong>'.__( 'Phone :', 'shapely-companion').'</strong></p>';
                                     echo '<p class="mb32"><a href="tel:'.$phone.'">'.$phone.'</a></p>';
                                 }
 
                                 if ( $email != '' ) {
-                                    echo '<p class="mb0"><strong>'.__( 'Email :', 'shapely' ).'</strong></p>';
+                                    echo '<p class="mb0"><strong>'.__( 'Email :', 'shapely-companion').'</strong></p>';
                                     echo '<p class="mb32"><a href="mailto:'.$email.'">'.$email.'</a></p>';
                                 }
 
                                 if ( $address != '' ) {
-                                    echo '<p class="mb0"><strong>'.__( 'Address :', 'shapely' ).'</strong></p>';
+                                    echo '<p class="mb0"><strong>'.__( 'Address :', 'shapely-companion').'</strong></p>';
                                     echo '<p class="mb32">'.$address.'</p>';
                                 }
 
@@ -189,7 +189,7 @@ class shapely_home_contact extends WP_Widget
                     echo '<input type="hidden" id="'.esc_attr($this->get_field_name('contactform')).'" name="'.esc_attr($this->get_field_name('contactform')).'" value="0">';
                 }else{
                     echo '<select id="'.esc_attr($this->get_field_name('contactform')).'" name="'.esc_attr($this->get_field_name('contactform')).'" class="widefat">';
-                    echo '<option value="0">'.esc_html__( 'Select a form ...', 'shapely' ).'</option>';
+                    echo '<option value="0">'.esc_html__( 'Select a form ...', 'shapely-companion').'</option>';
                     $forms_args = array(
                         'post_type' => 'wpcf7_contact_form',
                         'post_status' => 'publish',

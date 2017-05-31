@@ -17,7 +17,7 @@ function shapely_companion_add_default_widgets() {
 	# Parse config
 	foreach ( $config as $sidebar => $elemements ) {
 		# verify if the sidebar doesn't have ny widgets
-		if ( strpos( $sidebar, 'orphaned_widgets' ) === false && ! is_active_sidebar( $sidebar ) ) {
+		if ( false === strpos( $sidebar, 'orphaned_widgets' ) && ! is_active_sidebar( $sidebar ) ) {
 			# create an empty array for active widgets
 			$this_sidebar_active_widgets = array();
 			# parse all widgets for current sidebar
@@ -54,7 +54,7 @@ function shapely_companion_import_content() {
 
 	if ( isset( $_POST['import'] ) ) {
 
-		if ( $_POST['import'] == 'import-all' ) {
+		if ( 'import-all' == $_POST['import']  ) {
 
 			$frontpage_title = __( 'Front Page', 'shapely-companion' );
 			$blog_title      = __( 'Blog', 'shapely-companion' );
@@ -80,7 +80,7 @@ function shapely_companion_import_content() {
 			shapely_companion_add_default_widgets();
 
 
-		} elseif ( $_POST['import'] == 'import-widgets' ) {
+		} elseif ( 'import-widgets' == $_POST['import']  ) {
 			shapely_companion_add_default_widgets();
 		}
 

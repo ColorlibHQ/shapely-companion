@@ -5,10 +5,10 @@ jQuery(document).ready(function () {
 		jQuery(this).addClass('disabled');
 		jQuery(this).next('.spinner').addClass('is-active');
 
-		var ajaxData = { action: 'shapely_companion_import_content', import: jQuery(this).data('action') };
+		var ajaxData = { 'action': 'shapely_companion_import_content', 'import': jQuery(this).data('action') };
 
 		jQuery.ajax({
-			type   : "POST",
+			type   : 'POST',
 			data   : ajaxData,
 			url    : shapelyCompanion.ajaxurl,
 			success: function (data) {
@@ -32,8 +32,9 @@ jQuery(function ($) {
 		size     : null,
 		container: null,
 		frame    : function () {
-			if ( this._frame )
+			if ( this._frame ) {
 				return this._frame;
+			}
 
 			this._frame = wp.media({
 				title   : 'Media',
@@ -53,7 +54,6 @@ jQuery(function ($) {
 			var id = $('.attachments').find('.selected').attr('data-id');
 			var selector = $('.shapely-media-control').find(mediaControl.selector);
 
-			console.log($('.attachments').find('.selected'));
 			if ( !selector.length ) {
 				return false;
 			}
@@ -98,7 +98,6 @@ jQuery(function ($) {
 
 				img.attr('src', '');
 				span.text('');
-				console.log(span);
 				sibling.val('').trigger('change');
 			})
 		}

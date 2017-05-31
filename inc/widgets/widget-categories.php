@@ -56,7 +56,7 @@ class shapely_categories extends WP_Widget {
 
 				$variable = wp_list_categories( $args );
 
-				if ( $enable_count == 'on' ) {
+				if ( 'on' == $enable_count  ) {
 					$variable = str_replace( "(", "<span>", $variable );
 					$variable = str_replace( ")", "</span>", $variable );
 				} else {

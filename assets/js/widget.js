@@ -1,9 +1,9 @@
-jQuery(document).ready(function ($) {
+jQuery(document).ready(function () {
 	/* Clonning of Logo Client Widgets */
-	jQuery(document).on('widget-added', function (e, widget) {
+	jQuery(document).on('widget-added', function () {
 		shapelySort();
 	});
-	jQuery(document).on('widget-updated', function (e, widget) {
+	jQuery(document).on('widget-updated', function () {
 		shapelySort();
 	});
 
@@ -23,7 +23,7 @@ jQuery(document).ready(function ($) {
 		jQuery('.client-sortable').sortable({
 			handle: '.logo_heading'
 		})
-				.bind('sortupdate', function (event, ui) {
+				.bind('sortupdate', function () {
 					var index = 0;
 					var attrname = jQuery(this).find('input:first').attr('name');
 					var attrbase = attrname.substring(0, attrname.indexOf('][') + 1);

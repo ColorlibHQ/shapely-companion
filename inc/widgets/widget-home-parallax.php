@@ -53,7 +53,7 @@ class shapely_home_parallax extends WP_Widget
         $class6 = ($image_pos == 'left') ? 'col-md-7 col-sm-6 text-center mb-xs-24' : '';
         $class7 = ($image_pos == 'background-full') ? 'fullscreen' : '';
 
-        if ($border_bottom == 'on') {
+        if ( 'on' == $border_bottom ) {
             $class1 .= ' border-bottom';
         }
         /**
@@ -61,7 +61,7 @@ class shapely_home_parallax extends WP_Widget
          */
         ?>
         <section class="<?php echo esc_attr($class1); ?>"><?php
-            if (($image_pos == 'background-full' || $image_pos == 'background-small') && $image_src != '') { ?>
+            if (( 'background-full' == $image_pos  || 'background-small' == $image_pos ) && '' != $image_src ) { ?>
             <div class="parallax-window <?php echo esc_attr($class7); ?>" data-parallax="scroll"
                  data-image-src="<?php echo esc_url($image_src); ?>">
                 <div class="<?php echo ($image_pos == 'background-full') ? 'align-transform' : ''; ?>">
@@ -72,7 +72,7 @@ class shapely_home_parallax extends WP_Widget
                         <div class="<?php echo esc_attr($class4); ?>">
 
                             <?php
-                            if (($image_pos == 'left' || $image_pos == 'top') && $image_src != '') { ?>
+                            if (( 'left' == $image_pos || 'top' == $image_pos ) && '' != $image_src ) { ?>
                             <div class="<?php echo esc_attr($class6); ?>">
                                 <img class="cast-shadow img-responsive" alt="<?php echo esc_attr($title); ?>"
                                      src="<?php echo esc_url($image_src); ?>">
@@ -89,7 +89,7 @@ class shapely_home_parallax extends WP_Widget
                             </div>
                             <!--end of row-->
                             <?php
-                            if (($image_pos == 'right' || $image_pos == 'bottom') && $image_src != '') { ?>
+                            if (( 'right' == $image_pos || 'bottom' == $image_pos ) && '' != $image_src ) { ?>
                             <div class="<?php echo esc_attr($class5); ?>">
                                 <img class="cast-shadow img-responsive" alt="<?php echo esc_attr($title); ?>"
                                      src="<?php echo esc_url($image_src); ?>">
@@ -97,7 +97,7 @@ class shapely_home_parallax extends WP_Widget
                             } ?>
                         </div>
                     </div>
-                    <?php if ($image_pos == 'background-full' || $image_pos == 'background-small') { ?>
+                    <?php if ( 'background-full' == $image_pos  || 'background-small' == $image_pos ) { ?>
                 </div>
                 <?php } ?>
         </section>
