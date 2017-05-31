@@ -15,10 +15,10 @@ class shapely_home_parallax extends WP_Widget
 
         $widget_ops = array(
             'classname' => 'shapely_home_parallax',
-            'description' => esc_html__("Shapely FrontPage Parallax Section", 'shapely'),
+            'description' => esc_html__("Shapely FrontPage Parallax Section", 'shapely-companion'),
             'customize_selective_refresh' => true
         );
-        parent::__construct('shapely_home_parallax', esc_html__('[Shapely] Parralax Section For FrontPage', 'shapely'), $widget_ops);
+        parent::__construct('shapely_home_parallax', esc_html__('[Shapely] Parralax Section For FrontPage', 'shapely-companion'), $widget_ops);
     }
 
     public function enqueue() {
@@ -34,7 +34,7 @@ class shapely_home_parallax extends WP_Widget
     {
         $title = isset($instance['title']) ? $instance['title'] : '';
         $image_src = isset($instance['image_src']) ? $instance['image_src'] : '';
-        $image_pos = isset($instance['image_pos']) ? $instance['image_pos'] : esc_html__('left', 'shapely');
+        $image_pos = isset($instance['image_pos']) ? $instance['image_pos'] : esc_html__('left', 'shapely-companion');
         $body_content = isset($instance['body_content']) ? $instance['body_content'] : '';
         $button1 = isset($instance['button1']) ? $instance['button1'] : '';
         $button2 = isset($instance['button2']) ? $instance['button2'] : '';
@@ -140,7 +140,7 @@ class shapely_home_parallax extends WP_Widget
         ?>
 
         <p><label
-                for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php esc_html_e('Title ', 'shapely') ?></label>
+                for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php esc_html_e('Title ', 'shapely-companion') ?></label>
 
             <input type="text" value="<?php echo esc_attr($instance['title']); ?>"
                    name="<?php echo esc_attr($this->get_field_name('title')); ?>"
@@ -151,7 +151,7 @@ class shapely_home_parallax extends WP_Widget
         <p class="shapely-media-control"
            data-delegate-container="<?php echo esc_attr($this->get_field_id('image_src')) ?>">
             <label
-                for="<?php echo esc_attr($this->get_field_id('image_src')); ?>"><?php _e('Image', 'shapely');
+                for="<?php echo esc_attr($this->get_field_id('image_src')); ?>"><?php _e('Image', 'shapely-companion');
                 ?>:</label>
 
             <img src="<?php echo esc_url($instance['image_src']); ?>"/>
@@ -162,12 +162,12 @@ class shapely_home_parallax extends WP_Widget
                    value="<?php echo esc_url($instance['image_src']); ?>"
                    class="image-id blazersix-media-control-target">
 
-            <button type="button" class="button upload-button"><?php _e('Choose Image', 'shapely'); ?></button>
-            <button type="button" class="button remove-button"><?php _e('Remove Image', 'shapely'); ?></button>
+            <button type="button" class="button upload-button"><?php _e('Choose Image', 'shapely-companion'); ?></button>
+            <button type="button" class="button remove-button"><?php _e('Remove Image', 'shapely-companion'); ?></button>
         </p>
 
         <p><label
-                for="<?php echo esc_attr($this->get_field_id('body_content')); ?>"><?php esc_html_e('Content ', 'shapely') ?></label>
+                for="<?php echo esc_attr($this->get_field_id('body_content')); ?>"><?php esc_html_e('Content ', 'shapely-companion') ?></label>
 
 			<textarea name="<?php echo esc_attr($this->get_field_name('body_content')); ?>"
                       id="<?php echo esc_attr($this->get_field_id('body_content')); ?>"
@@ -175,26 +175,26 @@ class shapely_home_parallax extends WP_Widget
         </p>
 
         <p><label
-                for="<?php echo esc_attr($this->get_field_id('image_pos')); ?>"><?php esc_html_e('Image Position ', 'shapely') ?></label>
+                for="<?php echo esc_attr($this->get_field_id('image_pos')); ?>"><?php esc_html_e('Image Position ', 'shapely-companion') ?></label>
             <select name="<?php echo esc_attr($this->get_field_name('image_pos')); ?>"
                     id="<?php echo esc_attr($this->get_field_id('image_pos')); ?>" class="widefat">
                 <option
-                    value="left" <?php selected($instance['image_pos'], 'left'); ?>><?php _e('Left', 'shapely'); ?></option>
+                    value="left" <?php selected($instance['image_pos'], 'left'); ?>><?php _e('Left', 'shapely-companion'); ?></option>
                 <option
-                    value="right" <?php selected($instance['image_pos'], 'right'); ?>><?php _e('Right', 'shapely'); ?></option>
+                    value="right" <?php selected($instance['image_pos'], 'right'); ?>><?php _e('Right', 'shapely-companion'); ?></option>
                 <option
-                    value="top" <?php selected($instance['image_pos'], 'top'); ?>><?php _e('Top', 'shapely'); ?></option>
+                    value="top" <?php selected($instance['image_pos'], 'top'); ?>><?php _e('Top', 'shapely-companion'); ?></option>
                 <option
-                    value="bottom" <?php selected($instance['image_pos'], 'bottom'); ?>><?php _e('Bottom', 'shapely'); ?></option>
+                    value="bottom" <?php selected($instance['image_pos'], 'bottom'); ?>><?php _e('Bottom', 'shapely-companion'); ?></option>
                 <option
-                    value="background-full" <?php selected($instance['image_pos'], 'background-full'); ?>><?php _e('Background Full', 'shapely'); ?></option>
+                    value="background-full" <?php selected($instance['image_pos'], 'background-full'); ?>><?php _e('Background Full', 'shapely-companion'); ?></option>
                 <option
-                    value="background-small" <?php selected($instance['image_pos'], 'background-small'); ?>><?php _e('Background Small', 'shapely'); ?></option>
+                    value="background-small" <?php selected($instance['image_pos'], 'background-small'); ?>><?php _e('Background Small', 'shapely-companion'); ?></option>
             </select>
         </p>
 
         <p><label
-                for="<?php echo esc_attr($this->get_field_id('button1')); ?>"><?php esc_html_e('Button 1 Text ', 'shapely') ?></label>
+                for="<?php echo esc_attr($this->get_field_id('button1')); ?>"><?php esc_html_e('Button 1 Text ', 'shapely-companion') ?></label>
 
             <input type="text" value="<?php echo esc_attr($instance['button1']); ?>"
                    name="<?php echo esc_attr($this->get_field_name('button1')); ?>"
@@ -203,7 +203,7 @@ class shapely_home_parallax extends WP_Widget
         </p>
 
         <p><label
-                for="<?php echo esc_attr($this->get_field_id('button1_link')); ?>"><?php esc_html_e('Button 1 Link ', 'shapely') ?></label>
+                for="<?php echo esc_attr($this->get_field_id('button1_link')); ?>"><?php esc_html_e('Button 1 Link ', 'shapely-companion') ?></label>
 
             <input type="text" value="<?php echo esc_url($instance['button1_link']); ?>"
                    name="<?php echo esc_attr($this->get_field_name('button1_link')); ?>"
@@ -212,7 +212,7 @@ class shapely_home_parallax extends WP_Widget
         </p>
 
         <p><label
-                for="<?php echo esc_attr($this->get_field_id('button2')); ?>"><?php esc_html_e('Button 2 Text ', 'shapely') ?></label>
+                for="<?php echo esc_attr($this->get_field_id('button2')); ?>"><?php esc_html_e('Button 2 Text ', 'shapely-companion') ?></label>
 
             <input type="text" value="<?php echo esc_attr($instance['button2']); ?>"
                    name="<?php echo esc_attr($this->get_field_name('button2')); ?>"
@@ -221,7 +221,7 @@ class shapely_home_parallax extends WP_Widget
         </p>
 
         <p><label
-                for="<?php echo esc_attr($this->get_field_id('button2_link')); ?>"><?php esc_html_e('Button 2 Link ', 'shapely') ?></label>
+                for="<?php echo esc_attr($this->get_field_id('button2_link')); ?>"><?php esc_html_e('Button 2 Link ', 'shapely-companion') ?></label>
 
             <input type="text" value="<?php echo esc_url($instance['button2_link']); ?>"
                    name="<?php echo esc_attr($this->get_field_name('button2_link')); ?>"
@@ -231,7 +231,7 @@ class shapely_home_parallax extends WP_Widget
 
         <div class="checkbox_switch">
 				<span class="customize-control-title onoffswitch_label">
-                    <?php _e('Border bottom', 'shapely'); ?>
+                    <?php _e('Border bottom', 'shapely-companion'); ?>
 				</span>
             <div class="onoffswitch">
                 <input type="checkbox" id="<?php echo esc_attr($this->get_field_name('border_bottom')); ?>"

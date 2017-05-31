@@ -9,17 +9,17 @@ class shapely_social_widget extends WP_Widget {
 
 		$widget_ops = array(
 			'classname'                   => 'shapely-social',
-			'description'                 => esc_html__( "shapely Social Widget", 'shapely' ),
+			'description'                 => esc_html__( "shapely Social Widget", 'shapely-companion'),
 			'customize_selective_refresh' => true
 		);
-		parent::__construct( 'shapely-social', esc_html__( '[Shapely] Social Widget', 'shapely' ), $widget_ops );
+		parent::__construct( 'shapely-social', esc_html__( '[Shapely] Social Widget', 'shapely-companion'), $widget_ops );
 	}
 
 	function widget( $args, $instance ) {
-		$title = isset( $instance['title'] ) ? wp_kses_post( $instance['title'] ) : esc_html__( 'Follow us', 'shapely' );
+		$title = isset( $instance['title'] ) ? wp_kses_post( $instance['title'] ) : esc_html__( 'Follow us', 'shapely-companion');
 
 		if ( ! function_exists( 'shapely_social_icons' ) ) {
-			echo __( 'This widget works only with Shapely theme. Please install and activate it first.', 'shapely' );
+			echo __( 'This widget works only with Shapely theme. Please install and activate it first.', 'shapely-companion');
 		}
 		echo $args['before_widget'];
 		echo $args['before_title'];
@@ -49,11 +49,11 @@ class shapely_social_widget extends WP_Widget {
 
 	function form( $instance ) {
 		if ( ! isset( $instance['title'] ) ) {
-			$instance['title'] = esc_html__( 'Follow us', 'shapely' );
+			$instance['title'] = esc_html__( 'Follow us', 'shapely-companion');
 		}
 		?>
 
-		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php esc_html_e( 'Title ', 'shapely' ) ?></label>
+		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php esc_html_e( 'Title ', 'shapely-companion') ?></label>
 
 			<input type="text" value="<?php echo esc_attr( $instance['title'] ); ?>"
 			       name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>"

@@ -9,11 +9,11 @@ class shapely_home_features extends WP_Widget {
 
 		$widget_ops = array(
 			'classname'                   => 'shapely_home_features',
-			'description'                 => esc_html__( "Widget to set Features in Home Section", 'shapely' ),
+			'description'                 => esc_html__( "Widget to set Features in Home Section", 'shapely-companion'),
 			'customize_selective_refresh' => true
 		);
 
-		parent::__construct( 'shapely_home_features', esc_html__( '[Shapely] Features Section For FrontPage', 'shapely' ), $widget_ops );
+		parent::__construct( 'shapely_home_features', esc_html__( '[Shapely] Features Section For FrontPage', 'shapely-companion'), $widget_ops );
 
 	}
 
@@ -116,7 +116,7 @@ class shapely_home_features extends WP_Widget {
 		?>
 
 		<p><label
-				for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title ', 'shapely' ) ?></label>
+				for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title ', 'shapely-companion') ?></label>
 
 			<input type="text" value="<?php echo esc_attr( $instance['title'] ); ?>"
 			       name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>"
@@ -125,7 +125,7 @@ class shapely_home_features extends WP_Widget {
 		</p>
 
 		<p><label
-				for="<?php echo esc_attr( $this->get_field_id( 'body_content' ) ); ?>"><?php esc_html_e( 'Content ', 'shapely' ) ?></label>
+				for="<?php echo esc_attr( $this->get_field_id( 'body_content' ) ); ?>"><?php esc_html_e( 'Content ', 'shapely-companion') ?></label>
 
 			<textarea name="<?php echo esc_attr( $this->get_field_name( 'body_content' ) ); ?>"
 			          id="<?php echo esc_attr( $this->get_field_id( 'body_content' ) ); ?>"
@@ -135,10 +135,10 @@ class shapely_home_features extends WP_Widget {
 
 		<?php for ( $i = 1; $i < 4; $i ++ ) { ?>
 			<br>
-			<b><?php echo sprintf( __( "Feature %s", 'shapely' ), $i ); ?></b>
+			<b><?php echo sprintf( __( "Feature %s", 'shapely-companion'), $i ); ?></b>
 
 			<p><label
-					for="<?php echo esc_attr( $this->get_field_id( 'title' . $i ) ); ?>"><?php esc_html_e( 'Title ', 'shapely' ) ?></label>
+					for="<?php echo esc_attr( $this->get_field_id( 'title' . $i ) ); ?>"><?php esc_html_e( 'Title ', 'shapely-companion') ?></label>
 
 				<input type="text" value="<?php echo esc_attr( $instance[ 'title' . $i ] ); ?>"
 				       name="<?php echo esc_attr( $this->get_field_name( 'title' . $i ) ); ?>"
@@ -147,14 +147,14 @@ class shapely_home_features extends WP_Widget {
 			</p>
 
 			<p><label
-					for="<?php echo esc_attr( $this->get_field_id( 'icon' . $i ) ); ?>"><?php esc_html_e( 'Icon( Font Awsome ) ', 'shapely' ) ?></label><?php
+					for="<?php echo esc_attr( $this->get_field_id( 'icon' . $i ) ); ?>"><?php esc_html_e( 'Icon( Font Awsome ) ', 'shapely-companion') ?></label><?php
 
 				$get_fontawesome_icons = $this->get_fontawesome_icons();
 				$icon                  = ( isset( $instance[ 'icon' . $i ] ) && $instance[ 'icon' . $i ] != '' ) ? esc_html( $instance[ 'icon' . $i ] ) : ''; ?>
 
 				<select class="shapely-icon" id="<?php echo esc_attr( $this->get_field_id( 'icon' . $i ) ); ?>"
 				        name="<?php echo esc_attr( $this->get_field_name( 'icon' . $i ) ); ?>">
-					<option value=""><?php _e( 'Select Icon', 'shapely' ); ?></option>
+					<option value=""><?php _e( 'Select Icon', 'shapely-companion'); ?></option>
 					<?php foreach ( $get_fontawesome_icons as $key => $get_fontawesome_icon ): ?>
 						<option
 							value="fa <?php echo esc_attr( $key ); ?>" <?php selected( $icon, 'fa ' . $key ); ?>><?php echo esc_html( $get_fontawesome_icon ); ?></option>
@@ -165,7 +165,7 @@ class shapely_home_features extends WP_Widget {
 			</p>
 
 			<p><label
-				for="<?php echo esc_attr( $this->get_field_id( 'body_content' . $i ) ); ?>"><?php esc_html_e( 'Content ', 'shapely' ) ?></label>
+				for="<?php echo esc_attr( $this->get_field_id( 'body_content' . $i ) ); ?>"><?php esc_html_e( 'Content ', 'shapely-companion') ?></label>
 
 			<textarea name="<?php echo esc_attr( $this->get_field_name( 'body_content' . $i ) ); ?>"
 			          id="<?php echo esc_attr( $this->get_field_id( 'body_content' . $i ) ); ?>"

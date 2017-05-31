@@ -9,10 +9,10 @@ class shapely_home_portfolio extends WP_Widget {
 
 		$widget_ops = array(
 			'classname'                   => 'shapely_home_portfolio',
-			'description'                 => esc_html__( "Shapely Porfolio for Home Widget Section", 'shapely' ),
+			'description'                 => esc_html__( "Shapely Porfolio for Home Widget Section", 'shapely-companion'),
 			'customize_selective_refresh' => true
 		);
-		parent::__construct( 'shapely_home_portfolio', esc_html__( '[Shapely] Porfolio for Home Widget Section', 'shapely' ), $widget_ops );
+		parent::__construct( 'shapely_home_portfolio', esc_html__( '[Shapely] Porfolio for Home Widget Section', 'shapely-companion'), $widget_ops );
 	}
 
 	function widget( $args, $instance ) {
@@ -103,7 +103,7 @@ class shapely_home_portfolio extends WP_Widget {
 		}
 		?>
 
-		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php esc_html_e( 'Title ', 'shapely' ) ?></label>
+		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php esc_html_e( 'Title ', 'shapely-companion') ?></label>
 
 			<input type="text" value="<?php echo esc_attr( $instance['title'] ); ?>"
 			       name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>"
@@ -112,7 +112,7 @@ class shapely_home_portfolio extends WP_Widget {
 		</p>
 
 		<p><label
-			for="<?php echo esc_attr( $this->get_field_id( 'body_content' ) ); ?>"><?php esc_html_e( 'Content ', 'shapely' ) ?></label>
+			for="<?php echo esc_attr( $this->get_field_id( 'body_content' ) ); ?>"><?php esc_html_e( 'Content ', 'shapely-companion') ?></label>
 
 		<textarea name="<?php echo esc_attr( $this->get_field_name( 'body_content' ) ); ?>"
 		          id="<?php echo esc_attr( $this->get_field_id( 'body_content' ) ); ?>"

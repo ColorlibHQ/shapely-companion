@@ -12,10 +12,10 @@ class shapely_categories extends WP_Widget {
 
 		$widget_ops = array(
 			'classname'                   => 'shapely-cats',
-			'description'                 => esc_html__( "Shapely Categories", 'shapely' ),
+			'description'                 => esc_html__( "Shapely Categories", 'shapely-companion'),
 			'customize_selective_refresh' => true
 		);
-		parent::__construct( 'shapely-cats', esc_html__( '[Shapely] Categories', 'shapely' ), $widget_ops );
+		parent::__construct( 'shapely-cats', esc_html__( '[Shapely] Categories', 'shapely-companion'), $widget_ops );
 	}
 
 	public function enqueue() {
@@ -26,7 +26,7 @@ class shapely_categories extends WP_Widget {
 	}
 
 	function widget( $args, $instance ) {
-		$title        = isset( $instance['title'] ) ? $instance['title'] : esc_html__( 'Categories', 'shapely' );
+		$title        = isset( $instance['title'] ) ? $instance['title'] : esc_html__( 'Categories', 'shapely-companion');
 		$enable_count = !empty( $instance['enable_count'] ) ? $instance['enable_count'] : '';
 
 		$limit = isset( $instance['limit'] ) ? $instance['limit'] : 4;
@@ -76,7 +76,7 @@ class shapely_categories extends WP_Widget {
 
 	function form( $instance ) {
 		if ( ! isset( $instance['title'] ) ) {
-			$instance['title'] = esc_html__( 'Categories', 'shapely' );
+			$instance['title'] = esc_html__( 'Categories', 'shapely-companion');
 		}
 		if ( ! isset( $instance['limit'] ) ) {
 			$instance['limit'] = 4;
@@ -88,7 +88,7 @@ class shapely_categories extends WP_Widget {
 
 		?>
 
-		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php esc_html_e( 'Title ', 'shapely' ) ?></label>
+		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php esc_html_e( 'Title ', 'shapely-companion') ?></label>
 
 			<input type="text" value="<?php echo esc_attr( $instance['title'] ); ?>"
 			       name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>"
@@ -97,7 +97,7 @@ class shapely_categories extends WP_Widget {
 		</p>
 
 		<p><label
-				for="<?php echo $this->get_field_id( 'limit' ); ?>"> <?php esc_html_e( 'Limit Categories ', 'shapely' ) ?></label>
+				for="<?php echo $this->get_field_id( 'limit' ); ?>"> <?php esc_html_e( 'Limit Categories ', 'shapely-companion') ?></label>
 
 			<input type="text" value="<?php echo esc_attr( $instance['limit'] ); ?>"
 			       name="<?php echo esc_attr( $this->get_field_name( 'limit' ) ); ?>"
@@ -108,7 +108,7 @@ class shapely_categories extends WP_Widget {
 
 		<div class="checkbox_switch">
 				<span class="customize-control-title onoffswitch_label">
-                    <?php _e( 'Enable Posts Count', 'shapely' ); ?>
+                    <?php _e( 'Enable Posts Count', 'shapely-companion'); ?>
 				</span>
 			<div class="onoffswitch">
 				<input type="checkbox" id="<?php echo esc_attr( $this->get_field_name( 'enable_count' ) ); ?>"

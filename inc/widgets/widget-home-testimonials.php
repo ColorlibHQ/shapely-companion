@@ -9,14 +9,14 @@ class shapely_home_testimonial extends WP_Widget {
 
 		$widget_ops = array(
 			'classname'                   => 'shapely_home_testimonial',
-			'description'                 => esc_html__( "Shapely Testimonial Widget Section", 'shapely' ),
+			'description'                 => esc_html__( "Shapely Testimonial Widget Section", 'shapely-companion'),
 			'customize_selective_refresh' => true
 		);
-		parent::__construct( 'shapely_home_testimonial', esc_html__( '[Shapely] Testimonial Section For FrontPage', 'shapely' ), $widget_ops );
+		parent::__construct( 'shapely_home_testimonial', esc_html__( '[Shapely] Testimonial Section For FrontPage', 'shapely-companion'), $widget_ops );
 	}
 
 	function widget( $args, $instance ) {
-		$title     = isset( $instance['title'] ) ? $instance['title'] : esc_html__( 'People just like you are already loving Colorlib', 'shapely' );
+		$title     = isset( $instance['title'] ) ? $instance['title'] : esc_html__( 'People just like you are already loving Colorlib', 'shapely-companion');
 		$limit     = isset( $instance['limit'] ) ? $instance['limit'] : 5;
 		$image_src = isset( $instance['image_src'] ) ? $instance['image_src'] : '';
 
@@ -99,7 +99,7 @@ class shapely_home_testimonial extends WP_Widget {
 		?>
 
 		<p><label
-				for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title ', 'shapely' ) ?></label>
+				for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title ', 'shapely-companion') ?></label>
 
 			<input type="text" value="<?php echo esc_attr( $instance['title'] ); ?>"
 			       name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>"
@@ -108,7 +108,7 @@ class shapely_home_testimonial extends WP_Widget {
 		</p>
 
 		<p><label
-				for="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>"><?php esc_html_e( 'Limit ', 'shapely' ) ?></label>
+				for="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>"><?php esc_html_e( 'Limit ', 'shapely-companion') ?></label>
 
 			<input type="text" value="<?php echo esc_attr( $instance['limit'] ); ?>"
 			       name="<?php echo esc_attr( $this->get_field_name( 'limit' ) ); ?>"
@@ -119,7 +119,7 @@ class shapely_home_testimonial extends WP_Widget {
 		<p class="shapely-media-control"
 		   data-delegate-container="<?php echo esc_attr( $this->get_field_id( 'image_src' ) ) ?>">
 			<label
-				for="<?php echo esc_attr( $this->get_field_id( 'image_src' ) ); ?>"><?php _e( 'Background Parallax Image:', 'shapely' );
+				for="<?php echo esc_attr( $this->get_field_id( 'image_src' ) ); ?>"><?php _e( 'Background Parallax Image:', 'shapely-companion');
 				?>:</label>
 
 			<img src="<?php echo esc_url( $instance['image_src'] ); ?>"/>
@@ -130,7 +130,7 @@ class shapely_home_testimonial extends WP_Widget {
 			       value="<?php echo esc_url( $instance['image_src'] ); ?>"
 			       class="image-id blazersix-media-control-target">
 
-			<button type="button" class="button upload-button"><?php _e( 'Choose Image', 'shapely' ); ?></button>
+			<button type="button" class="button upload-button"><?php _e( 'Choose Image', 'shapely-companion'); ?></button>
 		</p>
 
 		<?php

@@ -14,10 +14,10 @@ class shapely_home_contact extends WP_Widget
 
         $widget_ops = array(
             'classname' => 'shapely_home_contact',
-            'description' => esc_html__("Shapely FrontPage Contact Section", 'shapely'),
+            'description' => esc_html__("Shapely FrontPage Contact Section", 'shapely-companion'),
             'customize_selective_refresh' => true
         );
-        parent::__construct('shapely_home_contact', esc_html__('[Shapely] Contact Section For FrontPage', 'shapely'), $widget_ops);
+        parent::__construct('shapely_home_contact', esc_html__('[Shapely] Contact Section For FrontPage', 'shapely-companion'), $widget_ops);
     }
 
     public function enqueue() {
@@ -150,7 +150,7 @@ class shapely_home_contact extends WP_Widget
 
         ?>
 
-        <p><label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php esc_html_e('Title ', 'shapely') ?></label>
+        <p><label for="<?php echo esc_attr($this->get_field_id('title')); ?>"><?php esc_html_e('Title ', 'shapely-companion') ?></label>
 
             <input type="text" value="<?php echo esc_attr($instance['title']); ?>"
                    name="<?php echo esc_attr($this->get_field_name('title')); ?>"
@@ -158,7 +158,7 @@ class shapely_home_contact extends WP_Widget
                    class="widefat"/>
         </p>
 
-        <p><label for="<?php echo esc_attr($this->get_field_id('body_content')); ?>"><?php esc_html_e('Subtitle ', 'shapely') ?></label>
+        <p><label for="<?php echo esc_attr($this->get_field_id('body_content')); ?>"><?php esc_html_e('Subtitle ', 'shapely-companion') ?></label>
 
             <textarea name="<?php echo esc_attr($this->get_field_name('body_content')); ?>"
                       id="<?php echo esc_attr($this->get_field_id('body_content')); ?>"
@@ -166,7 +166,7 @@ class shapely_home_contact extends WP_Widget
         </p>
 
         <p class="shapely-media-control" data-delegate-container="<?php echo esc_attr($this->get_field_id('image_src')) ?>">
-            <label for="<?php echo esc_attr($this->get_field_id('image_src')); ?>"><?php _e('Background image', 'shapely'); ?>:</label>
+            <label for="<?php echo esc_attr($this->get_field_id('image_src')); ?>"><?php _e('Background image', 'shapely-companion'); ?>:</label>
 
             <img src="<?php echo esc_url($instance['image_src']); ?>"/>
 
@@ -176,16 +176,16 @@ class shapely_home_contact extends WP_Widget
                    value="<?php echo esc_url($instance['image_src']); ?>"
                    class="image-id blazersix-media-control-target">
 
-            <button type="button" class="button upload-button"><?php _e('Choose Image', 'shapely'); ?></button>
-            <button type="button" class="button remove-button"><?php _e('Remove Image', 'shapely'); ?></button>
+            <button type="button" class="button upload-button"><?php _e('Choose Image', 'shapely-companion'); ?></button>
+            <button type="button" class="button remove-button"><?php _e('Remove Image', 'shapely-companion'); ?></button>
         </p>
 
         <p>
-            <label for="<?php echo esc_attr($this->get_field_id('contactform')); ?>"><?php esc_html_e('Contact Form ', 'shapely') ?></label>
+            <label for="<?php echo esc_attr($this->get_field_id('contactform')); ?>"><?php esc_html_e('Contact Form ', 'shapely-companion') ?></label>
             <?php  
 
                 if ( !defined( 'WPCF7_LOAD_JS' ) ) {
-                    echo '<br><span>'.esc_html__('Please install Contact Form 7 plugin', 'shapely').'</span>';
+                    echo '<br><span>'.esc_html__('Please install Contact Form 7 plugin', 'shapely-companion').'</span>';
                     echo '<input type="hidden" id="'.esc_attr($this->get_field_name('contactform')).'" name="'.esc_attr($this->get_field_name('contactform')).'" value="0">';
                 }else{
                     echo '<select id="'.esc_attr($this->get_field_name('contactform')).'" name="'.esc_attr($this->get_field_name('contactform')).'" class="widefat">';
@@ -207,7 +207,7 @@ class shapely_home_contact extends WP_Widget
             ?>
         </p>
 
-        <p><label for="<?php echo esc_attr($this->get_field_id('phone')); ?>"><?php esc_html_e('Phone number ', 'shapely') ?></label>
+        <p><label for="<?php echo esc_attr($this->get_field_id('phone')); ?>"><?php esc_html_e('Phone number ', 'shapely-companion') ?></label>
 
             <input type="text" value="<?php echo esc_attr($instance['phone']); ?>"
                    name="<?php echo esc_attr($this->get_field_name('phone')); ?>"
@@ -215,7 +215,7 @@ class shapely_home_contact extends WP_Widget
                    class="widefat"/>
         </p>
 
-        <p><label for="<?php echo esc_attr($this->get_field_id('email')); ?>"><?php esc_html_e('Email ', 'shapely') ?></label>
+        <p><label for="<?php echo esc_attr($this->get_field_id('email')); ?>"><?php esc_html_e('Email ', 'shapely-companion') ?></label>
 
             <input type="text" value="<?php echo esc_attr($instance['email']); ?>"
                    name="<?php echo esc_attr($this->get_field_name('email')); ?>"
@@ -223,7 +223,7 @@ class shapely_home_contact extends WP_Widget
                    class="widefat"/>
         </p>
 
-        <p><label for="<?php echo esc_attr($this->get_field_id('address')); ?>"><?php esc_html_e('Address ', 'shapely') ?></label>
+        <p><label for="<?php echo esc_attr($this->get_field_id('address')); ?>"><?php esc_html_e('Address ', 'shapely-companion') ?></label>
 
             <input type="text" value="<?php echo esc_attr($instance['address']); ?>"
                    name="<?php echo esc_attr($this->get_field_name('address')); ?>"
@@ -232,7 +232,7 @@ class shapely_home_contact extends WP_Widget
         </p>
         <div class="checkbox_switch">
                 <span class="customize-control-title onoffswitch_label">
-                    <?php _e('Show social icons', 'shapely'); ?>
+                    <?php _e('Show social icons', 'shapely-companion'); ?>
                 </span>
             <div class="onoffswitch">
                 <input type="checkbox" id="<?php echo esc_attr($this->get_field_name('socialicons')); ?>"
