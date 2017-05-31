@@ -8,9 +8,9 @@ class Shapely_Video extends WP_Widget {
 
 		$widget_ops = array(
 			'classname'   => 'shapely_video_widget',
-			'description' => esc_html__( "Shapely Video Section", 'shapely' )
+			'description' => esc_html__( "Sparkling Video Section", 'shapely' )
 		);
-		parent::__construct( 'shapely_video_widget', esc_html__( '[Shapely] Video Section', 'shapely' ), $widget_ops );
+		parent::__construct( 'shapely_video_widget', esc_html__( '[Sparkling] Video Section', 'shapely' ), $widget_ops );
 	}
 
 	public function enqueue() {
@@ -33,6 +33,12 @@ class Shapely_Video extends WP_Widget {
 				}
 				wp_enqueue_script( 'ytbackground', plugins_url( 'assets/js/jquery.youtubebackground.js', dirname( dirname( __FILE__ ) ) ), array( 'jquery' ) );
 				break;
+			case 'vimeo' :
+				if ( empty( $instance['vimeo_id'] ) ) {
+					$terminate = true;
+				}
+				wp_enqueue_script( 'vimeo-player', plugins_url( 'assets/js/player.min.js', dirname( dirname( __FILE__ ) ) ), array( 'jquery' ) );
+				break;
 			case 'upload':
 				if ( empty( $instance['video_id'] ) ) {
 					$terminate = true;
@@ -54,14 +60,14 @@ class Shapely_Video extends WP_Widget {
 		?>
 
 		<?php if ( $instance['video_type'] == 'upload' ): ?>
-			<div class="video-widget col-xs-12"
+			<div class="video-widget col-xs-12 upload"
 				<?php echo ( ! empty( $instance['video_height'] ) && empty( $instance['full_height'] ) ) ? 'style="height:' . esc_attr( $instance['video_height'] ) . 'px"' : ''; ?>
 				 data-vide-bg="mp4:<?php echo ! empty( $instance['video_id'] ) ? esc_attr( $instance['video_id'] ) : ''; ?>, poster:<?php echo esc_url( $instance['image_src'] ); ?>"
 				 data-vide-options="loop: false, position: 0% 0% <?php echo ! empty( $instance['autoplay'] ) ? ',autoplay: true' : ',autoplay:false'; ?><?php echo ! empty( $instance['mute'] ) ? ',muted: true' : ',muted:false'; ?>">
-			<span class="video-controls">
-				<button class="play-button"><icon class="fa fa-play"></icon></button>
-				<button class="pause-button"><icon class="fa fa-pause"></icon></button>
-			</span>
+				<span class="video-controls">
+					<button class="play-button"><icon class="fa fa-play"></icon></button>
+					<button class="pause-button"><icon class="fa fa-pause"></icon></button>
+				</span>
 			</div>
 		<?php elseif ( $instance['video_type'] == 'youtube' ): ?>
 			<div <?php echo ! empty( $instance['youtube_id'] ) ? 'data-video-id="' . esc_attr( $instance['youtube_id'] ) . '"' : '' ?>
@@ -69,6 +75,17 @@ class Shapely_Video extends WP_Widget {
 				data-mute="<?php echo ! empty( $instance['mute'] ) ? '1' : '0'; ?>"
 				class="video-widget youtube"
 				<?php echo ( ! empty( $instance['video_height'] ) && empty( $instance['full_height'] ) ) ? 'style="height:' . esc_attr( $instance['video_height'] ) . 'px"' : ''; ?>>
+				<span class="video-controls">
+					<button class="play-button"><icon class="fa fa-play"></icon></button>
+					<button class="pause-button"><icon class="fa fa-pause"></icon></button>
+				</span>
+			</div>
+		<?php elseif ( $instance['video_type'] == 'vimeo' ): ?>
+			<div <?php echo ! empty( $instance['vimeo_id'] ) ? 'data-video-id="' . esc_attr( $instance['vimeo_id'] ) . '"' : '' ?>
+				data-autoplay="<?php echo ! empty( $instance['autoplay'] ) ? '1' : '0'; ?>"
+				data-mute="<?php echo ! empty( $instance['mute'] ) ? '1' : '0'; ?>"
+				class="video-widget vimeo">
+				<div id="shapely-<?php echo rand(1000, 9999) ?>" class="vimeo-holder" <?php echo ( ! empty( $instance['video_height'] ) && empty( $instance['full_height'] ) ) ? 'style="height:' . esc_attr( $instance['video_height'] ) . 'px"' : ''; ?>></div>
 				<span class="video-controls">
 					<button class="play-button"><icon class="fa fa-play"></icon></button>
 					<button class="pause-button"><icon class="fa fa-pause"></icon></button>
@@ -91,6 +108,7 @@ class Shapely_Video extends WP_Widget {
 			'autoplay'     => 'on',
 			'mute'     	   => 'on',
 			'video_id'     => '',
+			'vimeo_id'     => '',
 			'video_type'   => 'youtube',
 			'youtube_id'   => '',
 			'image_src'    => '',
@@ -100,8 +118,7 @@ class Shapely_Video extends WP_Widget {
 
 		// Merge the user-selected arguments with the defaults.
 		$instance = wp_parse_args( (array) $instance, $defaults );
-		// Extract the array to allow easy use of variables.
-		extract( $instance );
+
 		// Loads the widget form.
 		?>
 
@@ -113,6 +130,8 @@ class Shapely_Video extends WP_Widget {
 			        id="<?php echo esc_attr( $this->get_field_id( 'video_type' ) ); ?>" class="video-type widefat">
 				<option
 					value="youtube" <?php selected( $instance['video_type'], 'youtube' ); ?>><?php _e( 'YouTube', 'shapely' ); ?></option>
+				<option
+					value="vimeo" <?php selected( $instance['video_type'], 'vimeo' ); ?>><?php _e( 'Vimeo', 'shapely' ); ?></option>
 				<option
 					value="upload" <?php selected( $instance['video_type'], 'upload' ); ?>><?php _e( 'Upload', 'shapely' ); ?></option>
 			</select>
@@ -184,6 +203,18 @@ class Shapely_Video extends WP_Widget {
 			       class="widefat"/>
 		</p>
 
+		<h4><?php echo __( 'Vimeo Controls', 'shapely' ) ?></h4>
+		<hr/>
+		<p class="youtube-controls">
+			<label
+				for="<?php echo esc_attr( $this->get_field_id( 'vimeo_id' ) ); ?>"><?php esc_html_e( 'Vimeo ID: ', 'shapely' ) ?></label>
+
+			<input type="text" value="<?php echo esc_attr( $instance['vimeo_id'] ); ?>"
+			       name="<?php echo esc_attr( $this->get_field_name( 'vimeo_id' ) ); ?>"
+			       id="<?php echo esc_attr( $this->get_field_id( 'vimeo_id' ) ); ?>"
+			       class="widefat"/>
+		</p>
+
 		<h4><?php echo __( 'Video Upload Controls', 'shapely' ) ?></h4>
 		<hr/>
 		<p class="upload-controls shapely-media-control"
@@ -237,6 +268,7 @@ class Shapely_Video extends WP_Widget {
 		$instance = array();
 
 		$instance['youtube_id']   = ( ! empty( $new_instance['youtube_id'] ) ) ? strip_tags( $new_instance['youtube_id'] ) : '';
+		$instance['vimeo_id']   = ( ! empty( $new_instance['vimeo_id'] ) ) ? absint( $new_instance['vimeo_id'] ) : '';
 		$instance['video_id']     = ( ! empty( $new_instance['video_id'] ) ) ? esc_url_raw( $new_instance['video_id'] ) : '';
 		$instance['image_src']    = ( ! empty( $new_instance['image_src'] ) ) ? esc_url_raw( $new_instance['image_src'] ) : '';
 		$instance['video_height'] = ( ! empty( $new_instance['video_height'] ) ) ? absint( $new_instance['video_height'] ) : '';

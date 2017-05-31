@@ -18,7 +18,6 @@ class shapely_home_features extends WP_Widget {
 	}
 
 	function widget( $args, $instance ) {
-		extract( $args );
 		$title[0]        = isset( $instance['title'] ) ? $instance['title'] : '';
 		$body_content[0] = isset( $instance['body_content'] ) ? $instance['body_content'] : '';
 
@@ -34,7 +33,7 @@ class shapely_home_features extends WP_Widget {
 		$body_content[2] = isset( $instance['body_content2'] ) ? $instance['body_content2'] : '';
 		$body_content[3] = isset( $instance['body_content3'] ) ? $instance['body_content3'] : '';
 
-		echo $before_widget;
+		echo $args['before_widget'];
 
 		/**
 		 * Widget Content
@@ -73,7 +72,7 @@ class shapely_home_features extends WP_Widget {
 
 		<?php
 
-		echo $after_widget;
+		echo $args['after_widget'];
 	}
 
 

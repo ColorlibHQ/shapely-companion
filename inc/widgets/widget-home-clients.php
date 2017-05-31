@@ -16,11 +16,10 @@ class shapely_home_clients extends WP_Widget {
 	}
 
 	function widget( $args, $instance ) {
-		extract( $args );
 		$title = isset( $instance['title'] ) && ! empty( $instance['title'] ) ? $instance['title'] : __( 'Our Main Clients', 'shapely' );
 		$logos = isset( $instance['client_logo'] ) ? $instance['client_logo'] : '';
 
-		echo $before_widget;
+		echo $args['before_widget'];
 		if ( gettype( $logos ) == 'object' ) {
 			$logos = get_object_vars( $logos );
 		}
@@ -63,7 +62,7 @@ class shapely_home_clients extends WP_Widget {
 
 		<?php
 
-		echo $after_widget;
+		echo $args['after_widget'];
 	}
 
 

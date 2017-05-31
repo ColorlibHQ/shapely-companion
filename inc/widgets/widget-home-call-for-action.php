@@ -16,12 +16,11 @@ class shapely_home_CFA extends WP_Widget {
 	}
 
 	function widget( $args, $instance ) {
-		extract( $args );
 		$title       = isset( $instance['title'] ) ? $instance['title'] : '';
 		$button      = isset( $instance['button'] ) ? $instance['button'] : '';
 		$button_link = isset( $instance['button_link'] ) ? $instance['button_link'] : '';
 
-		echo $before_widget;
+		echo $args['before_widget'];
 
 		/**
 		 * Widget Content
@@ -50,7 +49,7 @@ class shapely_home_CFA extends WP_Widget {
 			</section><?php
 		endif;
 
-		echo $after_widget;
+		echo $args['after_widget'];
 	}
 
 

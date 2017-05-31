@@ -31,7 +31,6 @@ class shapely_home_contact extends WP_Widget
 
     function widget($args, $instance)
     {
-        extract($args);
         $title = isset($instance['title']) ? $instance['title'] : '';
         $body_content = isset($instance['body_content']) ? $instance['body_content'] : '';
         $image_src = isset($instance['image_src']) ? $instance['image_src'] : '';
@@ -48,7 +47,7 @@ class shapely_home_contact extends WP_Widget
             $class = ' image-bg cover';
         }
 
-        echo $before_widget;
+        echo $args['before_widget'];
         /**
          * Widget Content
          */
@@ -114,7 +113,7 @@ class shapely_home_contact extends WP_Widget
         <div class="clearfix"></div>
         <?php
 
-        echo $after_widget;
+        echo $args['after_widget'];
     }
 
 

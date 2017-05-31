@@ -16,13 +16,12 @@ class shapely_home_testimonial extends WP_Widget {
 	}
 
 	function widget( $args, $instance ) {
-		extract( $args );
 		$title     = isset( $instance['title'] ) ? $instance['title'] : esc_html__( 'People just like you are already loving Colorlib', 'shapely' );
 		$limit     = isset( $instance['limit'] ) ? $instance['limit'] : 5;
 		$image_src = isset( $instance['image_src'] ) ? $instance['image_src'] : '';
 
 		if ( post_type_exists( 'jetpack-testimonial' ) ) {
-			echo $before_widget;
+			echo $args['before_widget'];
 
 			/**
 			 * Widget Content
@@ -81,7 +80,7 @@ class shapely_home_testimonial extends WP_Widget {
 				</section><?php
 			endif;
 			wp_reset_postdata();
-			echo $after_widget;
+			echo $args['after_widget'];
 		}
 	}
 

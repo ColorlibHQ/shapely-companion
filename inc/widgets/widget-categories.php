@@ -26,16 +26,15 @@ class shapely_categories extends WP_Widget {
 	}
 
 	function widget( $args, $instance ) {
-		extract( $args );
 		$title        = isset( $instance['title'] ) ? $instance['title'] : esc_html__( 'Categories', 'shapely' );
 		$enable_count = !empty( $instance['enable_count'] ) ? $instance['enable_count'] : '';
 
 		$limit = isset( $instance['limit'] ) ? $instance['limit'] : 4;
 
-		echo $before_widget;
-		echo $before_title;
+		echo $args['before_widget'];
+		echo $args['before_title'];
 		echo $title;
-		echo $after_title;
+		echo $args['after_title'];
 
 		/**
 		 * Widget Content
@@ -71,7 +70,7 @@ class shapely_categories extends WP_Widget {
 
 		<?php
 
-		echo $after_widget;
+		echo $args['after_widget'];
 	}
 
 

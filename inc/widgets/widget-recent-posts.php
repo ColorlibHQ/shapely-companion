@@ -17,17 +17,16 @@ class shapely_recent_posts extends WP_Widget {
 	}
 
 	function widget( $args, $instance ) {
-		extract( $args );
 		$title = isset( $instance['title'] ) ? $instance['title'] : __( 'Recent Posts', 'shapely' );
 		$limit = isset( $instance['limit'] ) ? $instance['limit'] : 5;
 
-		echo $before_widget;
+		echo $args['before_widget'];
 		?>
 		<section>
 			<?php
-			echo $before_title;
+			echo $args['before_title'];
 			echo wp_kses_post($title);
-			echo $after_title;
+			echo $args['after_title'];
 
 			/**
 			 * Widget Content
@@ -78,7 +77,7 @@ class shapely_recent_posts extends WP_Widget {
 			</div> <!-- end posts wrapper -->
 		</section>
 		<?php
-		echo $after_widget;
+		echo $args['after_widget'];
 	}
 
 	function form( $instance ) {

@@ -32,7 +32,6 @@ class shapely_home_parallax extends WP_Widget
 
     function widget($args, $instance)
     {
-        extract($args);
         $title = isset($instance['title']) ? $instance['title'] : '';
         $image_src = isset($instance['image_src']) ? $instance['image_src'] : '';
         $image_pos = isset($instance['image_pos']) ? $instance['image_pos'] : esc_html__('left', 'shapely');
@@ -43,7 +42,7 @@ class shapely_home_parallax extends WP_Widget
         $button2_link = isset($instance['button2_link']) ? $instance['button2_link'] : '';
         $border_bottom = isset($instance['border_bottom']) ? $instance['border_bottom'] : '';
 
-        echo $before_widget;
+        echo $args['before_widget'];
 
         /* Classes */
         $class1 = ($image_pos == 'background-full') ? 'cover fullscreen image-bg' : (($image_pos == 'background-small') ? 'small-screen image-bg p0' : (($image_pos == 'right') ? 'bg-secondary' : (($image_pos == 'bottom') ? 'bg-secondary pb0' : '')));
@@ -105,7 +104,7 @@ class shapely_home_parallax extends WP_Widget
         <div class="clearfix"></div>
         <?php
 
-        echo $after_widget;
+        echo $args['after_widget'];
     }
 
 

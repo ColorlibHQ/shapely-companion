@@ -16,13 +16,12 @@ class shapely_home_portfolio extends WP_Widget {
 	}
 
 	function widget( $args, $instance ) {
-		extract( $args );
 		$title        = isset( $instance['title'] ) ? $instance['title'] : '';
 		$body_content = isset( $instance['body_content'] ) ? $instance['body_content'] : '';
 
 		if ( post_type_exists( 'jetpack-portfolio' ) ) {
 
-			echo $before_widget;
+			echo $args['before_widget'];
 
 			/**
 			 * Widget Content
@@ -89,7 +88,7 @@ class shapely_home_portfolio extends WP_Widget {
 
 			<?php
 
-			echo $after_widget;
+			echo $args['after_widget'];
 
 		}
 	}
