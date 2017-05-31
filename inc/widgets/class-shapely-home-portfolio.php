@@ -33,58 +33,60 @@ class Shapely_Home_Portfolio extends WP_Widget {
 						<h3 class="mb32"><?php echo wp_kses_post( $title ); ?></h3>
 						<p class="mb40"><?php echo wp_kses_post( $body_content ); ?></p>
 					</div>
-				</div><?php
+				</div>
+				<?php
 
 					$portfolio_args = array(
 						'post_type'           => 'jetpack-portfolio',
 						'posts_per_page'      => 10,
 						'ignore_sticky_posts' => 1,
-						);
+					);
 
-					  $portfolio_query = new WP_Query( $portfolio_args );
+					$portfolio_query = new WP_Query( $portfolio_args );
 
-					  if ( $portfolio_query->have_posts() ) : ?>
+					if ( $portfolio_query->have_posts() ) : ?>
 
-								<div class="row masonry-loader fixed-center fadeOut">
-									<div class="col-sm-12 text-center">
-										<div class="spinner"></div>
-									</div>
-								</div>
-								<div class="row masonry masonryFlyIn fadeIn"><?php
+						<div class="row masonry-loader fixed-center fadeOut">
+							<div class="col-sm-12 text-center">
+								<div class="spinner"></div>
+							</div>
+						</div>
+						<div class="row masonry masonryFlyIn fadeIn">
+						<?php
 
-								while ( $portfolio_query->have_posts() ) : $portfolio_query->the_post();
+							while ( $portfolio_query->have_posts() ) : $portfolio_query->the_post();
 
-									if ( has_post_thumbnail() ) {
+								if ( has_post_thumbnail() ) {
 
-										$permalink = get_the_permalink();
-										$url = get_post_meta( get_the_ID(), 'shapely_companion_portfolio_link', true );
-										if ( $url ) {
-											$permalink = $url;
-										}
-
-										?>
-										<div class="col-md-3 col-sm-6 masonry-item project fadeIn">
-											<div class="image-tile inner-title hover-reveal text-center">
-										  <a href="<?php echo esc_url( $permalink ); ?>" title="<?php the_title_attribute(); ?>">
-										<?php the_post_thumbnail( 'full' ); ?>
-										<div class="title"><?php
-											the_title( '<h5 class="mb0">', '</h5>' );
-											$args_projects = array(
-												'fields' => 'names',
-												);
-														   $project_types = wp_get_post_terms( get_the_ID(), 'jetpack-portfolio-type', $args_projects );
-														   if ( ! empty( $project_types ) ) {
-																	 echo '<span>' . implode( ' / ', $project_types ) . '</span>';
-															} ?>
-													</div>
-												</a>
-											</div>
-										</div><?php
+									$permalink = get_the_permalink();
+									$url = get_post_meta( get_the_ID(), 'shapely_companion_portfolio_link', true );
+									if ( $url ) {
+										$permalink = $url;
 									}
-								endwhile; ?>
-								</div><?php
-				endif;
-						wp_reset_postdata(); ?>
+
+									?>
+									<div class="col-md-3 col-sm-6 masonry-item project fadeIn">
+										<div class="image-tile inner-title hover-reveal text-center">
+									  		<a href="<?php echo esc_url( $permalink ); ?>" title="<?php the_title_attribute(); ?>">
+												<?php the_post_thumbnail( 'full' ); ?>
+												<div class="title"><?php
+													the_title( '<h5 class="mb0">', '</h5>' );
+													$args_projects = array(
+														'fields' => 'names',
+													);
+													$project_types = wp_get_post_terms( get_the_ID(), 'jetpack-portfolio-type', $args_projects );
+												   	if ( ! empty( $project_types ) ) {
+															 echo '<span>' . implode( ' / ', $project_types ) . '</span>';
+													} ?>
+												</div>
+											</a>
+										</div>
+									</div><?php
+								}
+							endwhile; ?>
+						</div><?php
+					endif;
+					wp_reset_postdata(); ?>
 			</section>
 
 
