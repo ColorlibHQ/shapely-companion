@@ -19,6 +19,28 @@ if ( ! defined( 'WPINC' ) ) {
 define( 'SHAPELY_COMPANION', '1.0.5' );
 
 /**
+ * Load the Dashboard Widget
+ */
+require_once plugin_dir_path( __FILE__ ) . 'inc/epsilon-dashboard/class-epsilon-dashboard.php';
+
+if ( ! function_exists( 'shapely_companion_dashboard_widget' ) ) {
+	/**
+	 * The helper method to run the class
+	 *
+	 * @return Epsilon_Dashboard
+	 */
+	function shapely_companion_dashboard_widget() {
+		$epsilon_dashboard_args = array(
+			'widget_title' => esc_html__( 'Theme Listings', 'shapely-companion' ),
+			'feed_url'	=> array( 'https://colorlib.com/wp/feed/' )
+		);
+		return Epsilon_Dashboard::instance( $epsilon_dashboard_args );
+	}
+}
+
+shapely_companion_dashboard_widget();
+
+/**
  * Load the Widgets
  */
 require_once plugin_dir_path( __FILE__ ) . 'inc/shapely-widgets.php';
@@ -46,11 +68,11 @@ if ( class_exists( 'WooCommerce' ) ) {
 }
 
 /**
- * Epsilon Framework
+ * Load Metabox for Portfolio
  */
-require_once plugin_dir_path( __FILE__ ) . '/inc/class-epsilon-framework.php';
-
-/**
- * Color schemes
- */
-require_once plugin_dir_path( __FILE__ ) . '/inc/class-epsilon-color-scheme.php';
+if ( class_exists( 'Jetpack' ) && Jetpack::is_module_active( 'custom-content-types' ) ) {
+	$jetpack_portfolio = get_option( 'jetpack_portfolio' );
+	if ( $jetpack_portfolio ) {
+		require_once plugin_dir_path( __FILE__ ) . '/inc/shapely-metabox.php';
+	}
+}

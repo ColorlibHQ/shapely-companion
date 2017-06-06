@@ -17,7 +17,7 @@ class shapely_social_widget extends WP_Widget {
 
 	function widget( $args, $instance ) {
 		extract( $args );
-		$title = isset( $instance['title'] ) ? esc_html( $instance['title'] ) : esc_html__( 'Follow us', 'shapely' );
+		$title = isset( $instance['title'] ) ? wp_kses_post( $instance['title'] ) : esc_html__( 'Follow us', 'shapely' );
 
 		if ( ! function_exists( 'shapely_social_icons' ) ) {
 			echo __( 'This widget works only with Shapely theme. Please install and activate it first.', 'shapely' );
@@ -63,6 +63,13 @@ class shapely_social_widget extends WP_Widget {
 		</p>
 
 		<?php
+	}
+
+	public function update( $new_instance, $old_instance ) {
+		$instance          = array();
+		$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? wp_kses_post( $new_instance['title'] ) : '';
+
+		return $instance;
 	}
 
 }

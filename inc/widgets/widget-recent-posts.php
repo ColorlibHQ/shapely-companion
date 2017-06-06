@@ -9,7 +9,7 @@ class shapely_recent_posts extends WP_Widget {
 	function __construct() {
 
 		$widget_ops = array(
-			'classname'                   => 'shapely-recent-posts col-sm-12 text-center',
+			'classname'                   => 'shapely-recent-posts text-center',
 			'description'                 => esc_html__( "Widget to show recent posts with thumbnails", 'shapely' ),
 			'customize_selective_refresh' => true
 		);
@@ -18,7 +18,7 @@ class shapely_recent_posts extends WP_Widget {
 
 	function widget( $args, $instance ) {
 		extract( $args );
-		$title = isset( $instance['title'] ) ? $instance['title'] : esc_html__( 'recent Posts', 'shapely' );
+		$title = isset( $instance['title'] ) ? $instance['title'] : __( 'Recent Posts', 'shapely' );
 		$limit = isset( $instance['limit'] ) ? $instance['limit'] : 5;
 
 		echo $before_widget;
@@ -26,7 +26,7 @@ class shapely_recent_posts extends WP_Widget {
 		<section>
 			<?php
 			echo $before_title;
-			echo $title;
+			echo wp_kses_post($title);
 			echo $after_title;
 
 			/**
@@ -124,7 +124,7 @@ class shapely_recent_posts extends WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance          = array();
-		$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? esc_html( $new_instance['title'] ) : '';
+		$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? wp_kses_post( $new_instance['title'] ) : '';
 		$instance['limit'] = ( ! empty( $new_instance['limit'] ) && is_numeric( $new_instance['limit'] ) ) ? absint( $new_instance['limit'] ) : '';
 
 		return $instance;

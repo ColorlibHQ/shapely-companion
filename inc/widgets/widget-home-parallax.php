@@ -21,10 +21,13 @@ class shapely_home_parallax extends WP_Widget
         parent::__construct('shapely_home_parallax', esc_html__('[Shapely] Parralax Section For FrontPage', 'shapely'), $widget_ops);
     }
 
-    public function enqueue()
-    {
-        wp_enqueue_style('epsilon-styles', plugins_url('epsilon-framework/assets/css/style.css', dirname(__FILE__)));
-        wp_enqueue_script('epsilon-object', plugins_url('epsilon-framework/assets/js/epsilon.js', dirname(__FILE__)), array('jquery'));
+    public function enqueue() {
+
+        if ( is_admin() && ! is_customize_preview() ) {
+            wp_enqueue_style( 'epsilon-styles', get_template_directory_uri() . '/inc/libraries/epsilon-framework/assets/css/style.css' );
+            wp_enqueue_script( 'epsilon-object', get_template_directory_uri() . '/inc/libraries/epsilon-framework/assets/js/epsilon.js', array( 'jquery' ) );
+        }
+
     }
 
     function widget($args, $instance)
@@ -80,7 +83,7 @@ class shapely_home_parallax extends WP_Widget
                             <div class="<?php echo esc_attr($class2); ?>">
                                 <div class="<?php echo esc_attr($class3); ?>"><?php
                                     echo ($title != '') ? (($image_pos == 'background-full') || ($image_pos == 'background-small')) ? '<h1>' . wp_kses_post($title) . '</h1>' : '<h3>' . wp_kses_post($title) . '</h3>' : '';
-                                    echo ($body_content != '') ? '<p class="mb32">' . wp_kses_post($body_content) . '</p>' : '';
+                                    echo ($body_content != '') ? '<p class="mb32">' . do_shortcode(wp_kses_post($body_content)) . '</p>' : '';
                                     echo ($button2 != '' && $button2_link != '') ? '<a class="btn btn-lg btn-white" href="' . esc_url($button2_link) . '">' . wp_kses_post($button2) . '</a>' : '';
                                     echo ($button1 != '' && $button1_link != '') ? '<a class="btn btn-lg btn-filled" href="' . esc_url($button1_link) . '">' . wp_kses_post($button1) . '</a>' : ''; ?>
                                 </div>
@@ -257,12 +260,12 @@ class shapely_home_parallax extends WP_Widget
     public function update($new_instance, $old_instance)
     {
         $instance = array();
-        $instance['title'] = (!empty($new_instance['title'])) ? esc_html($new_instance['title']) : '';
+        $instance['title'] = (!empty($new_instance['title'])) ? wp_kses_post($new_instance['title']) : '';
         $instance['image_src'] = (!empty($new_instance['image_src'])) ? esc_url_raw($new_instance['image_src']) : '';
         $instance['image_pos'] = (!empty($new_instance['image_pos'])) ? esc_html($new_instance['image_pos']) : '';
         $instance['body_content'] = (!empty($new_instance['body_content'])) ? wp_kses_post($new_instance['body_content']) : '';
-        $instance['button1'] = (!empty($new_instance['button1'])) ? wp_kses_post($new_instance['button1']) : '';
-        $instance['button2'] = (!empty($new_instance['button2'])) ? wp_kses_post($new_instance['button2']) : '';
+        $instance['button1'] = (!empty($new_instance['button1'])) ? esc_html($new_instance['button1']) : '';
+        $instance['button2'] = (!empty($new_instance['button2'])) ? esc_html($new_instance['button2']) : '';
         $instance['button1_link'] = (!empty($new_instance['button1_link'])) ? esc_url_raw($new_instance['button1_link']) : '';
         $instance['button2_link'] = (!empty($new_instance['button2_link'])) ? esc_url_raw($new_instance['button2_link']) : '';
         $instance['border_bottom'] = (!empty($new_instance['border_bottom'])) ? esc_html($new_instance['border_bottom']) : '';

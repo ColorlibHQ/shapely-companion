@@ -34,7 +34,7 @@ class shapely_home_CFA extends WP_Widget {
 					<div class="col-sm-12 text-center p0">
 						<div class="overflow-hidden">
 							<div class="col-sm-9">
-								<h3 class="cfa-text"><?php echo esc_html( $title ); ?></h3>
+								<h3 class="cfa-text"><?php echo wp_kses_post( $title ); ?></h3>
 							</div>
 							<div class="col-sm-3">
 								<a href="<?php echo esc_url_raw( $button_link ); ?>"
@@ -106,8 +106,8 @@ class shapely_home_CFA extends WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance                = array();
-		$instance['title']       = ( ! empty( $new_instance['title'] ) ) ? esc_html( $new_instance['title'] ) : '';
-		$instance['button']      = ( ! empty( $new_instance['button'] ) ) ? wp_kses_post( $new_instance['button'] ) : '';
+		$instance['title']       = ( ! empty( $new_instance['title'] ) ) ? wp_kses_post( $new_instance['title'] ) : '';
+		$instance['button']      = ( ! empty( $new_instance['button'] ) ) ? esc_html( $new_instance['button'] ) : '';
 		$instance['button_link'] = ( ! empty( $new_instance['button_link'] ) ) ? esc_url_raw( $new_instance['button_link'] ) : '';
 
 		return $instance;

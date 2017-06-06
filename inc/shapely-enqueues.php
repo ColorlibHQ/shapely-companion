@@ -44,5 +44,5 @@ function shapely_customizer_enqueue_scripts() {
 	) );
 }
 
-add_action( 'customize_controls_enqueue_scripts', 'shapely_customizer_enqueue_scripts' );
-add_action( 'customize_preview_init', 'shapely_customize_previewer_js' );
+// add_action( 'customize_controls_enqueue_scripts', 'shapely_customizer_enqueue_scripts' );
+// add_action( 'customize_preview_init', 'shapely_customize_previewer_js' );

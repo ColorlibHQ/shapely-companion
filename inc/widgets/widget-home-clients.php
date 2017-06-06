@@ -34,7 +34,7 @@ class shapely_home_clients extends WP_Widget {
 				<div class="container">
 					<div class="row">
 						<div class="col-sm-12 text-center">
-							<h3 class="mb64 mb-xs-40"><?php echo esc_html( $title ); ?></h3>
+							<h3 class="mb64 mb-xs-40"><?php echo wp_kses_post( $title ); ?></h3>
 						</div>
 					</div>
 					<!--end of row-->
@@ -150,7 +150,7 @@ class shapely_home_clients extends WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance          = array();
-		$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? esc_html( $new_instance['title'] ) : '';
+		$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? wp_kses_post( $new_instance['title'] ) : '';
 
 		if ( isset( $new_instance['client_logo']['img'] ) && count( $new_instance['client_logo']['img'] ) != 0 ) {
 			for ( $i = 0; $i < count( $new_instance['client_logo']['img'] ); $i ++ ) {

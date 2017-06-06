@@ -44,8 +44,8 @@ class shapely_home_features extends WP_Widget {
 			<div class="container">
 				<div class="row">
 					<div class="col-sm-12 text-center">
-						<h3 class="mb16"><?php echo esc_html( $title[0] ); ?></h3>
-						<p class="mb64"><?php echo esc_html( $body_content[0] ); ?></p>
+						<h3 class="mb16"><?php echo wp_kses_post( $title[0] ); ?></h3>
+						<p class="mb64"><?php echo wp_kses_post( $body_content[0] ); ?></p>
 					</div>
 				</div>
 				<!--end of row-->
@@ -56,9 +56,9 @@ class shapely_home_features extends WP_Widget {
 							<div class="feature feature-1">
 								<div class="text-center">
 									<i class="<?php echo esc_attr( $icon[ $i ] ); ?>"></i>
-									<h4><?php echo esc_html( $title[ $i ] ); ?></h4>
+									<h4><?php echo wp_kses_post( $title[ $i ] ); ?></h4>
 								</div>
-								<p><?php echo esc_html( $body_content[ $i ] ); ?></p>
+								<p><?php echo wp_kses_post( $body_content[ $i ] ); ?></p>
 							</div>
 							<!--end of feature-->
 							</div><?php
@@ -187,12 +187,12 @@ class shapely_home_features extends WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance                 = array();
-		$instance['title']        = ( ! empty( $new_instance['title'] ) ) ? esc_html( $new_instance['title'] ) : '';
+		$instance['title']        = ( ! empty( $new_instance['title'] ) ) ? wp_kses_post( $new_instance['title'] ) : '';
 		$instance['body_content'] = ( ! empty( $new_instance['body_content'] ) ) ? wp_kses_post( $new_instance['body_content'] ) : '';
 
-		$instance['title1'] = ( ! empty( $new_instance['title1'] ) ) ? esc_html( $new_instance['title1'] ) : '';
-		$instance['title2'] = ( ! empty( $new_instance['title2'] ) ) ? esc_html( $new_instance['title2'] ) : '';
-		$instance['title3'] = ( ! empty( $new_instance['title3'] ) ) ? esc_html( $new_instance['title3'] ) : '';
+		$instance['title1'] = ( ! empty( $new_instance['title1'] ) ) ? wp_kses_post( $new_instance['title1'] ) : '';
+		$instance['title2'] = ( ! empty( $new_instance['title2'] ) ) ? wp_kses_post( $new_instance['title2'] ) : '';
+		$instance['title3'] = ( ! empty( $new_instance['title3'] ) ) ? wp_kses_post( $new_instance['title3'] ) : '';
 
 		$instance['body_content1'] = ( ! empty( $new_instance['body_content1'] ) ) ? wp_kses_post( $new_instance['body_content1'] ) : '';
 		$instance['body_content2'] = ( ! empty( $new_instance['body_content2'] ) ) ? wp_kses_post( $new_instance['body_content2'] ) : '';
