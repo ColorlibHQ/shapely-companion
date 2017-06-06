@@ -16,6 +16,8 @@ jQuery( document ).ready(function() {
 					currentButton.parent().parent().find( '.updated-message' ).show();
 					location.reload();
 				}
+
+
 			}
 
 
@@ -38,6 +40,8 @@ jQuery(function( $ ) {
 		frame: function() {
 			if ( this._frame ) {
 				return this._frame;
+
+
 			}
 
 			this._frame = wp.media({
@@ -51,6 +55,8 @@ jQuery(function( $ ) {
 			this._frame.on( 'open', this.updateFrame ).state( 'library' ).on( 'select', this.select );
 
 			return this._frame;
+
+
 		},
 
 
@@ -64,8 +70,10 @@ jQuery(function( $ ) {
 				attachment_id: id
 			};
 
-			if ( !selector.length ) {
+			if ( ! selector.length ) {
 				return false;
+
+
 			}
 
 			jQuery.post( shapelyCompanion.ajaxurl, data, function( response ) {
@@ -77,6 +85,8 @@ jQuery(function( $ ) {
 				}
 
 				selector.val( response ).change();
+
+
 			});
 
 
@@ -94,6 +104,8 @@ jQuery(function( $ ) {
 				mediaControl.container = container;
 				mediaControl.selector = '#' + id;
 				mediaControl.frame().open();
+
+
 			});
 
 			context.on( 'click', '.shapely-media-control > .remove-button', function( e ) {
@@ -105,12 +117,16 @@ jQuery(function( $ ) {
 				img.attr( 'src', '' );
 				span.text( '' );
 				sibling.val( '' ).trigger( 'change' );
+
+
 			});
+
+
 		}
 
 
 	};
-	
+
 
 	mediaControl.init();
 });
