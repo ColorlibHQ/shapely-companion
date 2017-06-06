@@ -1,35 +1,32 @@
-jQuery(document).ready(function () {
-    jQuery('#demo_content .button').click(function (evt) {
-        var currentButton = jQuery(this);
-        var ajaxData = {'action': 'shapely_companion_import_content', 'import': jQuery(this).data('action')};
+jQuery( document ).ready(function() {// jscs:ignore validateLineBreaks
+
+    jQuery( '#demo_content .button' ).click(function( evt ) {
+        var currentButton = jQuery( this );
+        var ajaxData = { 'action': 'shapely_companion_import_content', 'import': jQuery( this ).data( 'action' ) };
         evt.preventDefault();
-        jQuery(this).addClass('disabled');
-        jQuery(this).next('.spinner').addClass('is-active');
+        jQuery( this ).addClass( 'disabled' );
+        jQuery( this ).next( '.spinner' ).addClass( 'is-active' );
         jQuery.ajax({
             type: 'POST',
             data: ajaxData,
             url: shapelyCompanion.ajaxurl,
-            success: function (data) {
-                if ('succes' === data) {
-                    currentButton.removeClass('disabled');
-                    currentButton.next('.spinner').removeClass('is-active');
-                    currentButton.parent().parent().find('.updated-message').show();
+            success: function( data ) {
+                if ( 'succes' === data ) {
+                    currentButton.removeClass( 'disabled' );
+                    currentButton.next( '.spinner' ).removeClass( 'is-active' );
+                    currentButton.parent().parent().find( '.updated-message' ).show();
                     location.reload();
                 }
 
-
             }
-
 
         });
 
-
     });
-
 
 });
 
-jQuery(function ($) {
+jQuery(function( $ ) {
     var mediaControl = {
 
         // Initializes a new media manager or returns an existing frame.
@@ -37,10 +34,9 @@ jQuery(function ($) {
         selector: null,
         size: null,
         container: null,
-        frame: function () {
-            if (this._frame) {
+        frame: function() {
+            if ( this._frame ) {
                 return this._frame;
-
 
             }
 
@@ -52,81 +48,70 @@ jQuery(function ($) {
                 multiple: false
             });
 
-            this._frame.on('open', this.updateFrame).state('library').on('select', this.select);
+            this._frame.on( 'open', this.updateFrame ).state( 'library' ).on( 'select', this.select );
 
             return this._frame;
 
-
         },
 
-
-        select: function () {
+        select: function() {
 
             // Do something when the "update" button is clicked after a selection is made.
-            var id = $('.attachments').find('.selected').attr('data-id');
-            var selector = $('.shapely-media-control').find(mediaControl.selector);
+            var id = $( '.attachments' ).find( '.selected' ).attr( 'data-id' );
+            var selector = $( '.shapely-media-control' ).find( mediaControl.selector );
             var data = {
                 action: 'shapely_get_attachment_media',
                 attachment_id: id
             };
 
-            if (!selector.length) {
+            if ( ! selector.length ) {
                 return false;
-
 
             }
 
-            jQuery.post(shapelyCompanion.ajaxurl, data, function (response) {
-                var ext = response.substr(( response.lastIndexOf('.') + 1 ));
-                if ('mp4' === ext) {
-                    $(mediaControl.container).find('.video-path').text(response);
+            jQuery.post( shapelyCompanion.ajaxurl, data, function( response ) {
+                var ext = response.substr( ( response.lastIndexOf( '.' ) + 1 ) );
+                if ( 'mp4' === ext ) {
+                    $( mediaControl.container ).find( '.video-path' ).text( response );
                 } else {
-                    $(mediaControl.container).find('img').attr('src', response);
+                    $( mediaControl.container ).find( 'img' ).attr( 'src', response );
                 }
 
-                selector.val(response).change();
-
+                selector.val( response ).change();
 
             });
 
-
         },
 
-
-        init: function () {
-            var context = $('#wpbody, .wp-customizer');
-            context.on('click', '.shapely-media-control > .upload-button', function (e) {
-                var container = $(this).parent(),
-                    sibling = container.find('.image-id'),
-                    id = sibling.attr('id');
+        init: function() {
+            var context = $( '#wpbody, .wp-customizer' );
+            context.on( 'click', '.shapely-media-control > .upload-button', function( e ) {
+                var container = $( this ).parent(),
+                    sibling = container.find( '.image-id' ),
+                    id = sibling.attr( 'id' );
                 e.preventDefault();
-                mediaControl.size = $('[data-delegate="' + id + '"]').val();
+                mediaControl.size = $( '[data-delegate="' + id + '"]' ).val();
                 mediaControl.container = container;
                 mediaControl.selector = '#' + id;
                 mediaControl.frame().open();
 
-
             });
 
-            context.on('click', '.shapely-media-control > .remove-button', function (e) {
-                var container = $(this).parent(),
-                    sibling = container.find('.image-id'),
-                    img = container.find('img'),
-                    span = container.find('.video-path');
+            context.on( 'click', '.shapely-media-control > .remove-button', function( e ) {
+                var container = $( this ).parent(),
+                    sibling = container.find( '.image-id' ),
+                    img = container.find( 'img' ),
+                    span = container.find( '.video-path' );
                 e.preventDefault();
-                img.attr('src', '');
-                span.text('');
-                sibling.val('').trigger('change');
-
+                img.attr( 'src', '' );
+                span.text( '' );
+                sibling.val( '' ).trigger( 'change' );
 
             });
-
 
         }
 
-
     };
-
 
     mediaControl.init();
 });
