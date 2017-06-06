@@ -4,13 +4,12 @@ jQuery( document ).ready(function() {
 	jQuery( document ).on( 'widget-added', function() {
 		shapelySort();
 	});
-	jQuery(document).on( 'widget-updated', function() {
+	jQuery( document ).on( 'widget-updated', function() {
 		shapelySort();
 	});
 
-
 	shapelySort();
-	
+
 	/* Client widget sorting and cloning*/
 	/* Font awsome selector */
 	jQuery( 'select.shapely-icon' ).change(function() {
@@ -43,7 +42,7 @@ jQuery( document ).ready(function() {
 		/* Cloning */
 		jQuery( '.clone-wrapper' ).cloneya().on( 'after_append.cloneya after_delete.cloneya', function( toClone, newClone ) {
 			jQuery( '.client-sortable' ).trigger( 'sortupdate' );
-			jQuery(newClone).next( 'li' ).find( 'img' ).attr( 'src', '' );
+			jQuery( newClone ).next( 'li' ).find( 'img' ).attr( 'src', '' );
 		});
 	}
 });

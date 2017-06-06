@@ -1,10 +1,10 @@
 jQuery( document ).ready(function() {
 	jQuery( '#demo_content .button' ).click(function( evt ) {
 		var currentButton = jQuery( this );
+		var ajaxData = { 'action': 'shapely_companion_import_content', 'import': jQuery( this ).data( 'action' ) };
 		evt.preventDefault();
 		jQuery( this ).addClass( 'disabled' );
 		jQuery( this ).next( '.spinner' ).addClass( 'is-active' );
-		var ajaxData = { 'action': 'shapely_companion_import_content', 'import': jQuery( this ).data( 'action' ) };
 		jQuery.ajax({
 			type: 'POST',
 			data: ajaxData,
@@ -17,9 +17,14 @@ jQuery( document ).ready(function() {
 					location.reload();
 				}
 			}
+
+
 		});
 
+
 	});
+
+
 });
 
 jQuery(function( $ ) {
@@ -48,41 +53,43 @@ jQuery(function( $ ) {
 			return this._frame;
 		},
 
+
 		select: function() {
-			
+
 			// Do something when the "update" button is clicked after a selection is made.
 			var id = $( '.attachments' ).find( '.selected' ).attr( 'data-id' );
 			var selector = $( '.shapely-media-control' ).find( mediaControl.selector );
+			var data = {
+				action: 'shapely_get_attachment_media',
+				attachment_id: id
+			};
 
 			if ( !selector.length ) {
 				return false;
 			}
 
-			var data = {
-				action       : 'shapely_get_attachment_media',
-				attachment_id: id
-			};
-
-			jQuery.post(shapelyCompanion.ajaxurl, data, function(response) {
-				var ext = response.substr((response.lastIndexOf('.') + 1));
-				if ( ext === 'mp4' ) {
-					$(mediaControl.container).find( '.video-path' ).text( response );
+			jQuery.post( shapelyCompanion.ajaxurl, data, function( response ) {
+				var ext = response.substr( ( response.lastIndexOf( '.' ) + 1 ) );
+				if ( 'mp4' === ext ) {
+					$( mediaControl.container ).find( '.video-path' ).text( response );
 				} else {
-					$(mediaControl.container).find( 'img' ).attr( 'src', response );
+					$( mediaControl.container ).find( 'img' ).attr( 'src', response );
 				}
 
 				selector.val( response ).change();
 			});
+
+
 		},
+
 
 		init: function() {
 			var context = $( '#wpbody, .wp-customizer' );
 			context.on( 'click', '.shapely-media-control > .upload-button', function( e ) {
-				e.preventDefault();
 				var container = $( this ).parent(),
 						sibling = container.find( '.image-id' ),
 						id = sibling.attr( 'id' );
-
+				e.preventDefault();
 				mediaControl.size = $( '[data-delegate="' + id + '"]' ).val();
 				mediaControl.container = container;
 				mediaControl.selector = '#' + id;
@@ -90,18 +97,20 @@ jQuery(function( $ ) {
 			});
 
 			context.on( 'click', '.shapely-media-control > .remove-button', function( e ) {
-				e.preventDefault();
 				var container = $( this ).parent(),
 						sibling = container.find( '.image-id' ),
 						img = container.find( 'img' ),
 						span = container.find( '.video-path' );
-
+				e.preventDefault();
 				img.attr( 'src', '' );
 				span.text( '' );
 				sibling.val( '' ).trigger( 'change' );
 			});
 		}
+
+
 	};
+	
 
 	mediaControl.init();
 });
