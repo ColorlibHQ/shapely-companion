@@ -30,7 +30,18 @@ script:
 - jscs ./assets/js/*.js
 - grunt textdomain
 - "$PHPCS_DIR/scripts/phpcs -p -s -v -n ./*.php --standard=./phpcs.ruleset.xml --extensions=php"
-- "$PHPCS_DIR/scripts/phpcs -p -s -v -n ./**/*.php --standard=./phpcs.ruleset.xml --extensions=php"
+- "$PHPCS_DIR/scripts/phpcs -p -s -v -n ./**/*.php --standard=./phpcs.ruleset.xml
+  --extensions=php --ignore=./woocommerce/*.php,./node_modules/*.php"
+- "$PHPCS_DIR/scripts/phpcs -p -s -v -n ./**/**/*.php --standard=./phpcs.ruleset.xml
+  --extensions=php --ignore=./woocommerce/**/*.php,./inc/libraries/class-tgm-plugin-activation.php,./node_modules/**/*.php"
+- "$PHPCS_DIR/scripts/phpcs -p -s -v -n ./**/**/**/*.php --standard=./phpcs.ruleset.xml
+  --extensions=php --ignore=./woocommerce/**/**/*.php,./node_modules/**/**/*.php"
+- "$PHPCS_DIR/scripts/phpcs -p -s -v -n ./**/**/**/**/*.php --standard=./phpcs.ruleset.xml
+  --extensions=php --ignore=./node_modules/**/**/**/*.php"
+- "$PHPCS_DIR/scripts/phpcs -p -s -v -n ./**/**/**/**/**/*.php --standard=./phpcs.ruleset.xml
+  --extensions=php --ignore=./node_modules/**/**/**/**/*.php"
+notifications:
+  email: false
 cache:
   directories:
   - node_modules

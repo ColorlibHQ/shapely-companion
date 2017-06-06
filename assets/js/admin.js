@@ -1,3 +1,5 @@
+
+
 jQuery(document).ready(function () {
 	jQuery('#demo_content .button').click(function (evt) {
 		evt.preventDefault();
@@ -12,7 +14,7 @@ jQuery(document).ready(function () {
 			data   : ajaxData,
 			url    : shapelyCompanion.ajaxurl,
 			success: function (data) {
-				if ( data == 'succes' ) {
+				if ( data === 'succes' ) {
 					currentButton.removeClass('disabled');
 					currentButton.next('.spinner').removeClass('is-active');
 					currentButton.parent().parent().find('.updated-message').show();
@@ -25,7 +27,7 @@ jQuery(document).ready(function () {
 });
 
 jQuery(function ($) {
-	mediaControl = {
+	var mediaControl = {
 		// Initializes a new media manager or returns an existing frame.
 		// @see wp.media.featuredImage.frame()
 		selector : null,
@@ -63,9 +65,9 @@ jQuery(function ($) {
 				attachment_id: id
 			};
 
-			jQuery.post(ajaxurl, data, function (response) {
+			jQuery.post(shapelyCompanion.ajaxurl, data, function (response) {
 				var ext = response.substr((response.lastIndexOf('.') + 1));
-				if ( ext == 'mp4' ) {
+				if ( ext === 'mp4' ) {
 					$(mediaControl.container).find('.video-path').text(response);
 				} else {
 					$(mediaControl.container).find('img').attr('src', response);
@@ -99,7 +101,7 @@ jQuery(function ($) {
 				img.attr('src', '');
 				span.text('');
 				sibling.val('').trigger('change');
-			})
+			});
 		}
 	};
 
