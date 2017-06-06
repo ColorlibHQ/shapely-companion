@@ -17,6 +17,6 @@
   "globals": {
     "jQuery": false,
     "wp": false,
-    "shapelyCompanion": false,
+    "shapelyCompanion": false
   }
 }
