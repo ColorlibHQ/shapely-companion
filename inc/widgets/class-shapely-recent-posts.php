@@ -4,30 +4,29 @@
  * Shapely Top Posts Widget
  * Shapely Theme
  */
-class shapely_recent_posts extends WP_Widget {
+class Shapely_Recent_Posts extends WP_Widget {
 
 	function __construct() {
 
 		$widget_ops = array(
 			'classname'                   => 'shapely-recent-posts text-center',
-			'description'                 => esc_html__( "Widget to show recent posts with thumbnails", 'shapely' ),
-			'customize_selective_refresh' => true
+			'description'                 => esc_html__( 'Widget to show recent posts with thumbnails', 'shapely-companion' ),
+			'customize_selective_refresh' => true,
 		);
-		parent::__construct( 'shapely_recent_posts', esc_html__( '[Shapely] Recent Posts', 'shapely' ), $widget_ops );
+		parent::__construct( 'shapely_recent_posts', esc_html__( '[Shapely] Recent Posts', 'shapely-companion' ), $widget_ops );
 	}
 
 	function widget( $args, $instance ) {
-		extract( $args );
-		$title = isset( $instance['title'] ) ? $instance['title'] : __( 'Recent Posts', 'shapely' );
+		$title = isset( $instance['title'] ) ? $instance['title'] : __( 'Recent Posts', 'shapely-companion' );
 		$limit = isset( $instance['limit'] ) ? $instance['limit'] : 5;
 
-		echo $before_widget;
+		echo $args['before_widget'];
 		?>
 		<section>
 			<?php
-			echo $before_title;
-			echo wp_kses_post($title);
-			echo $after_title;
+			echo $args['before_title'];
+			echo wp_kses_post( $title );
+			echo $args['after_title'];
 
 			/**
 			 * Widget Content
@@ -41,11 +40,11 @@ class shapely_recent_posts extends WP_Widget {
 				$featured_args = array(
 					'posts_per_page'      => $limit,
 					'post_type'           => 'post',
-					'ignore_sticky_posts' => 1
+					'ignore_sticky_posts' => 1,
 				);
 
 				$featured_query    = new WP_Query( $featured_args );
-				$bootstrapColWidth = floor( 12 / $featured_query->post_count );
+				$bootstrap_col_width = floor( 12 / $featured_query->post_count );
 				if ( $featured_query->have_posts() ) : ?>
 
 					<ul class="link-list recent-posts"><?php
@@ -55,11 +54,11 @@ class shapely_recent_posts extends WP_Widget {
 						<?php if ( get_the_content() != '' ) : ?>
 
 							<!-- content -->
-							<li class="post-content col-sm-<?php echo esc_attr( $bootstrapColWidth ); ?>">
+							<li class="post-content col-sm-<?php echo esc_attr( $bootstrap_col_width ); ?>">
 								<a href="<?php echo esc_url( get_permalink() ); ?>">
 									<?php if ( has_post_thumbnail() ) {
 										the_post_thumbnail();
-									} ?>
+} ?>
 									<?php echo esc_html( get_the_title() ); ?>
 								</a>
 								<span class="date"><?php echo esc_html( get_the_date( 'd M , Y' ) ); ?></span>
@@ -78,13 +77,13 @@ class shapely_recent_posts extends WP_Widget {
 			</div> <!-- end posts wrapper -->
 		</section>
 		<?php
-		echo $after_widget;
+		echo $args['after_widget'];
 	}
 
 	function form( $instance ) {
 
 		if ( ! isset( $instance['title'] ) ) {
-			$instance['title'] = esc_html__( 'recent Posts', 'shapely' );
+			$instance['title'] = esc_html__( 'Recent Posts', 'shapely-companion' );
 		}
 		if ( ! isset( $instance['limit'] ) ) {
 			$instance['limit'] = 5;
@@ -92,21 +91,21 @@ class shapely_recent_posts extends WP_Widget {
 		?>
 
 		<p><label
-				for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title', 'shapely' ) ?></label>
+				for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title', 'shapely-companion' ) ?></label>
 
 			<input type="text" value="<?php echo esc_attr( $instance['title'] ); ?>"
-			       name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>"
-			       id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"
-			       class="widefat"/>
+				   name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>"
+				   id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"
+				   class="widefat"/>
 		</p>
 
 		<p><label
-				for="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>"><?php esc_html_e( 'Limit Posts Number', 'shapely' ) ?></label>
+				for="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>"><?php esc_html_e( 'Limit Posts Number', 'shapely-companion' ) ?></label>
 
 			<input type="text" value="<?php echo esc_attr( $instance['limit'] ); ?>"
-			       name="<?php echo esc_attr( $this->get_field_name( 'limit' ) ); ?>"
-			       id="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>"
-			       class="widefat"/>
+				   name="<?php echo esc_attr( $this->get_field_name( 'limit' ) ); ?>"
+				   id="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>"
+				   class="widefat"/>
 		</p>
 
 		<?php

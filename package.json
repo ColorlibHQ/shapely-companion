@@ -1,0 +1,15 @@
+{
+  "name": "shapely-companion",
+  "main": "Gruntfile.js",
+  "version": "1.1.4",
+  "homepage": "https://www.colorlib.com",
+  "author": "Colorlib",
+  "license": "GPL v3",
+  "repository": "https://github.com/giucu91/shapely-companion.git",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-checktextdomain": "^1.0.0",
+    "grunt-cli": "~0.1.13",
+    "load-grunt-tasks": "^3.3.0"
+  }
+}

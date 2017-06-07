@@ -23,19 +23,17 @@ define( 'SHAPELY_COMPANION', '1.0.5' );
  */
 require_once plugin_dir_path( __FILE__ ) . 'inc/epsilon-dashboard/class-epsilon-dashboard.php';
 
-if ( ! function_exists( 'shapely_companion_dashboard_widget' ) ) {
-	/**
-	 * The helper method to run the class
-	 *
-	 * @return Epsilon_Dashboard
-	 */
-	function shapely_companion_dashboard_widget() {
-		$epsilon_dashboard_args = array(
-			'widget_title' => esc_html__( 'Theme Listings', 'shapely-companion' ),
-			'feed_url'	=> array( 'https://colorlib.com/wp/feed/' )
-		);
-		return Epsilon_Dashboard::instance( $epsilon_dashboard_args );
-	}
+/**
+ * The helper method to run the class
+ *
+ * @return Epsilon_Dashboard
+ */
+function shapely_companion_dashboard_widget() {
+	$epsilon_dashboard_args = array(
+		'widget_title' => esc_html__( 'WordPress News', 'shapely-companion' ),
+		'feed_url'  => array( 'https://colorlib.com/wp/feed/' ),
+	);
+	return Epsilon_Dashboard::instance( $epsilon_dashboard_args );
 }
 
 shapely_companion_dashboard_widget();
@@ -50,6 +48,7 @@ require_once plugin_dir_path( __FILE__ ) . 'inc/shapely-widgets.php';
  */
 require_once plugin_dir_path( __FILE__ ) . '/inc/shapely-enqueues.php';
 
+
 /**
  * Load Helper
  */
@@ -59,13 +58,6 @@ require_once plugin_dir_path( __FILE__ ) . '/inc/shapely-helper.php';
  * Load Import Demo Content Functionality
  */
 require_once plugin_dir_path( __FILE__ ) . '/inc/shapely-demo-content.php';
-
-/**
- * WooCoomerce Support
- */
-if ( class_exists( 'WooCommerce' ) ) {
-	require_once plugin_dir_path( __FILE__ ) . '/inc/shapely-woo-setup.php';
-}
 
 /**
  * Load Metabox for Portfolio
