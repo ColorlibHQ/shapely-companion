@@ -20,6 +20,6 @@ function shapely_companion_admin_scripts( $hook ) {
 }
 
 function shapely_companion_customizer_live_preview() {
-	wp_enqueue_script( 'shapely-companion-previewer', plugins_url( 'assets/js/previewer.js', dirname( __FILE__ ) ), array( 'jquery','customize-preview' ), '', true );
+	wp_enqueue_script( 'shapely-companion-previewer', plugins_url( 'assets/js/previewer.js', dirname( __FILE__ ) ), array( 'jquery', 'customize-preview' ), '', true );
 }
 add_action( 'customize_preview_init', 'shapely_companion_customizer_live_preview' );
