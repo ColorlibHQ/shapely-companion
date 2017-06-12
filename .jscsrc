@@ -4,5 +4,6 @@
   "excludeFiles": [
     "**.min.js",
     "assets/js/vendor/*"
-  ]
+  ],
+  "maxErrors": Infinity
 }

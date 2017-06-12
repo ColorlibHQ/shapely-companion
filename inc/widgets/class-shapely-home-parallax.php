@@ -71,7 +71,7 @@ class Shapely_Home_Parallax extends WP_Widget {
 							<?php
 							if ( ( 'left' == $image_pos || 'top' == $image_pos ) && '' != $image_src ) { ?>
 							<div class="<?php echo esc_attr( $class6 ); ?>">
-								<img class="cast-shadow img-responsive" alt="<?php echo esc_attr( $title ); ?>"
+								<img class="img-responsive" alt="<?php echo esc_attr( $title ); ?>"
 									 src="<?php echo esc_url( $image_src ); ?>">
 								</div><?php
 							} ?>
@@ -88,7 +88,7 @@ class Shapely_Home_Parallax extends WP_Widget {
 							<?php
 							if ( ( 'right' == $image_pos || 'bottom' == $image_pos ) && '' != $image_src ) { ?>
 							<div class="<?php echo esc_attr( $class5 ); ?>">
-								<img class="cast-shadow img-responsive" alt="<?php echo esc_attr( $title ); ?>"
+								<img class="img-responsive" alt="<?php echo esc_attr( $title ); ?>"
 									 src="<?php echo esc_url( $image_src ); ?>">
 								</div><?php
 							} ?>
