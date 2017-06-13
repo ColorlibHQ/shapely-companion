@@ -136,6 +136,7 @@ if ( ! class_exists( 'Epsilon_Dashboard' ) ) {
 			$feed->init();
 			$feed->handle_content_type();
 			$items = $feed->get_items( 0, 5 );
+			$this->items = array();
 			foreach ( (array) $items as $item ) {
 				$this->items[] = array(
 					'title' => $item->get_title(),
@@ -143,7 +144,9 @@ if ( ! class_exists( 'Epsilon_Dashboard' ) ) {
 					'link'  => $item->get_permalink(),
 				);
 			}
-			wp_add_dashboard_widget( 'epsilon_dashboard', $this->dashboard_name, array( &$this, 'render_dashboard_widget' ) );
+			if ( ! empty( $this->items ) ) {
+				wp_add_dashboard_widget( 'epsilon_dashboard', $this->dashboard_name, array( &$this, 'render_dashboard_widget' ) );
+			}
 		}
 
 		/**
@@ -192,21 +195,23 @@ if ( ! class_exists( 'Epsilon_Dashboard' ) ) {
 			</style>
 			<ul>
 				<?php
-				foreach ( $this->items as $item ) {
-					$query_args = array(
-						'utm_campaign' => 'feed',
-						'utm_medium'   => 'dashboard_widget',
-					);
-					?>
-					<li class="epsilon-dw-feed-item">
-						<span class="epsilon-dw-date-container">
-							<span class="epsilon-dw-day-container"><?php echo date( 'd', $item['date'] ); ?></span> 
-							<span class="epsilon-dw-month-container"><?php echo substr( date( 'M', $item['date'] ), 0, 3 ); ?></span>
-						</span>
-						<a href="<?php echo add_query_arg( $query_args, $item['link'] ); ?>" target="_blank"><?php echo $item['title']; ?></a>
-						<div class="clear"></div>
-					</li>
-					<?php
+				if ( ! empty( $this->items ) ) {
+					foreach ( $this->items as $item ) {
+						$query_args = array(
+							'utm_campaign' => 'feed',
+							'utm_medium'   => 'dashboard_widget',
+						);
+						?>
+						<li class="epsilon-dw-feed-item">
+							<span class="epsilon-dw-date-container">
+								<span class="epsilon-dw-day-container"><?php echo date( 'd', $item['date'] ); ?></span> 
+								<span class="epsilon-dw-month-container"><?php echo substr( date( 'M', $item['date'] ), 0, 3 ); ?></span>
+							</span>
+							<a href="<?php echo add_query_arg( $query_args, $item['link'] ); ?>" target="_blank"><?php echo $item['title']; ?></a>
+							<div class="clear"></div>
+						</li>
+						<?php
+					}
 				}
 				?>
 			</ul>
