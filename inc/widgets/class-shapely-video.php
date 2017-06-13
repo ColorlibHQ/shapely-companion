@@ -8,9 +8,9 @@ class Shapely_Video extends WP_Widget {
 
 		$widget_ops = array(
 			'classname'   => 'shapely_video_widget',
-			'description' => esc_html__( 'Sparkling Video Section', 'shapely-companion' ),
+			'description' => esc_html__( 'Shapely Video Section', 'shapely-companion' ),
 		);
-		parent::__construct( 'shapely_video_widget', esc_html__( '[Sparkling] Video Section', 'shapely-companion' ), $widget_ops );
+		parent::__construct( 'shapely_video_widget', esc_html__( '[Shapely] Video Section', 'shapely-companion' ), $widget_ops );
 	}
 
 	public function enqueue() {
@@ -82,8 +82,9 @@ class Shapely_Video extends WP_Widget {
 			<div <?php echo ! empty( $instance['vimeo_id'] ) ? 'data-video-id="' . esc_attr( $instance['vimeo_id'] ) . '"' : '' ?>
 				data-autoplay="<?php echo ! empty( $instance['autoplay'] ) ? '1' : '0'; ?>"
 				data-mute="<?php echo ! empty( $instance['mute'] ) ? '1' : '0'; ?>"
-				class="video-widget vimeo">
-				<div id="shapely-<?php echo rand( 1000, 9999 ) ?>" class="vimeo-holder" <?php echo ( ! empty( $instance['video_height'] ) && empty( $instance['full_height'] ) ) ? 'style="height:' . esc_attr( $instance['video_height'] ) . 'px"' : ''; ?>></div>
+				class="video-widget vimeo"
+				<?php echo ( ! empty( $instance['video_height'] ) && empty( $instance['full_height'] ) ) ? 'style="height:' . esc_attr( $instance['video_height'] ) . 'px"' : ''; ?>>
+				<div id="shapely-<?php echo rand( 1000, 9999 ) ?>" class="vimeo-holder"></div>
 				<span class="video-controls">
 					<button class="play-button"><icon class="fa fa-play"></icon></button>
 					<button class="pause-button"><icon class="fa fa-pause"></icon></button>
