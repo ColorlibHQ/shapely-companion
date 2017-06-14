@@ -19,8 +19,9 @@
 				controlNav: false
 			});
 
-			$( '.parallax-window' ).parallax();
-
+			if ( $( '.parallax-window' ).length > 0 ) {
+				$( '.parallax-window' ).parallax();
+			}
 			if ( $( '.masonry' ).length && 'undefined' !== typeof Masonry ) {
 				container = document.querySelector( '.masonry' );
 				msnry = new Masonry( container, {
