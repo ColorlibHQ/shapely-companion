@@ -143,6 +143,7 @@ class Shapely_Home_Contact extends WP_Widget {
 		if ( ! isset( $instance['socialicons'] ) ) {
 			$instance['socialicons'] = '';
 		}
+		$placeholder_url = plugins_url( 'shapely-companion/assets/img/placeholder-image.jpg' );
 
 		?>
 
@@ -164,7 +165,7 @@ class Shapely_Home_Contact extends WP_Widget {
 		<p class="shapely-media-control" data-delegate-container="<?php echo esc_attr( $this->get_field_id( 'image_src' ) ) ?>">
 			<label for="<?php echo esc_attr( $this->get_field_id( 'image_src' ) ); ?>"><?php _e( 'Background image', 'shapely-companion' ); ?>:</label>
 
-			<img src="<?php echo esc_url( $instance['image_src'] ); ?>"/>
+			<img data-default="<?php echo $placeholder_url ?>" src="<?php echo '' != $instance['image_src'] ? esc_url( $instance['image_src'] ) : $placeholder_url ; ?>"/>
 
 			<input type="hidden"
 				   name="<?php echo esc_attr( $this->get_field_name( 'image_src' ) ); ?>"

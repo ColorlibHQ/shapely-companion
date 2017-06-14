@@ -133,6 +133,9 @@ class Shapely_Home_Parallax extends WP_Widget {
 		if ( ! isset( $instance['border_bottom'] ) ) {
 			$instance['border_bottom'] = '';
 		}
+
+		$placeholder_url = plugins_url( 'shapely-companion/assets/img/placeholder-image.jpg' );
+
 		?>
 
 		<p><label
@@ -150,7 +153,7 @@ class Shapely_Home_Parallax extends WP_Widget {
 				for="<?php echo esc_attr( $this->get_field_id( 'image_src' ) ); ?>"><?php _e( 'Image', 'shapely-companion' );
 				?>:</label>
 
-			<img src="<?php echo esc_url( $instance['image_src'] ); ?>"/>
+			<img data-default="<?php echo $placeholder_url ?>" src="<?php echo '' != $instance['image_src'] ? esc_url( $instance['image_src'] ) : $placeholder_url ; ?>"/>
 
 			<input type="hidden"
 				   name="<?php echo esc_attr( $this->get_field_name( 'image_src' ) ); ?>"

@@ -118,6 +118,8 @@ class Shapely_Video extends WP_Widget {
 		// Merge the user-selected arguments with the defaults.
 		$instance = wp_parse_args( (array) $instance, $defaults );
 
+		$placeholder_url = plugins_url( 'shapely-companion/assets/img/placeholder.jpg' );
+
 		// Loads the widget form.
 		?>
 
@@ -240,7 +242,7 @@ class Shapely_Video extends WP_Widget {
 				for="<?php echo esc_attr( $this->get_field_id( 'image_src' ) ); ?>"><?php _e( 'Placeholder: ', 'shapely-companion' );
 				?></label>
 
-	  <img style="display:block; width:100%" src="<?php echo esc_url( $instance['image_src'] ); ?>"/>
+	  <img data-default="<?php echo $placeholder_url; ?>" style="display:block; width:100%" src="<?php echo '' != $instance['image_src'] ? esc_url( $instance['image_src'] ) : $placeholder_url ; ?>"/>
 	  <input type="hidden"
 				   name="<?php echo esc_attr( $this->get_field_name( 'image_src' ) ); ?>"
 				   id="<?php echo esc_attr( $this->get_field_id( 'image_src' ) ); ?>"

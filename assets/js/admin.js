@@ -103,7 +103,7 @@ jQuery(function( $ ) {
                     img = container.find( 'img' ),
                     span = container.find( '.video-path' );
                 e.preventDefault();
-                img.attr( 'src', '' );
+                img.attr( 'src', img.attr( 'data-default' ) );
                 span.text( '' );
                 sibling.val( '' ).trigger( 'change' );
 

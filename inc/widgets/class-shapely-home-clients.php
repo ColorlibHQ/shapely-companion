@@ -100,6 +100,7 @@ class Shapely_Home_Clients extends WP_Widget {
 		$image_src    = $logos['img'];
 		$logo_link    = $logos['link'];
 		$slider_count = ( isset( $image_src ) && count( $image_src ) > 0 ) ? count( $image_src ) : 3;
+		$placeholder_url = plugins_url( 'shapely-companion/assets/img/placeholder_wide.jpg' );
 
 		for ( $i = 0; $i < $slider_count; $i ++ ) : ?>
 			<li class="toclone">
@@ -111,7 +112,7 @@ class Shapely_Home_Clients extends WP_Widget {
 						for="<?php echo esc_attr( $this->get_field_id( 'client_logo' ) . '-' . absint( $i ) ); ?>"><?php _e( 'Logo #', 'shapely-companion' );
 						?><span class="count"><?php echo absint( $i ) + 1; ?></span>:</label>
 
-					<img src="<?php echo ( isset( $image_src[ $i ] ) ) ? esc_url( $image_src[ $i ] ) : ''; ?>"/>
+					<img data-default="<?php echo $placeholder_url ?>" src="<?php echo ( isset( $image_src[ $i ] ) && '' != $image_src[ $i ] ) ? esc_url( $image_src[ $i ] ) : $placeholder_url; ?>"/>
 
 					<input type="hidden"
 						   name="<?php echo esc_attr( $this->get_field_name( 'client_logo' ) . '[img][' . $i . ']' ); ?>"

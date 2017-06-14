@@ -97,6 +97,7 @@ class Shapely_Home_Testimonials extends WP_Widget {
 		if ( ! isset( $instance['image_src'] ) ) {
 			$instance['image_src'] = '';
 		}
+		$placeholder_url = plugins_url( 'shapely-companion/assets/img/placeholder-image.jpg' );
 
 		?>
 
@@ -124,7 +125,7 @@ class Shapely_Home_Testimonials extends WP_Widget {
 				for="<?php echo esc_attr( $this->get_field_id( 'image_src' ) ); ?>"><?php _e( 'Background Parallax Image:', 'shapely-companion' );
 				?>:</label>
 
-			<img src="<?php echo esc_url( $instance['image_src'] ); ?>"/>
+			<img data-default="<?php echo $placeholder_url ?>" src="<?php echo '' != $instance['image_src'] ? esc_url( $instance['image_src'] ) : $placeholder_url ; ?>"/>
 
 			<input type="hidden"
 				   name="<?php echo esc_attr( $this->get_field_name( 'image_src' ) ); ?>"

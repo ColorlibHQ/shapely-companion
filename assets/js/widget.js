@@ -24,7 +24,7 @@ jQuery( document ).ready(function() {// jscs:ignore validateLineBreaks
             handle: '.logo_heading'
         })
             .bind( 'sortupdate', function() {
-                var index = 0;
+                var index = 0, img;
                 var attrname = jQuery( this ).find( 'input:first' ).attr( 'name' );
                 var attrbase = attrname.substring( 0, attrname.indexOf( '][' ) + 1 );
                 var attrid = jQuery( this ).find( 'input:first' ).attr( 'id' );
@@ -34,15 +34,16 @@ jQuery( document ).ready(function() {// jscs:ignore validateLineBreaks
                     jQuery( this ).find( '.count' ).html( index + 1 );
                     jQuery( this ).find( '.image-id' ).attr( 'id', attrbaseid + index ).attr( 'name', attrbase + '[client_logo][img]' + '[' + index + ']' );
                     jQuery( this ).find( '.shapely-media-control' ).attr( 'data-delegate-container', attrbaseid + index );
-                    jQuery( this ).find( '.client-link' ).attr( 'id', 'link-' + index ).attr( 'name', attrbase + '[client_logo][link]' + '[' + index + ']' ).trigger( 'change' );
+                    jQuery( this ).find( 'img' ).attr( 'id', 'link-' + index ).attr( 'name', attrbase + '[client_logo][link]' + '[' + index + ']' ).trigger( 'change' );
                     index++;
                 });
             });
 
         /* Cloning */
         jQuery( '.clone-wrapper' ).cloneya().on( 'after_append.cloneya after_delete.cloneya', function( toClone, newClone ) {
+            var img = jQuery( newClone ).next( 'li' ).find( 'img' );
             jQuery( '.client-sortable' ).trigger( 'sortupdate' );
-            jQuery( newClone ).next( 'li' ).find( 'img' ).attr( 'src', '' );
+            img.attr( 'src', img.attr( 'data-default' ) );
         });
 
     }
