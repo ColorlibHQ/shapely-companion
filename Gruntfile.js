@@ -1,7 +1,5 @@
 'use strict';
-
 module.exports = function( grunt ) {
-  // load all tasks
   require( 'load-grunt-tasks' )( grunt, { scope: 'devDependencies' } );
 
   grunt.config.init( {
@@ -10,7 +8,7 @@ module.exports = function( grunt ) {
       standard: {
         options: {
           text_domain: [ 'shapely-companion' ], //Specify allowed
-                                                         // domain(s)
+          // domain(s)
           create_report_file: 'true',
           keywords: [ //List keyword specifications
             '__:1,2d',
@@ -34,8 +32,74 @@ module.exports = function( grunt ) {
             src: [
               '**/*.php',
               '!**/node_modules/**'
-            ], //all php
+            ],
             expand: true
+          } ]
+      }
+    },
+
+    clean: {
+      init: {
+        src: [ 'build/' ]
+      },
+      build: {
+        src: [
+          'build/*',
+          '!build/<%= pkg.name %>.zip'
+        ]
+      }
+    },
+
+    copy: {
+      build: {
+        expand: true,
+        src: [
+          '**',
+          '!node_modules/**',
+          '!build/**',
+          '!readme.md',
+          '!README.md',
+          '!phpcs.ruleset.xml',
+          '!Gruntfile.js',
+          '!package.json',
+          '!set_tags.sh',
+          '!shapely.zip',
+          '!nbproject/**' ],
+        dest: 'build/'
+      }
+    },
+
+    compress: {
+      build: {
+        options: {
+          pretty: true,
+          archive: '<%= pkg.name %>.zip'
+        },
+        expand: true,
+        cwd: 'build/',
+        src: [ '**/*' ],
+        dest: '<%= pkg.name %>/'
+      }
+    },
+
+    imagemin: {
+      jpg: {
+        options: {
+          progressive: true
+        }
+      },
+      png: {
+        options: {
+          optimizationLevel: 7
+        }
+      },
+      dynamic: {
+        files: [
+          {
+            expand: true,
+            cwd: 'assets/img/',
+            src: [ '**/*.{png,jpg,gif}' ],
+            dest: 'assets/img/'
           } ]
       }
     }
@@ -47,4 +111,10 @@ module.exports = function( grunt ) {
     'checktextdomain'
   ] );
 
+  grunt.registerTask( 'build-archive', [
+    'clean:init',
+    'copy',
+    'compress:build',
+    'clean:init'
+  ] );
 };
