@@ -4,30 +4,29 @@
  * Homepage Call for Action section Widget
  * Shapely Theme
  */
-class shapely_home_CFA extends WP_Widget {
+class Shapely_Home_Call_For_Action extends WP_Widget {
 	function __construct() {
 
 		$widget_ops = array(
 			'classname'   => 'shapely_home_CFA',
-			'description' => esc_html__( "[Shapely] Call for Action Section", 'shapely' ),
-			'customize_selective_refresh' => true
+			'description' => esc_html__( '[Shapely] Call for Action Section', 'shapely-companion' ),
+			'customize_selective_refresh' => true,
 		);
-		parent::__construct( 'shapely_home_CFA', esc_html__( '[Shapely] Call for Action Section For FrontPage', 'shapely' ), $widget_ops );
+		parent::__construct( 'shapely_home_CFA', esc_html__( '[Shapely] Call for Action Section For FrontPage', 'shapely-companion' ), $widget_ops );
 	}
 
 	function widget( $args, $instance ) {
-		extract( $args );
 		$title       = isset( $instance['title'] ) ? $instance['title'] : '';
 		$button      = isset( $instance['button'] ) ? $instance['button'] : '';
 		$button_link = isset( $instance['button_link'] ) ? $instance['button_link'] : '';
 
-		echo $before_widget;
+		echo $args['before_widget'];
 
 		/**
 		 * Widget Content
 		 */
 		?>
-		<?php if ( $title != '' ): ?>
+		<?php if ( '' != $title ) : ?>
 			<section class="cfa-section bg-secondary">
 			<div class="container">
 				<div class="row">
@@ -50,7 +49,7 @@ class shapely_home_CFA extends WP_Widget {
 			</section><?php
 		endif;
 
-		echo $after_widget;
+		echo $args['after_widget'];
 	}
 
 
@@ -67,30 +66,30 @@ class shapely_home_CFA extends WP_Widget {
 		?>
 
 		<p><label
-				for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Callout Text ', 'shapely' ) ?></label>
+				for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Callout Text ', 'shapely-companion' ) ?></label>
 
 			<input type="text" value="<?php echo esc_attr( $instance['title'] ); ?>"
-			       name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>"
-			       id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"
-			       class="widefat"/>
+				   name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>"
+				   id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"
+				   class="widefat"/>
 		</p>
 
 		<p><label
-				for="<?php echo esc_attr( $this->get_field_id( 'button' ) ); ?>"><?php esc_html_e( 'Button Text ', 'shapely' ) ?></label>
+				for="<?php echo esc_attr( $this->get_field_id( 'button' ) ); ?>"><?php esc_html_e( 'Button Text ', 'shapely-companion' ) ?></label>
 
 			<input type="text" value="<?php echo esc_attr( $instance['button'] ); ?>"
-			       name="<?php echo esc_attr( $this->get_field_name( 'button' ) ); ?>"
-			       id="<?php echo esc_attr( $this->get_field_id( 'button' ) ); ?>"
-			       class="widefat"/>
+				   name="<?php echo esc_attr( $this->get_field_name( 'button' ) ); ?>"
+				   id="<?php echo esc_attr( $this->get_field_id( 'button' ) ); ?>"
+				   class="widefat"/>
 		</p>
 
 		<p><label
-			for="<?php echo esc_attr( $this->get_field_id( 'button_link' ) ); ?>"><?php esc_html_e( 'Button Link ', 'shapely' ) ?></label>
+			for="<?php echo esc_attr( $this->get_field_id( 'button_link' ) ); ?>"><?php esc_html_e( 'Button Link ', 'shapely-companion' ) ?></label>
 
 		<input type="text" value="<?php echo esc_url( $instance['button_link'] ); ?>"
-		       name="<?php echo esc_attr( $this->get_field_name( 'button_link' ) ); ?>"
-		       id="<?php echo esc_attr( $this->get_field_id( 'button_link' ) ); ?>"
-		       class="widefat"/>
+			   name="<?php echo esc_attr( $this->get_field_name( 'button_link' ) ); ?>"
+			   id="<?php echo esc_attr( $this->get_field_id( 'button_link' ) ); ?>"
+			   class="widefat"/>
 		</p><?php
 	}
 

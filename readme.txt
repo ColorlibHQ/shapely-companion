@@ -2,8 +2,8 @@
 Contributors: colorlibplugins, silkalns
 Tags: woocommerce, widgets, plugin, demo, companion, home page, one page, parallax, social, portfolio, projects
 Requires at least: 3.8
-Tested up to: 4.7
-Stable tag: 1.0.5
+Tested up to: 4.8
+Stable tag: 1.0.6
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -51,6 +51,12 @@ Currently it works only with Shapely theme.
 You can still use Shapely theme without this plugin but you won't be able to import demo content and use theme specific widgets that you see on front page of theme demo.
 
 == Changelog ==
+
+= 1.0.6 =
+* Added Vimeo for Video Widget
+* Changed images' path from demo importer.
+* Fixed PHP error that occurs with lower PHP Versions.
+* Integrated with Travis
 
 = 1.0.5 =
 * Updated demo content importer

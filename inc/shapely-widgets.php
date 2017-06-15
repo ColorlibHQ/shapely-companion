@@ -21,25 +21,25 @@ function shapely_companion_widgets_init() {
 		'home-testimonials',
 		'recent-posts',
 		'social',
-		'video'
+		'video',
 	);
 
 	foreach ( $widgets as $widget ) {
-		require_once plugin_dir_path( __FILE__ ) . '/widgets/widget-' . $widget . '.php';
+		require_once plugin_dir_path( __FILE__ ) . '/widgets/class-shapely-' . $widget . '.php';
 	}
 
-	register_widget( 'shapely_recent_posts' );
-	register_widget( 'shapely_categories' );
-	register_widget( 'shapely_home_parallax' );
-	register_widget( 'shapely_home_parallax' );
-	register_widget( 'shapely_home_features' );
-	register_widget( 'shapely_home_CFA' );
-	register_widget( 'shapely_home_clients' );
-	register_widget( 'shapely_video' );
-	register_widget( 'shapely_home_contact' );
+	register_widget( 'Shapely_Recent_Posts' );
+	register_widget( 'Shapely_Categories' );
+	register_widget( 'Shapely_Home_Parallax' );
+	register_widget( 'Shapely_Home_Features' );
+	register_widget( 'Shapely_Home_Call_For_Action' );
+	register_widget( 'Shapely_Home_Clients' );
+	register_widget( 'Shapely_Video' );
+	register_widget( 'Shapely_Home_Contact' );
+	register_widget( 'Shapely_Social' );
 
 	if ( defined( 'JETPACK__VERSION' ) ) {
-		register_widget( 'shapely_home_testimonial' );
-		register_widget( 'shapely_home_portfolio' );
+		register_widget( 'Shapely_Home_Testimonials' );
+		register_widget( 'Shapely_Home_Portfolio' );
 	}
 }
