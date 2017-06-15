@@ -51,4 +51,4 @@ deploy:
   file: shapely-companion.zip
   on:
     branch: master
-    repo: puikinsh/shapely
+    repo: puikinsh/shapely-companion
