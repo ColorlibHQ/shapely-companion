@@ -44,15 +44,6 @@ script:
 - if [[ "$SNIFF" == "1" ]]; then $PHPCS_DIR/scripts/phpcs -p -s -v -n ./**/**/*.php
   --standard=./phpcs.ruleset.xml --extensions=php --ignore=./node_modules/**/*.php;
   fi
-- if [[ "$SNIFF" == "1" ]]; then $PHPCS_DIR/scripts/phpcs -p -s -v -n ./**/**/**/*.php
-  --standard=./phpcs.ruleset.xml --extensions=php --ignore=./node_modules/**/**/*.php;
-  fi
-- if [[ "$SNIFF" == "1" ]]; then $PHPCS_DIR/scripts/phpcs -p -s -v -n ./**/**/**/**/*.php
-  --standard=./phpcs.ruleset.xml --extensions=php --ignore=./node_modules/**/**/**/*.php;
-  fi
-- if [[ "$SNIFF" == "1" ]]; then $PHPCS_DIR/scripts/phpcs -p -s -v -n ./**/**/**/**/**/*.php
-  --standard=./phpcs.ruleset.xml --extensions=php --ignore=./node_modules/**/**/**/**/*.php;
-  fi
 notifications:
   email: false
 cache:
