@@ -30,7 +30,7 @@ require_once plugin_dir_path( __FILE__ ) . 'inc/epsilon-dashboard/class-epsilon-
  */
 function shapely_companion_dashboard_widget() {
 	$epsilon_dashboard_args = array(
-		'widget_title' => esc_html__( 'WordPress News', 'shapely-companion' ),
+		'widget_title' => esc_html__( 'From our blog', 'shapely-companion' ),
 		'feed_url'  => array( 'https://colorlib.com/wp/feed/' ),
 	);
 	return Epsilon_Dashboard::instance( $epsilon_dashboard_args );
