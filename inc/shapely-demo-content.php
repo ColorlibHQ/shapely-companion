@@ -36,8 +36,23 @@ function shapely_companion_add_default_widgets() {
 				$widgets = get_option( 'widget_' . $widget_name );
 				#check if current index exist in array
 				if ( ! isset( $widgets[ $index_widget ] ) ) {
+
+					#check if a contact form 7 exist.
+					if ( false !== strpos( $id_widget, 'shapely_home_contact' ) ) {
+						$cf_args = array(
+							'post_type' => 'wpcf7_contact_form',
+							'post_status' => 'publish',
+							'fields' => 'ids',
+						);
+						$cf7 = get_posts( $cf_args );
+						if ( ! empty( $cf7 ) && isset( $cf7[0] ) ) {
+							$args->contactform = $cf7[0];
+						}
+					}
+
 					#add current widget with his index and args
 					$widgets[ $index_widget ] = get_object_vars( $args );
+					
 				}
 				#update widgets who are like current widget
 				update_option( 'widget_' . $widget_name, $widgets );
