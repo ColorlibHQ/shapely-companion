@@ -78,7 +78,7 @@ if ( 'Shapely' == $current_theme->get( 'Name' ) || ( $current_parent && 'Shapely
 	add_action( 'admin_notices', 'shapely_companion_admin_notice', 99 );
 	function shapely_companion_admin_notice() { ?>
 		<div class="notice-warning notice">
-			<p><?php printf( __( 'In order to use the <strong>Shapely Companion</strong> plugin you have to also install the %sShapely Theme%s', 'shapely' ), '<a href="https://wordpress.org/themes/shapely/" target="_blank">', '</a>' ) ?></p>
+			<p><?php printf( __( 'In order to use the <strong>Shapely Companion</strong> plugin you have to also install the %sShapely Theme%s', 'shapely-companion' ), '<a href="https://wordpress.org/themes/shapely/" target="_blank">', '</a>' ) ?></p>
 		</div>
 		<?php
 	}
