@@ -3,7 +3,7 @@
  * Plugin Name:       Shapely Companion
  * Plugin URI:        https://colorlib.com/wp/themes/shapely/
  * Description:       Shapely Companion is a companion plugin for Shapely theme.
- * Version:           1.0.6
+ * Version:           1.0.7
  * Author:            Colorlib
  * Author URI:        https://colorlib.com
  * License:           GPL-2.0+
@@ -16,7 +16,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-define( 'SHAPELY_COMPANION', '1.0.6' );
+define( 'SHAPELY_COMPANION', '1.0.7' );
 
 /**
  * Load the Dashboard Widget
@@ -30,7 +30,7 @@ require_once plugin_dir_path( __FILE__ ) . 'inc/epsilon-dashboard/class-epsilon-
  */
 function shapely_companion_dashboard_widget() {
 	$epsilon_dashboard_args = array(
-		'widget_title' => esc_html__( 'WordPress News', 'shapely-companion' ),
+		'widget_title' => esc_html__( 'From our blog', 'shapely-companion' ),
 		'feed_url'  => array( 'https://colorlib.com/wp/feed/' ),
 	);
 	return Epsilon_Dashboard::instance( $epsilon_dashboard_args );
@@ -38,33 +38,51 @@ function shapely_companion_dashboard_widget() {
 
 shapely_companion_dashboard_widget();
 
-/**
- * Load the Widgets
- */
-require_once plugin_dir_path( __FILE__ ) . 'inc/shapely-widgets.php';
+$current_theme = wp_get_theme();
+$current_parent = $current_theme->parent();
 
-/**
- * Load Enqueues
- */
-require_once plugin_dir_path( __FILE__ ) . '/inc/shapely-enqueues.php';
+if ( 'Shapely' == $current_theme->get( 'Name' ) || ( $current_parent && 'Shapely' == $current_parent->get( 'Name' ) ) ) {
+	
+	/**
+	 * Load the Widgets
+	 */
+	require_once plugin_dir_path( __FILE__ ) . 'inc/shapely-widgets.php';
+
+	/**
+	 * Load Enqueues
+	 */
+	require_once plugin_dir_path( __FILE__ ) . '/inc/shapely-enqueues.php';
 
 
-/**
- * Load Helper
- */
-require_once plugin_dir_path( __FILE__ ) . '/inc/shapely-helper.php';
+	/**
+	 * Load Helper
+	 */
+	require_once plugin_dir_path( __FILE__ ) . '/inc/shapely-helper.php';
 
-/**
- * Load Import Demo Content Functionality
- */
-require_once plugin_dir_path( __FILE__ ) . '/inc/shapely-demo-content.php';
+	/**
+	 * Load Import Demo Content Functionality
+	 */
+	require_once plugin_dir_path( __FILE__ ) . '/inc/shapely-demo-content.php';
 
-/**
- * Load Metabox for Portfolio
- */
-if ( class_exists( 'Jetpack' ) && Jetpack::is_module_active( 'custom-content-types' ) ) {
-	$jetpack_portfolio = get_option( 'jetpack_portfolio' );
-	if ( $jetpack_portfolio ) {
-		require_once plugin_dir_path( __FILE__ ) . '/inc/shapely-metabox.php';
+	/**
+	 * Load Metabox for Portfolio
+	 */
+	if ( class_exists( 'Jetpack' ) && Jetpack::is_module_active( 'custom-content-types' ) ) {
+		$jetpack_portfolio = get_option( 'jetpack_portfolio' );
+		if ( $jetpack_portfolio ) {
+			require_once plugin_dir_path( __FILE__ ) . '/inc/shapely-metabox.php';
+		}
 	}
+
+}else{
+	add_action( 'admin_notices', 'shapely_companion_admin_notice', 99 );
+	function shapely_companion_admin_notice() { ?>
+		<div class="notice-warning notice">
+			<p><?php printf( __( 'In order to use the <strong>Shapely Companion</strong> plugin you have to also install the %sShapely Theme%s', 'shapely-companion' ), '<a href="https://wordpress.org/themes/shapely/" target="_blank">', '</a>' ) ?></p>
+		</div>
+		<?php
+	}
+
 }
+
+

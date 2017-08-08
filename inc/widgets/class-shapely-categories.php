@@ -44,7 +44,7 @@ class Shapely_Categories extends WP_Widget {
 
 			<ul class="category-list"><?php
 
-										$args = array(
+										$categories_args = array(
 											'echo'       => 0,
 											'show_count' => (int) $limit,
 											'title_li'   => '',
@@ -54,7 +54,7 @@ class Shapely_Categories extends WP_Widget {
 											'number'     => $limit,
 										);
 
-									  $variable = wp_list_categories( $args );
+									  $variable = wp_list_categories( $categories_args );
 
 									  if ( 'on' == $enable_count ) {
 															  $variable = str_replace( '(', '<span>', $variable );
