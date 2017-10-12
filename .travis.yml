@@ -49,3 +49,15 @@ notifications:
 cache:
   directories:
   - node_modules
+after_success:
+- grunt build-archive
+- sh set_tags.sh
+deploy:
+  provider: releases
+  skip_cleanup: true
+  api_key:
+    secure: EMQ9rD9t7ErWFGZRaV5yrbvMDTFbb2UEFvEGxm395yIayyu3Zf7TXmGZvwOP3PDqrxGrsU92k+5cuv09R1uqejVFz+CcUcZzPjxQacU3L7UKoC34uTu20bVU3z1sSXaJilwySDGp3UQ39SdN3fm6/OYJBwWtsYEeAqPHhKPECxpke8UsEAdMguBHjSmn373QBhCgI2Hpq8OmyRsZKWYcGvBgQiEbqu7OE4AU3KEkZZZroIZzQLYNBApb3qnZhTAg80epJEw8wEejfZLBu7TvbWNnj3xD2km4DQ3hKHQRj6VYJ473Zlc6c1/ybEDBF7hyP+Iv0Ve3EePS/OoOrmPpoxkgNDnXWdJDj9Tz2Y1zI0hcxzggMIv5FsVaOUNAMpV+6d7d+k0Joe6S6MUX+jWPk6LNpyiEwK/D4FXx3KV9irtyAj6bkq+vowXiChZDN0Q72W4n8IugHHytUtpOY8sQyd5+ngKvnWHIG/sx/nPTXNlDrPUUjWGGwZPGcQ+FOje4ogzsn9gXBB7gzhmOxGDLNxOedIr9IBu5zE/U4WzjC5lv2yYiT/nAWS2e8/T+RWwwR+e8Kgsq4SA6C3R4mDD1lyC29B4EtenolKbEveeSBbyefsJfQ72nWGad3+s6QPeSQdwYVI5FsVu482XsSRiDxKU5yLx38IvPN5SQeXGW6cs=
+  file: shapely-companion.zip
+  on:
+    branch: master
+    repo: puikinsh/shapely-companion
