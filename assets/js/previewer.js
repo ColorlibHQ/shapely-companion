@@ -19,7 +19,7 @@
 				controlNav: false
 			});
 
-			if ( 'function' === typeof $( '.parallax-window' ).parallax ) {
+			if ( 'function' == typeof $( '.parallax-window' ).parallax ) {
 				$( '.parallax-window' ).parallax();
 			}
 			if ( $( '.masonry' ).length && 'undefined' !== typeof Masonry ) {

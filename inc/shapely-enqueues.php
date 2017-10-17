@@ -13,7 +13,8 @@ function shapely_companion_admin_scripts( $hook ) {
 	if ( 'widgets.php' == $hook  || 'customize.php' == $hook ) {
 		wp_enqueue_media();
 		wp_enqueue_script( 'shapely_cloneya_js', plugins_url( 'assets/js/vendor/jquery-cloneya.min.js', dirname( __FILE__ ) ), array( 'jquery' ) );
-		wp_enqueue_script( 'widget-js', plugins_url( 'assets/js/widget.js', dirname( __FILE__ ) ), array( 'media-upload' ), '1.0', true );
+		wp_enqueue_style( 'wp-color-picker' );
+		wp_enqueue_script( 'widget-js', plugins_url( 'assets/js/widget.js', dirname( __FILE__ ) ), array( 'media-upload', 'wp-color-picker' ), '1.0', true );
 		// Add Font Awesome stylesheet
 		wp_enqueue_style( 'font-awesome', get_template_directory_uri() . '/assets/css/font-awesome.min.css' );
 	}

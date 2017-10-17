@@ -17,7 +17,7 @@ function shapely_companion_add_default_widgets() {
 	# Parse config
 	foreach ( $config as $sidebar => $elemements ) {
 		# verify if the sidebar doesn't have ny widgets
-		if ( false === strpos( $sidebar, 'orphaned_widgets' ) && ! is_active_sidebar( $sidebar ) ) {
+		if ( false === strpos( $sidebar, 'orphaned_widgets' ) && ! is_active_sidebar( $sidebar )  ) {
 			# create an empty array for active widgets
 			$this_sidebar_active_widgets = array();
 			# parse all widgets for current sidebar
