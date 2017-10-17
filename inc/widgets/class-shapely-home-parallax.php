@@ -29,6 +29,15 @@ class Shapely_Home_Parallax extends WP_Widget {
 	}
 
 	function widget( $args, $instance ) {
+		$allowed_tags = wp_kses_allowed_html( 'post' );
+		$allowed_tags['iframe'] = array(
+			'width' => array(),
+			'height' => array(),
+			'src' => array(),
+			'frameborder' => array(),
+			'allowfullscreen' => array(),
+		);
+
 		$title = isset( $instance['title'] ) ? $instance['title'] : '';
 		$image_src = isset( $instance['image_src'] ) ? $instance['image_src'] : '';
 		$image_pos = isset( $instance['image_pos'] ) ? $instance['image_pos'] : esc_html__( 'left', 'shapely-companion' );
@@ -79,7 +88,11 @@ class Shapely_Home_Parallax extends WP_Widget {
 							<div class="<?php echo esc_attr( $class2 ); ?>">
 								<div class="<?php echo esc_attr( $class3 ); ?>"><?php
 									echo ('' != $title) ? (('background-full' == $image_pos) || ('background-small' == $image_pos)) ? '<h1>' . wp_kses_post( $title ) . '</h1>' : '<h3>' . wp_kses_post( $title ) . '</h3>' : '';
-									echo ('' != $body_content) ? '<p class="mb32">' . do_shortcode( wp_kses_post( $body_content ) ) . '</p>' : '';
+									if ( '' != $body_content ) {
+										echo '<div class="mb32">';
+										echo apply_filters( 'the_content', wp_kses( $body_content, $allowed_tags ) );
+										echo '</div>';
+									}
 									echo ('' != $button2 && '' != $button2_link) ? '<a class="btn btn-lg btn-white" href="' . esc_url( $button2_link ) . '">' . wp_kses_post( $button2 ) . '</a>' : '';
 									echo ('' != $button1 && '' != $button1_link) ? '<a class="btn btn-lg btn-filled" href="' . esc_url( $button1_link ) . '">' . wp_kses_post( $button1 ) . '</a>' : ''; ?>
 								</div>
@@ -106,6 +119,15 @@ class Shapely_Home_Parallax extends WP_Widget {
 
 
 	function form( $instance ) {
+		$allowed_tags = wp_kses_allowed_html( 'post' );
+		$allowed_tags['iframe'] = array(
+			'width' => array(),
+			'height' => array(),
+			'src' => array(),
+			'frameborder' => array(),
+			'allowfullscreen' => array(),
+		);
+
 		if ( ! isset( $instance['title'] ) ) {
 			$instance['title'] = '';
 		}
@@ -170,7 +192,7 @@ class Shapely_Home_Parallax extends WP_Widget {
 
 			<textarea name="<?php echo esc_attr( $this->get_field_name( 'body_content' ) ); ?>"
 					  id="<?php echo esc_attr( $this->get_field_id( 'body_content' ) ); ?>"
-					  class="widefat"><?php echo esc_attr( $instance['body_content'] ); ?></textarea>
+					  class="widefat"><?php echo wp_kses( $instance['body_content'], $allowed_tags ); ?></textarea>
 		</p>
 
 		<p><label
@@ -257,10 +279,18 @@ class Shapely_Home_Parallax extends WP_Widget {
 	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance = array();
+		$allowed_tags = wp_kses_allowed_html( 'post' );
+		$allowed_tags['iframe'] = array(
+			'width' => array(),
+			'height' => array(),
+			'src' => array(),
+			'frameborder' => array(),
+			'allowfullscreen' => array(),
+		);
 		$instance['title'] = ( ! empty( $new_instance['title'] )) ? wp_kses_post( $new_instance['title'] ) : '';
 		$instance['image_src'] = ( ! empty( $new_instance['image_src'] )) ? esc_url_raw( $new_instance['image_src'] ) : '';
 		$instance['image_pos'] = ( ! empty( $new_instance['image_pos'] )) ? esc_html( $new_instance['image_pos'] ) : '';
-		$instance['body_content'] = ( ! empty( $new_instance['body_content'] )) ? wp_kses_post( $new_instance['body_content'] ) : '';
+		$instance['body_content'] = ( ! empty( $new_instance['body_content'] )) ? wp_kses( $new_instance['body_content'], $allowed_tags ) : '';
 		$instance['button1'] = ( ! empty( $new_instance['button1'] )) ? esc_html( $new_instance['button1'] ) : '';
 		$instance['button2'] = ( ! empty( $new_instance['button2'] )) ? esc_html( $new_instance['button2'] ) : '';
 		$instance['button1_link'] = ( ! empty( $new_instance['button1_link'] )) ? esc_url_raw( $new_instance['button1_link'] ) : '';
