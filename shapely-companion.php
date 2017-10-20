@@ -65,6 +65,11 @@ if ( 'Shapely' == $current_theme->get( 'Name' ) || ( $current_parent && 'Shapely
 	require_once plugin_dir_path( __FILE__ ) . '/inc/shapely-demo-content.php';
 
 	/**
+	 * Load Nav Menu Functionality
+	 */
+	require_once plugin_dir_path( __FILE__ ) . '/inc/shapely-navmenu.php';
+
+	/**
 	 * Load Metabox for Portfolio
 	 */
 	if ( class_exists( 'Jetpack' ) && Jetpack::is_module_active( 'custom-content-types' ) ) {

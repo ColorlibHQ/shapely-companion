@@ -18,6 +18,11 @@ function shapely_companion_admin_scripts( $hook ) {
 		// Add Font Awesome stylesheet
 		wp_enqueue_style( 'font-awesome', get_template_directory_uri() . '/assets/css/font-awesome.min.css' );
 	}
+
+	if ( 'nav-menus.php' == $hook ) {
+		wp_enqueue_script( 'shapley-nav-menu-js', plugins_url( 'assets/js/nav-menu.js', dirname( __FILE__ ) ), array( 'nav-menu' ), '1.0', true );
+	}
+
 }
 
 function shapely_companion_customizer_live_preview() {
