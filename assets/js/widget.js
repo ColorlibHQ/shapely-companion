@@ -51,7 +51,6 @@ jQuery( document ).ready(function() {// jscs:ignore validateLineBreaks
 
     }
 
-
     function shapelyCreateColorPicker() {
         var colorPickers = jQuery( '.shapely-color-picker' );
         if ( colorPickers.length > 0 ) {
