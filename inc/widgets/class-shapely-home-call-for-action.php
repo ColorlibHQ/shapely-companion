@@ -46,7 +46,8 @@ class Shapely_Home_Call_For_Action extends WP_Widget {
 				<!--end of row-->
 			</div>
 			<!--end of container-->
-			</section><?php
+			</section>
+			<?php
 		endif;
 
 		echo $args['after_widget'];
@@ -66,7 +67,7 @@ class Shapely_Home_Call_For_Action extends WP_Widget {
 		?>
 
 		<p><label
-				for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Callout Text ', 'shapely-companion' ) ?></label>
+				for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Callout Text ', 'shapely-companion' ); ?></label>
 
 			<input type="text" value="<?php echo esc_attr( $instance['title'] ); ?>"
 				   name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>"
@@ -75,7 +76,7 @@ class Shapely_Home_Call_For_Action extends WP_Widget {
 		</p>
 
 		<p><label
-				for="<?php echo esc_attr( $this->get_field_id( 'button' ) ); ?>"><?php esc_html_e( 'Button Text ', 'shapely-companion' ) ?></label>
+				for="<?php echo esc_attr( $this->get_field_id( 'button' ) ); ?>"><?php esc_html_e( 'Button Text ', 'shapely-companion' ); ?></label>
 
 			<input type="text" value="<?php echo esc_attr( $instance['button'] ); ?>"
 				   name="<?php echo esc_attr( $this->get_field_name( 'button' ) ); ?>"
@@ -84,7 +85,7 @@ class Shapely_Home_Call_For_Action extends WP_Widget {
 		</p>
 
 		<p><label
-			for="<?php echo esc_attr( $this->get_field_id( 'button_link' ) ); ?>"><?php esc_html_e( 'Button Link ', 'shapely-companion' ) ?></label>
+			for="<?php echo esc_attr( $this->get_field_id( 'button_link' ) ); ?>"><?php esc_html_e( 'Button Link ', 'shapely-companion' ); ?></label>
 
 		<input type="text" value="<?php echo esc_url( $instance['button_link'] ); ?>"
 			   name="<?php echo esc_attr( $this->get_field_name( 'button_link' ) ); ?>"

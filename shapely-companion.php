@@ -42,7 +42,7 @@ $current_theme = wp_get_theme();
 $current_parent = $current_theme->parent();
 
 if ( 'Shapely' == $current_theme->get( 'Name' ) || ( $current_parent && 'Shapely' == $current_parent->get( 'Name' ) ) ) {
-	
+
 	/**
 	 * Load the Widgets
 	 */
@@ -78,16 +78,15 @@ if ( 'Shapely' == $current_theme->get( 'Name' ) || ( $current_parent && 'Shapely
 			require_once plugin_dir_path( __FILE__ ) . '/inc/shapely-metabox.php';
 		}
 	}
-
-}else{
+} else {
 	add_action( 'admin_notices', 'shapely_companion_admin_notice', 99 );
-	function shapely_companion_admin_notice() { ?>
+	function shapely_companion_admin_notice() {
+	?>
 		<div class="notice-warning notice">
-			<p><?php printf( __( 'In order to use the <strong>Shapely Companion</strong> plugin you have to also install the %sShapely Theme%s', 'shapely' ), '<a href="https://wordpress.org/themes/shapely/" target="_blank">', '</a>' ) ?></p>
+			<p><?php printf( __( 'In order to use the <strong>Shapely Companion</strong> plugin you have to also install the %1$sShapely Theme%2$s', 'shapely' ), '<a href="https://wordpress.org/themes/shapely/" target="_blank">', '</a>' ); ?></p>
 		</div>
 		<?php
 	}
-
 }
 
 

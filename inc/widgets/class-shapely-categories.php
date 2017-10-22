@@ -42,7 +42,8 @@ class Shapely_Categories extends WP_Widget {
 		?>
 		<div class="cats-widget nolist">
 
-			<ul class="category-list"><?php
+			<ul class="category-list">
+			<?php
 
 										$categories_args = array(
 											'echo'       => 0,
@@ -56,15 +57,16 @@ class Shapely_Categories extends WP_Widget {
 
 									  $variable = wp_list_categories( $categories_args );
 
-									  if ( 'on' == $enable_count ) {
-															  $variable = str_replace( '(', '<span>', $variable );
-															  $variable = str_replace( ')', '</span>', $variable );
-										} else {
-											$pattern  = '/\([0-9]+\)/';
-											$variable = preg_replace( $pattern, '', $variable );
-										}
+			if ( 'on' == $enable_count ) {
+									$variable = str_replace( '(', '<span>', $variable );
+									$variable = str_replace( ')', '</span>', $variable );
+			} else {
+				$pattern  = '/\([0-9]+\)/';
+				$variable = preg_replace( $pattern, '', $variable );
+			}
 
-										echo $variable; ?>
+										echo $variable;
+										?>
 			</ul>
 
 		</div><!-- end widget content -->
@@ -88,7 +90,7 @@ class Shapely_Categories extends WP_Widget {
 
 		?>
 
-		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php esc_html_e( 'Title ', 'shapely-companion' ) ?></label>
+		<p><label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php esc_html_e( 'Title ', 'shapely-companion' ); ?></label>
 
 			<input type="text" value="<?php echo esc_attr( $instance['title'] ); ?>"
 				   name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>"
@@ -97,7 +99,7 @@ class Shapely_Categories extends WP_Widget {
 		</p>
 
 		<p><label
-				for="<?php echo $this->get_field_id( 'limit' ); ?>"> <?php esc_html_e( 'Limit Categories ', 'shapely-companion' ) ?></label>
+				for="<?php echo $this->get_field_id( 'limit' ); ?>"> <?php esc_html_e( 'Limit Categories ', 'shapely-companion' ); ?></label>
 
 			<input type="text" value="<?php echo esc_attr( $instance['limit'] ); ?>"
 				   name="<?php echo esc_attr( $this->get_field_name( 'limit' ) ); ?>"

@@ -27,7 +27,7 @@ class Shapely_Home_Portfolio extends WP_Widget {
 			'textcolor' => '#ffffff',
 			'postsnumber' => 10,
 		);
-		
+
 		$instance = wp_parse_args( $instance, $defaults );
 
 		if ( post_type_exists( 'jetpack-portfolio' ) ) {
@@ -38,11 +38,11 @@ class Shapely_Home_Portfolio extends WP_Widget {
 			 * Widget Content
 			 */
 			?>
-			<section class="projects pb0" style="background-color:<?php echo esc_attr( $instance['backgroundcolor'] ) ?>">
+			<section class="projects pb0" style="background-color:<?php echo esc_attr( $instance['backgroundcolor'] ); ?>">
 				<div class="container">
 					<div class="col-sm-12 text-center">
-						<h3 class="mb32" style="color:<?php echo esc_attr( $instance['textcolor'] ) ?>"><?php echo wp_kses_post( $instance['title'] ); ?></h3>
-						<p class="mb40" style="color:<?php echo esc_attr( $instance['textcolor'] ) ?>"><?php echo wp_kses_post( $instance['body_content'] ); ?></p>
+						<h3 class="mb32" style="color:<?php echo esc_attr( $instance['textcolor'] ); ?>"><?php echo wp_kses_post( $instance['title'] ); ?></h3>
+						<p class="mb40" style="color:<?php echo esc_attr( $instance['textcolor'] ); ?>"><?php echo wp_kses_post( $instance['body_content'] ); ?></p>
 					</div>
 				</div>
 				<?php
@@ -55,20 +55,22 @@ class Shapely_Home_Portfolio extends WP_Widget {
 
 				$portfolio_query = new WP_Query( $portfolio_args );
 
-				if ( $portfolio_query->have_posts() ) : ?>
+				if ( $portfolio_query->have_posts() ) :
+				?>
 
 					<div class="row masonry-loader fixed-center fadeOut">
 						<div class="col-sm-12 text-center">
 							<div class="spinner"></div>
 						</div>
 					</div>
-					<?php if ( '1' != $instance['fullwidth'] ): ?>
+					<?php if ( '1' != $instance['fullwidth'] ) : ?>
 						<div class="container">
 					<?php endif ?>
-					<div class="row fadeIn<?php echo $instance['mansonry'] ? ' masonry masonryFlyIn' : '' ?>">
+					<div class="row fadeIn<?php echo $instance['mansonry'] ? ' masonry masonryFlyIn' : ''; ?>">
 					<?php
 
-					while ( $portfolio_query->have_posts() ) : $portfolio_query->the_post();
+					while ( $portfolio_query->have_posts() ) :
+						$portfolio_query->the_post();
 
 						if ( has_post_thumbnail() ) {
 
@@ -90,32 +92,37 @@ class Shapely_Home_Portfolio extends WP_Widget {
 							$project_types = wp_get_post_terms( get_the_ID(), 'jetpack-portfolio-type', $args_projects );
 
 							?>
-							<div class="col-md-3 col-sm-6 project fadeIn<?php echo $instance['mansonry'] ? ' masonry-item' : '' ?>">
-								<div class="image-tile inner-title hover-reveal text-center" style="<?php echo $item_style ?>">
+							<div class="col-md-3 col-sm-6 project fadeIn<?php echo $instance['mansonry'] ? ' masonry-item' : ''; ?>">
+								<div class="image-tile inner-title hover-reveal text-center" style="<?php echo $item_style; ?>">
 									<a href="<?php echo esc_url( $permalink ); ?>" title="<?php the_title_attribute(); ?>">
 									<?php
 									if ( $instance['mansonry'] ) {
 										the_post_thumbnail( 'medium' );
 									}
 									?>
-										<div class="title"><?php
+										<div class="title">
+										<?php
 											the_title( '<h5 class="mb0">', '</h5>' );
 										if ( ! empty( $project_types ) ) {
 											echo '<span>' . implode( ' / ', $project_types ) . '</span>';
-										} ?>
+										}
+										?>
 										</div>
 									</a>
 								</div>
-							</div><?php
+							</div>
+							<?php
 						}
-					endwhile; ?>
+					endwhile;
+					?>
 					</div>
-					<?php if ( '1' != $instance['fullwidth'] ): ?>
+					<?php if ( '1' != $instance['fullwidth'] ) : ?>
 						</div>
 					<?php endif ?>
 					<?php
 				endif;
-				wp_reset_postdata(); ?>
+				wp_reset_postdata();
+				?>
 			</section>
 
 
@@ -137,25 +144,25 @@ class Shapely_Home_Portfolio extends WP_Widget {
 			'textcolor' => '#ffffff',
 			'postsnumber' => 10,
 		);
-		
+
 		$instance = wp_parse_args( $instance, $defaults );
 
 		?>
 
 		<p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php esc_html_e( 'Title ', 'shapely-companion' ) ?></label>
+			<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php esc_html_e( 'Title ', 'shapely-companion' ); ?></label>
 			<input type="text" value="<?php echo esc_attr( $instance['title'] ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" class="widefat"/>
 		</p>
 
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'body_content' ) ); ?>"><?php esc_html_e( 'Content ', 'shapely-companion' ) ?></label>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'body_content' ) ); ?>"><?php esc_html_e( 'Content ', 'shapely-companion' ); ?></label>
 			<textarea name="<?php echo esc_attr( $this->get_field_name( 'body_content' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'body_content' ) ); ?>" class="widefat">
 				<?php echo wp_kses_post( $instance['body_content'] ); ?>
 			</textarea>
 		</p>
 
 		<p>
-			<label for="<?php echo $this->get_field_id( 'postsnumber' ); ?>"><?php esc_html_e( 'Number of Projects ', 'shapely-companion' ) ?></label>
+			<label for="<?php echo $this->get_field_id( 'postsnumber' ); ?>"><?php esc_html_e( 'Number of Projects ', 'shapely-companion' ); ?></label>
 			<input type="text" value="<?php echo esc_attr( $instance['postsnumber'] ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'postsnumber' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'postsnumber' ) ); ?>" class="widefat"/>
 		</p>
 
@@ -188,11 +195,11 @@ class Shapely_Home_Portfolio extends WP_Widget {
 		</div>
 
 		<p>
-			<label for="<?php echo $this->get_field_id( 'backgroundcolor' ); ?>"><?php esc_html_e( 'Background Color ', 'shapely-companion' ) ?></label><br>
+			<label for="<?php echo $this->get_field_id( 'backgroundcolor' ); ?>"><?php esc_html_e( 'Background Color ', 'shapely-companion' ); ?></label><br>
 			<input type="text" value="<?php echo esc_attr( $instance['backgroundcolor'] ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'backgroundcolor' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'backgroundcolor' ) ); ?>" class="widefat shapely-color-picker"/>
 		</p>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'textcolor' ); ?>"><?php esc_html_e( 'Text Color ', 'shapely-companion' ) ?></label><br>
+			<label for="<?php echo $this->get_field_id( 'textcolor' ); ?>"><?php esc_html_e( 'Text Color ', 'shapely-companion' ); ?></label><br>
 			<input type="text" value="<?php echo esc_attr( $instance['textcolor'] ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'textcolor' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'textcolor' ) ); ?>" class="widefat shapely-color-picker"/>
 		</p>
 

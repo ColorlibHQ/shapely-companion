@@ -39,17 +39,21 @@ class Shapely_Home_Clients extends WP_Widget {
 					<!--end of row-->
 					<div class="row">
 						<div class="logo-carousel">
-							<ul class="slides"><?php
+							<ul class="slides">
+							<?php
 							for ( $i = 0; $i < count( $logos['img'] ); $i ++ ) {
-								if ( '' != $logos['img'] && '' != $logos['link'] ) { ?>
+								if ( '' != $logos['img'] && '' != $logos['link'] ) {
+								?>
 										<li>
 										<a href="<?php echo esc_url_raw( $logos['link'][ $i ] ); ?>">
 											<img alt="<?php _e( 'Logos', 'shapely-companion' ); ?>"
 												 src="<?php echo esc_url_raw( $logos['img'][ $i ] ); ?>"/>
 										</a>
-										</li><?php
+										</li>
+										<?php
 								}
-							} ?>
+							}
+							?>
 							</ul>
 						</div>
 						<!--end of logo slider-->
@@ -88,7 +92,7 @@ class Shapely_Home_Clients extends WP_Widget {
 		?>
 
 		<p><label
-				for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title ', 'shapely-companion' ) ?></label>
+				for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title ', 'shapely-companion' ); ?></label>
 
 			<input type="text" value="<?php echo esc_attr( $instance['title'] ); ?>"
 				   name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>"
@@ -96,23 +100,28 @@ class Shapely_Home_Clients extends WP_Widget {
 				   class="widefat"/>
 		</p>
 
-		<ul class="client-sortable clone-wrapper"><?php
+		<ul class="client-sortable clone-wrapper">
+		<?php
 		$image_src    = $logos['img'];
 		$logo_link    = $logos['link'];
 		$slider_count = ( isset( $image_src ) && count( $image_src ) > 0 ) ? count( $image_src ) : 3;
 		$placeholder_url = plugins_url( 'shapely-companion/assets/img/placeholder_wide.jpg' );
 
-		for ( $i = 0; $i < $slider_count; $i ++ ) : ?>
+		for ( $i = 0; $i < $slider_count; $i ++ ) :
+		?>
 			<li class="toclone">
 				<br>
 				<p class="shapely-media-control"
-				   data-delegate-container="<?php echo esc_attr( $this->get_field_id( 'client_logo' ) . '-' . absint( $i ) ) ?>">
+				   data-delegate-container="<?php echo esc_attr( $this->get_field_id( 'client_logo' ) . '-' . absint( $i ) ); ?>">
 					<label
 						class="logo_heading"
-						for="<?php echo esc_attr( $this->get_field_id( 'client_logo' ) . '-' . absint( $i ) ); ?>"><?php _e( 'Logo #', 'shapely-companion' );
-						?><span class="count"><?php echo absint( $i ) + 1; ?></span>:</label>
+						for="<?php echo esc_attr( $this->get_field_id( 'client_logo' ) . '-' . absint( $i ) ); ?>">
+										<?php
+										_e( 'Logo #', 'shapely-companion' );
+						?>
+						<span class="count"><?php echo absint( $i ) + 1; ?></span>:</label>
 
-					<img data-default="<?php echo $placeholder_url ?>" src="<?php echo ( isset( $image_src[ $i ] ) && '' != $image_src[ $i ] ) ? esc_url( $image_src[ $i ] ) : $placeholder_url; ?>"/>
+					<img data-default="<?php echo $placeholder_url; ?>" src="<?php echo ( isset( $image_src[ $i ] ) && '' != $image_src[ $i ] ) ? esc_url( $image_src[ $i ] ) : $placeholder_url; ?>"/>
 
 					<input type="hidden"
 						   name="<?php echo esc_attr( $this->get_field_name( 'client_logo' ) . '[img][' . $i . ']' ); ?>"

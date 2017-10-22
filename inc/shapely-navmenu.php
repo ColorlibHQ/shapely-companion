@@ -3,10 +3,10 @@
 /**
  * Load the Nav Walker Edit
  */
-require_once plugin_dir_path( __FILE__ ) . 'class-shapley-walker-nav-menu-edit.php';
+require_once plugin_dir_path( __FILE__ ) . 'class-shapely-walker-nav-menu-edit.php';
 add_filter( 'wp_edit_nav_menu_walker', 'shapely_walker_nav_menu_edit', 10 );
 
-function shapely_walker_nav_menu_edit(){
+function shapely_walker_nav_menu_edit() {
 	return 'Shapely_Walker_Nav_Menu_Edit';
 }
 
@@ -43,7 +43,7 @@ function shapely_nav_menu_item_link_meta_box() {
 						$current_id = str_replace( $widget_id . '-', '', $widget );
 						if ( isset( $widgets_name[ $widget_id ][ $current_id ] ) && isset( $widgets_name[ $widget_id ][ $current_id ]['title'] ) && '' != $widgets_name[ $widget_id ][ $current_id ]['title'] ) {
 							$title = $widgets_name[ $widget_id ][ $current_id ]['title'];
-						}else{
+						} else {
 							$title = $widget;
 						}
 
@@ -65,7 +65,7 @@ function shapely_nav_menu_item_link_meta_box() {
 
 		<p class="button-controls wp-clearfix">
 			<span class="add-to-menu">
-				<input type="submit"<?php wp_nav_menu_disabled_check( $nav_menu_selected_id ); ?> class="button submit-add-to-menu right" value="<?php esc_attr_e('Add to Menu'); ?>" name="add-shapely-section-menu-item" id="submit-shapelysection" />
+				<input type="submit"<?php wp_nav_menu_disabled_check( $nav_menu_selected_id ); ?> class="button submit-add-to-menu right" value="<?php esc_attr_e( 'Add to Menu' ); ?>" name="add-shapely-section-menu-item" id="submit-shapelysection" />
 				<span class="spinner"></span>
 			</span>
 		</p>
@@ -89,7 +89,6 @@ function shapely_update_menu_item( $menu_id, $menu_item_db_id, $args ) {
 			if ( isset( $menu_item['menu-item-widget'] ) ) {
 				update_post_meta( $menu_item_db_id, '_menu_item_widget', sanitize_text_field( $menu_item['menu-item-widget'] ) );
 			}
-
 		}
 	}
 
