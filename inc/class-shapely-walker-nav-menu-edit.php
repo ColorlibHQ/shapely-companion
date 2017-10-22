@@ -74,7 +74,7 @@ class Shapely_Walker_Nav_Menu_Edit extends Walker_Nav_Menu {
 		if ( 0 == $depth ) {
 			$submenu_text = 'style="display: none;"';
 		}
-		$move_up_url = echo wp_nonce_url( add_query_arg(
+		$move_up_url = wp_nonce_url( add_query_arg(
 			array(
 				'action'    => 'move-up-menu-item',
 				'menu-item' => $item_id,
@@ -101,11 +101,11 @@ class Shapely_Walker_Nav_Menu_Edit extends Walker_Nav_Menu {
 					</span> <span class="item-controls">
 						<span class="item-type"><?php echo esc_html( $item->type_label ); ?></span>
 						<span class="item-order hide-if-js">
-							<a href="<?php $move_up_url; ?>" class="item-move-up" aria-label="<?php esc_attr_e( 'Move up', 'shapely-companion' ); ?>">&#8593;</a>
+							<a href="<?php echo $move_up_url; ?>" class="item-move-up" aria-label="<?php esc_attr_e( 'Move up', 'shapely-companion' ); ?>">&#8593;</a>
 							|
 							<a href="<?php echo $move_down_url; ?>" class="item-move-down" aria-label="<?php esc_attr_e( 'Move down', 'shapely-companion' ); ?>">&#8595;</a>
 						</span>
-						<a class="item-edit" id="edit-<?php echo $item_id; ?>" href="<?php echo ( isset( $_GET['edit-menu-item'] ) && $item_id == $_GET['edit-menu-item'] ) ? admin_url( 'nav-menus.php' ) : add_query_arg( 'edit-menu-item', $item_id, remove_query_arg( $removed_args, admin_url( 'nav-menus.php#menu-item-settings-' . $item_id ) ) ); ?>" aria-label="<?php esc_attr_e( 'Edit menu item' ); ?>"><span class="screen-reader-text"><?php _e( 'Edit', 'shapely-companion' ); ?></span></a>
+						<a class="item-edit" id="edit-<?php echo $item_id; ?>" href="<?php echo ( isset( $_GET['edit-menu-item'] ) && $item_id == $_GET['edit-menu-item'] ) ? admin_url( 'nav-menus.php' ) : add_query_arg( 'edit-menu-item', $item_id, remove_query_arg( $removed_args, admin_url( 'nav-menus.php#menu-item-settings-' . $item_id ) ) ); ?>" aria-label="<?php esc_attr_e( 'Edit menu item', 'shapely-companion' ); ?>"><span class="screen-reader-text"><?php _e( 'Edit', 'shapely-companion' ); ?></span></a>
 					</span>
 			</div>
 		</div>
@@ -153,7 +153,7 @@ class Shapely_Walker_Nav_Menu_Edit extends Walker_Nav_Menu {
 				<label for="edit-menu-item-description-<?php echo $item_id; ?>">
 					<?php _e( 'Description', 'shapely-companion' ); ?><br/>
 					<textarea id="edit-menu-item-description-<?php echo $item_id; ?>" class="widefat edit-menu-item-description" rows="3" cols="20" name="menu-item-description[<?php echo $item_id; ?>]"><?php echo esc_html( $item->description ); ?></textarea>
-					<span class="description"><?php _e( 'The description will be displayed in the menu if the current theme supports it.' ); ?></span>
+					<span class="description"><?php _e( 'The description will be displayed in the menu if the current theme supports it.', 'shapely-companion' ); ?></span>
 				</label>
 			</p>
 

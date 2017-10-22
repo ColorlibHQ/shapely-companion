@@ -11,7 +11,7 @@ function shapely_walker_nav_menu_edit() {
 }
 
 function shapely_nav_menu_setup() {
-	add_meta_box( 'shapely-homepage-sections', __( 'Homepage Sections' ), 'shapely_nav_menu_item_link_meta_box', 'nav-menus', 'side', 'default' );
+	add_meta_box( 'shapely-homepage-sections', __( 'Homepage Sections', 'shapely-companion' ), 'shapely_nav_menu_item_link_meta_box', 'nav-menus', 'side', 'default' );
 }
 
 add_action( 'admin_head-nav-menus.php', 'shapely_nav_menu_setup' );
@@ -24,9 +24,9 @@ function shapely_nav_menu_item_link_meta_box() {
 	<div class="customlinkdiv" id="shapelysectionsdiv">
 		<input type="hidden" value="custom" name="menu-item[<?php echo $_nav_menu_placeholder; ?>][menu-item-type]" />
 		<p id="menu-item-url-wrap" class="wp-clearfix">
-			<label class="howto" for="custom-menu-item-url"><?php _e( 'Section' ); ?></label>
+			<label class="howto" for="custom-menu-item-url"><?php _e( 'Section', 'shapely-companion' ); ?></label>
 			<select id="shapely-section-item-widget" name="menu-item[<?php echo $_nav_menu_placeholder; ?>][menu-item-url]" type="text" class="code menu-item-textbox">
-				<option value="0"><?php _e( 'Select a Section' ); ?></option>
+				<option value="0"><?php _e( 'Select a Section', 'shapely-companion' ); ?></option>
 				<?php
 
 				if ( is_active_sidebar( 'sidebar-home' ) ) {
@@ -55,17 +55,17 @@ function shapely_nav_menu_item_link_meta_box() {
 			</select>
 		</p>
 		<p id="menu-item-name-wrap" class="wp-clearfix">
-			<label class="howto" for="custom-menu-item-name"><?php _e( 'URL' ); ?></label>
+			<label class="howto" for="custom-menu-item-name"><?php _e( 'URL', 'shapely-companion' ); ?></label>
 			<input id="shapely-section-item-url" name="menu-item[<?php echo $_nav_menu_placeholder; ?>][menu-item-url]" type="text" class="regular-text menu-item-textbox" />
 		</p>
 		<p id="menu-item-name-wrap" class="wp-clearfix">
-			<label class="howto" for="custom-menu-item-name"><?php _e( 'Label' ); ?></label>
+			<label class="howto" for="custom-menu-item-name"><?php _e( 'Label', 'shapely-companion' ); ?></label>
 			<input id="shapely-section-item-name" name="menu-item[<?php echo $_nav_menu_placeholder; ?>][menu-item-title]" type="text" class="regular-text menu-item-textbox" />
 		</p>
 
 		<p class="button-controls wp-clearfix">
 			<span class="add-to-menu">
-				<input type="submit"<?php wp_nav_menu_disabled_check( $nav_menu_selected_id ); ?> class="button submit-add-to-menu right" value="<?php esc_attr_e( 'Add to Menu' ); ?>" name="add-shapely-section-menu-item" id="submit-shapelysection" />
+				<input type="submit"<?php wp_nav_menu_disabled_check( $nav_menu_selected_id ); ?> class="button submit-add-to-menu right" value="<?php esc_attr_e( 'Add to Menu', 'shapely-companion' ); ?>" name="add-shapely-section-menu-item" id="submit-shapelysection" />
 				<span class="spinner"></span>
 			</span>
 		</p>
