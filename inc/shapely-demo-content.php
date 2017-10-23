@@ -52,7 +52,7 @@ function shapely_companion_add_default_widgets() {
 
 					#add current widget with his index and args
 					$widgets[ $index_widget ] = get_object_vars( $args );
-					
+
 				}
 				#update widgets who are like current widget
 				update_option( 'widget_' . $widget_name, $widgets );
@@ -74,16 +74,20 @@ function shapely_companion_import_content() {
 			$frontpage_title = __( 'Front Page', 'shapely-companion' );
 			$blog_title      = __( 'Blog', 'shapely-companion' );
 
-			$frontpage_id = wp_insert_post( array(
-				'post_title'  => $frontpage_title,
-				'post_status' => 'publish',
-				'post_type'   => 'page',
-			) );
-			$blog_id      = wp_insert_post( array(
-				'post_title'  => $blog_title,
-				'post_status' => 'publish',
-				'post_type'   => 'page',
-			) );
+			$frontpage_id = wp_insert_post(
+				array(
+					'post_title'  => $frontpage_title,
+					'post_status' => 'publish',
+					'post_type'   => 'page',
+				)
+			);
+			$blog_id      = wp_insert_post(
+				array(
+					'post_title'  => $blog_title,
+					'post_status' => 'publish',
+					'post_type'   => 'page',
+				)
+			);
 
 			if ( - 1 != $frontpage_id ) {
 				update_post_meta( $frontpage_id, '_wp_page_template', 'page-templates/template-home.php' );

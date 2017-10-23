@@ -51,8 +51,8 @@ class Shapely_Home_Contact extends WP_Widget {
 		 */
 		?>
 
-		<section class="contact-section<?php echo $class ?>">
-			<div <?php echo $atts ?>>
+		<section class="contact-section<?php echo $class; ?>">
+			<div <?php echo $atts; ?>>
 				<div class="container">
 					<div class="text-center">
 					<?php
@@ -147,7 +147,7 @@ class Shapely_Home_Contact extends WP_Widget {
 
 		?>
 
-		<p><label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title ', 'shapely-companion' ) ?></label>
+		<p><label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title ', 'shapely-companion' ); ?></label>
 
 			<input type="text" value="<?php echo esc_attr( $instance['title'] ); ?>"
 				   name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>"
@@ -155,17 +155,17 @@ class Shapely_Home_Contact extends WP_Widget {
 				   class="widefat"/>
 		</p>
 
-		<p><label for="<?php echo esc_attr( $this->get_field_id( 'body_content' ) ); ?>"><?php esc_html_e( 'Subtitle ', 'shapely-companion' ) ?></label>
+		<p><label for="<?php echo esc_attr( $this->get_field_id( 'body_content' ) ); ?>"><?php esc_html_e( 'Subtitle ', 'shapely-companion' ); ?></label>
 
 			<textarea name="<?php echo esc_attr( $this->get_field_name( 'body_content' ) ); ?>"
 					  id="<?php echo esc_attr( $this->get_field_id( 'body_content' ) ); ?>"
 					  class="widefat"><?php echo esc_attr( $instance['body_content'] ); ?></textarea>
 		</p>
 
-		<p class="shapely-media-control" data-delegate-container="<?php echo esc_attr( $this->get_field_id( 'image_src' ) ) ?>">
+		<p class="shapely-media-control" data-delegate-container="<?php echo esc_attr( $this->get_field_id( 'image_src' ) ); ?>">
 			<label for="<?php echo esc_attr( $this->get_field_id( 'image_src' ) ); ?>"><?php _e( 'Background image', 'shapely-companion' ); ?>:</label>
 
-			<img data-default="<?php echo $placeholder_url ?>" src="<?php echo '' != $instance['image_src'] ? esc_url( $instance['image_src'] ) : $placeholder_url ; ?>"/>
+			<img data-default="<?php echo $placeholder_url; ?>" src="<?php echo '' != $instance['image_src'] ? esc_url( $instance['image_src'] ) : $placeholder_url ; ?>"/>
 
 			<input type="hidden"
 				   name="<?php echo esc_attr( $this->get_field_name( 'image_src' ) ); ?>"
@@ -178,7 +178,7 @@ class Shapely_Home_Contact extends WP_Widget {
 		</p>
 
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'contactform' ) ); ?>"><?php esc_html_e( 'Contact Form ', 'shapely-companion' ) ?></label>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'contactform' ) ); ?>"><?php esc_html_e( 'Contact Form ', 'shapely-companion' ); ?></label>
 			<?php
 
 			if ( ! defined( 'WPCF7_LOAD_JS' ) ) {
@@ -204,7 +204,7 @@ class Shapely_Home_Contact extends WP_Widget {
 			?>
 		</p>
 
-		<p><label for="<?php echo esc_attr( $this->get_field_id( 'phone' ) ); ?>"><?php esc_html_e( 'Phone number ', 'shapely-companion' ) ?></label>
+		<p><label for="<?php echo esc_attr( $this->get_field_id( 'phone' ) ); ?>"><?php esc_html_e( 'Phone number ', 'shapely-companion' ); ?></label>
 
 			<input type="text" value="<?php echo esc_attr( $instance['phone'] ); ?>"
 				   name="<?php echo esc_attr( $this->get_field_name( 'phone' ) ); ?>"
@@ -212,7 +212,7 @@ class Shapely_Home_Contact extends WP_Widget {
 				   class="widefat"/>
 		</p>
 
-		<p><label for="<?php echo esc_attr( $this->get_field_id( 'email' ) ); ?>"><?php esc_html_e( 'Email ', 'shapely-companion' ) ?></label>
+		<p><label for="<?php echo esc_attr( $this->get_field_id( 'email' ) ); ?>"><?php esc_html_e( 'Email ', 'shapely-companion' ); ?></label>
 
 			<input type="text" value="<?php echo esc_attr( $instance['email'] ); ?>"
 				   name="<?php echo esc_attr( $this->get_field_name( 'email' ) ); ?>"
@@ -220,7 +220,7 @@ class Shapely_Home_Contact extends WP_Widget {
 				   class="widefat"/>
 		</p>
 
-		<p><label for="<?php echo esc_attr( $this->get_field_id( 'address' ) ); ?>"><?php esc_html_e( 'Address ', 'shapely-companion' ) ?></label>
+		<p><label for="<?php echo esc_attr( $this->get_field_id( 'address' ) ); ?>"><?php esc_html_e( 'Address ', 'shapely-companion' ); ?></label>
 
 			<input type="text" value="<?php echo esc_attr( $instance['address'] ); ?>"
 				   name="<?php echo esc_attr( $this->get_field_name( 'address' ) ); ?>"

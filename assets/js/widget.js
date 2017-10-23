@@ -3,12 +3,15 @@ jQuery( document ).ready(function() {// jscs:ignore validateLineBreaks
     /* Clonning of Logo Client Widgets */
     jQuery( document ).on( 'widget-added', function() {
         shapelySort();
+        shapelyCreateColorPicker();
     });
     jQuery( document ).on( 'widget-updated', function() {
         shapelySort();
+        shapelyCreateColorPicker();
     });
 
     shapelySort();
+    shapelyCreateColorPicker();
 
     /* Client widget sorting and cloning*/
     /* Font awsome selector */
@@ -46,6 +49,13 @@ jQuery( document ).ready(function() {// jscs:ignore validateLineBreaks
             img.attr( 'src', img.attr( 'data-default' ) );
         });
 
+    }
+
+    function shapelyCreateColorPicker() {
+        var colorPickers = jQuery( '.shapely-color-picker' );
+        if ( colorPickers.length > 0 ) {
+            colorPickers.wpColorPicker();
+        }
     }
 
 });

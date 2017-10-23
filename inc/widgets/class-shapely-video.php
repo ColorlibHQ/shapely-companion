@@ -32,19 +32,19 @@ class Shapely_Video extends WP_Widget {
 					$terminate = true;
 				}
 				wp_enqueue_script( 'ytbackground', plugins_url( 'assets/js/vendor/jquery.youtubebackground.js', dirname( dirname( __FILE__ ) ) ), array( 'jquery' ) );
-			break;
-			case 'vimeo' :
+				break;
+			case 'vimeo':
 				if ( empty( $instance['vimeo_id'] ) ) {
 					$terminate = true;
 				}
 				wp_enqueue_script( 'vimeo-player', plugins_url( 'assets/js/vendor/player.min.js', dirname( dirname( __FILE__ ) ) ), array( 'jquery' ) );
-			break;
+				break;
 			case 'upload':
 				if ( empty( $instance['video_id'] ) ) {
 					$terminate = true;
 				}
 				wp_enqueue_script( 'vide', plugins_url( 'assets/js/vendor/jquery.vide.min.js', dirname( dirname( __FILE__ ) ) ), array( 'jquery' ) );
-			break;
+				break;
 		}
 
 		if ( $terminate ) {
@@ -68,7 +68,7 @@ class Shapely_Video extends WP_Widget {
 				</span>
 			</div>
 	<?php elseif ( 'youtube' == $instance['video_type'] ) : ?>
-			<div <?php echo ! empty( $instance['youtube_id'] ) ? 'data-video-id="' . esc_attr( $instance['youtube_id'] ) . '"' : '' ?>
+			<div <?php echo ! empty( $instance['youtube_id'] ) ? 'data-video-id="' . esc_attr( $instance['youtube_id'] ) . '"' : ''; ?>
 				data-autoplay="<?php echo ! empty( $instance['autoplay'] ) ? '1' : '0'; ?>"
 				data-mute="<?php echo ! empty( $instance['mute'] ) ? '1' : '0'; ?>"
 				class="video-widget youtube"
@@ -79,18 +79,19 @@ class Shapely_Video extends WP_Widget {
 				</span>
 			</div>
 	<?php elseif ( 'vimeo' == $instance['video_type'] ) : ?>
-			<div <?php echo ! empty( $instance['vimeo_id'] ) ? 'data-video-id="' . esc_attr( $instance['vimeo_id'] ) . '"' : '' ?>
+			<div <?php echo ! empty( $instance['vimeo_id'] ) ? 'data-video-id="' . esc_attr( $instance['vimeo_id'] ) . '"' : ''; ?>
 				data-autoplay="<?php echo ! empty( $instance['autoplay'] ) ? '1' : '0'; ?>"
 				data-mute="<?php echo ! empty( $instance['mute'] ) ? '1' : '0'; ?>"
 				class="video-widget vimeo"
 				<?php echo ( ! empty( $instance['video_height'] ) && empty( $instance['full_height'] ) ) ? 'style="height:' . esc_attr( $instance['video_height'] ) . 'px"' : ''; ?>>
-				<div id="shapely-<?php echo rand( 1000, 9999 ) ?>" class="vimeo-holder"></div>
+				<div id="shapely-<?php echo rand( 1000, 9999 ); ?>" class="vimeo-holder"></div>
 				<span class="video-controls">
 					<button class="play-button"><icon class="fa fa-play"></icon></button>
 					<button class="pause-button"><icon class="fa fa-pause"></icon></button>
 				</span>
 			</div>
-	<?php endif;
+	<?php
+	endif;
 	}
 
 	/**
@@ -123,10 +124,10 @@ class Shapely_Video extends WP_Widget {
 		// Loads the widget form.
 		?>
 
-		<h4><?php echo __( 'General Controls', 'shapely-companion' ) ?></h4>
+		<h4><?php echo __( 'General Controls', 'shapely-companion' ); ?></h4>
 		<hr/>
 		<p><label
-	   for="<?php echo esc_attr( $this->get_field_id( 'video_type' ) ); ?>"><?php esc_html_e( 'Video Type ', 'shapely-companion' ) ?></label>
+	   for="<?php echo esc_attr( $this->get_field_id( 'video_type' ) ); ?>"><?php esc_html_e( 'Video Type ', 'shapely-companion' ); ?></label>
 		 <select name="<?php echo esc_attr( $this->get_field_name( 'video_type' ) ); ?>"
 					id="<?php echo esc_attr( $this->get_field_id( 'video_type' ) ); ?>" class="video-type widefat">
 	   <option
@@ -184,7 +185,7 @@ class Shapely_Video extends WP_Widget {
 		</div>
 
 		<p><label
-	   for="<?php echo esc_attr( $this->get_field_id( 'video_height' ) ); ?>"><?php esc_html_e( 'Video Height (in pixels): ', 'shapely-companion' ) ?></label>
+	   for="<?php echo esc_attr( $this->get_field_id( 'video_height' ) ); ?>"><?php esc_html_e( 'Video Height (in pixels): ', 'shapely-companion' ); ?></label>
 
 		 <input type="text" value="<?php echo esc_attr( $instance['video_height'] ); ?>"
 				   name="<?php echo esc_attr( $this->get_field_name( 'video_height' ) ); ?>"
@@ -192,11 +193,11 @@ class Shapely_Video extends WP_Widget {
 				   class="widefat"/>
 		</p>
 
-		<h4><?php echo __( 'YouTube Controls', 'shapely-companion' ) ?></h4>
+		<h4><?php echo __( 'YouTube Controls', 'shapely-companion' ); ?></h4>
 		<hr/>
 		<p class="youtube-controls">
 		 <label
-	   for="<?php echo esc_attr( $this->get_field_id( 'youtube_id' ) ); ?>"><?php esc_html_e( 'YouTube ID: ', 'shapely-companion' ) ?></label>
+	   for="<?php echo esc_attr( $this->get_field_id( 'youtube_id' ) ); ?>"><?php esc_html_e( 'YouTube ID: ', 'shapely-companion' ); ?></label>
 
 		 <input type="text" value="<?php echo esc_attr( $instance['youtube_id'] ); ?>"
 				   name="<?php echo esc_attr( $this->get_field_name( 'youtube_id' ) ); ?>"
@@ -204,11 +205,11 @@ class Shapely_Video extends WP_Widget {
 				   class="widefat"/>
 		</p>
 
-		<h4><?php echo __( 'Vimeo Controls', 'shapely-companion' ) ?></h4>
+		<h4><?php echo __( 'Vimeo Controls', 'shapely-companion' ); ?></h4>
 		<hr/>
 		<p class="youtube-controls">
 		 <label
-	   for="<?php echo esc_attr( $this->get_field_id( 'vimeo_id' ) ); ?>"><?php esc_html_e( 'Vimeo ID: ', 'shapely-companion' ) ?></label>
+	   for="<?php echo esc_attr( $this->get_field_id( 'vimeo_id' ) ); ?>"><?php esc_html_e( 'Vimeo ID: ', 'shapely-companion' ); ?></label>
 
 		 <input type="text" value="<?php echo esc_attr( $instance['vimeo_id'] ); ?>"
 				   name="<?php echo esc_attr( $this->get_field_name( 'vimeo_id' ) ); ?>"
@@ -216,16 +217,19 @@ class Shapely_Video extends WP_Widget {
 				   class="widefat"/>
 		</p>
 
-		<h4><?php echo __( 'Video Upload Controls', 'shapely-companion' ) ?></h4>
+		<h4><?php echo __( 'Video Upload Controls', 'shapely-companion' ); ?></h4>
 		<hr/>
 		<p class="upload-controls shapely-media-control"
-		data-delegate-container="<?php echo esc_attr( $this->get_field_id( 'video_id' ) ) ?>">
+		data-delegate-container="<?php echo esc_attr( $this->get_field_id( 'video_id' ) ); ?>">
 		 <label
-	   for="<?php echo esc_attr( $this->get_field_id( 'video_id' ) ); ?>"><?php _e( 'Video URL: ', 'shapely-companion' );
-				?></label>
+	   for="<?php echo esc_attr( $this->get_field_id( 'video_id' ) ); ?>">
+						<?php
+						_e( 'Video URL: ', 'shapely-companion' );
+				?>
+				</label>
 
 	  <span class="video-path"
-				  style="display:block; width:100%"><?php echo esc_html( $instance['video_id'] ) ?></span>
+				  style="display:block; width:100%"><?php echo esc_html( $instance['video_id'] ); ?></span>
 
 	  <input type="hidden"
 				   name="<?php echo esc_attr( $this->get_field_name( 'video_id' ) ); ?>"
@@ -237,10 +241,13 @@ class Shapely_Video extends WP_Widget {
 	  <button type="button" class="button remove-button"><?php _e( 'Remove Video', 'shapely-companion' ); ?></button>
 	 </p>
 	 <p class="upload-controls shapely-media-control"
-		   data-delegate-container="<?php echo esc_attr( $this->get_field_id( 'image_src' ) ) ?>">
+		   data-delegate-container="<?php echo esc_attr( $this->get_field_id( 'image_src' ) ); ?>">
 	  <label
-				for="<?php echo esc_attr( $this->get_field_id( 'image_src' ) ); ?>"><?php _e( 'Placeholder: ', 'shapely-companion' );
-				?></label>
+				for="<?php echo esc_attr( $this->get_field_id( 'image_src' ) ); ?>">
+								<?php
+								_e( 'Placeholder: ', 'shapely-companion' );
+				?>
+				</label>
 
 	  <img data-default="<?php echo $placeholder_url; ?>" style="display:block; width:100%" src="<?php echo '' != $instance['image_src'] ? esc_url( $instance['image_src'] ) : $placeholder_url ; ?>"/>
 	  <input type="hidden"

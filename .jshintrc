@@ -18,6 +18,7 @@
     "jQuery": false,
     "wp": false,
     "shapelyCompanion": false,
+    "wpNavMenu" : false,
     "Masonry" : false
   }
 }
