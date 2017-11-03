@@ -97,7 +97,7 @@ class Shapely_Home_Portfolio extends WP_Widget {
 									<a href="<?php echo esc_url( $permalink ); ?>" title="<?php the_title_attribute(); ?>">
 									<?php
 									if ( $instance['mansonry'] ) {
-										the_post_thumbnail( 'medium' );
+										the_post_thumbnail( 'full' );
 									}
 									?>
 										<div class="title">
