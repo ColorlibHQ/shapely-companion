@@ -5,6 +5,18 @@
  * Shapely Theme
  */
 class Shapely_Home_Portfolio extends WP_Widget {
+
+	private $defaults = array(
+		'title' => '',
+		'body_content' => '',
+		'fullwidth' => '1',
+		'mansonry' => '1',
+		'backgroundcolor' => '#0e1015',
+		'textcolor' => '#ffffff',
+		'postsnumber' => 10,
+		'category' => 0,
+	);
+
 	function __construct() {
 
 		$widget_ops = array(
@@ -18,17 +30,7 @@ class Shapely_Home_Portfolio extends WP_Widget {
 
 	function widget( $args, $instance ) {
 
-		$defaults = array(
-			'title' => '',
-			'body_content' => '',
-			'fullwidth' => '1',
-			'mansonry' => '1',
-			'backgroundcolor' => '#0e1015',
-			'textcolor' => '#ffffff',
-			'postsnumber' => 10,
-		);
-
-		$instance = wp_parse_args( $instance, $defaults );
+		$instance = wp_parse_args( $instance, $this->defaults );
 
 		if ( post_type_exists( 'jetpack-portfolio' ) ) {
 
@@ -52,6 +54,16 @@ class Shapely_Home_Portfolio extends WP_Widget {
 					'posts_per_page'      => absint( $instance['postsnumber'] ),
 					'ignore_sticky_posts' => 1,
 				);
+
+				if ( 0 != $instance['category'] ) {
+					$portfolio_args['tax_query'] = array(
+						array(
+							'taxonomy' => 'jetpack-portfolio-type',
+							'field'    => 'term_id',
+							'terms'    => absint( $instance['category'] ),
+						),
+					);
+				}
 
 				$portfolio_query = new WP_Query( $portfolio_args );
 
@@ -135,18 +147,11 @@ class Shapely_Home_Portfolio extends WP_Widget {
 
 
 	function form( $instance ) {
-		$defaults = array(
-			'title' => '',
-			'body_content' => '',
-			'fullwidth' => '1',
-			'mansonry' => '1',
-			'backgroundcolor' => '#0e1015',
-			'textcolor' => '#ffffff',
-			'postsnumber' => 10,
-		);
-
-		$instance = wp_parse_args( $instance, $defaults );
-
+		$instance = wp_parse_args( $instance, $this->defaults );
+		$categories = $terms = get_terms( array(
+			'taxonomy' => 'jetpack-portfolio-type',
+		    'fields' => 'id=>name',
+		) );
 		?>
 
 		<p>
@@ -159,6 +164,20 @@ class Shapely_Home_Portfolio extends WP_Widget {
 			<textarea name="<?php echo esc_attr( $this->get_field_name( 'body_content' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'body_content' ) ); ?>" class="widefat">
 				<?php echo wp_kses_post( $instance['body_content'] ); ?>
 			</textarea>
+		</p>
+
+		<p>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'category' ) ); ?>"><?php esc_html_e( 'Portfolio Types ', 'shapely-companion' ); ?></label>
+			<select name="<?php echo esc_attr( $this->get_field_name( 'category' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'category' ) ); ?>" class="widefat">
+				<option value="0"><?php esc_html_e( 'All Types ', 'shapely-companion' ); ?></option>
+				<?php
+
+				foreach ( $categories as $id => $category ) {
+					echo '<option value="' . $id . '" ' . selected( $instance['category'], $id ) . '>' . $category . '</option>';
+				}
+
+				?>
+			</select>
 		</p>
 
 		<p>
@@ -224,6 +243,7 @@ class Shapely_Home_Portfolio extends WP_Widget {
 		$instance['body_content'] = ( ! empty( $new_instance['body_content'] ) ) ? wp_kses_post( $new_instance['body_content'] ) : '';
 		$instance['fullwidth']    = ( ! empty( $new_instance['fullwidth'] )) ? absint( $new_instance['fullwidth'] ) : 0;
 		$instance['mansonry']        = ( ! empty( $new_instance['mansonry'] )) ? absint( $new_instance['mansonry'] ) : 0;
+		$instance['category']        = ( ! empty( $new_instance['category'] )) ? absint( $new_instance['category'] ) : 0;
 		$instance['backgroundcolor'] = ( ! empty( $new_instance['backgroundcolor'] )) ? sanitize_hex_color( $new_instance['backgroundcolor'] ) : '#0e1015';
 		$instance['textcolor'] = ( ! empty( $new_instance['textcolor'] )) ? sanitize_hex_color( $new_instance['textcolor'] ) : '#ffffff';
 

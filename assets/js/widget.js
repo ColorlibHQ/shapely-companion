@@ -52,9 +52,19 @@ jQuery( document ).ready(function() {// jscs:ignore validateLineBreaks
     }
 
     function shapelyCreateColorPicker() {
-        var colorPickers = jQuery( '.shapely-color-picker' );
+        var context = jQuery( '#widgets-right' );
+        var colorPickers = context.find( '.shapely-color-picker' );
         if ( colorPickers.length > 0 ) {
-            colorPickers.wpColorPicker();
+            jQuery.each( colorPickers, function(){
+                if ( ! jQuery(this).hasClass( 'wp-color-picker' ) ) {
+                    jQuery( this ).wpColorPicker({
+                        change : function( $this, ui ){
+                            var color = jQuery( $this.target ).wpColorPicker( 'color' );
+                            jQuery( $this.target ).val( color ).trigger( 'change' );
+                        }
+                    });
+                }
+            } );
         }
     }
 
