@@ -102,9 +102,9 @@ class Shapely_Home_Clients extends WP_Widget {
 
 		<ul class="client-sortable clone-wrapper">
 		<?php
-		$image_src    = $logos['img'];
-		$logo_link    = $logos['link'];
-		$slider_count = ( isset( $image_src ) && count( $image_src ) > 0 ) ? count( $image_src ) : 3;
+		$image_src       = $logos['img'];
+		$logo_link       = $logos['link'];
+		$slider_count    = ( isset( $image_src ) && count( $image_src ) > 0 ) ? count( $image_src ) : 3;
 		$placeholder_url = plugins_url( 'shapely-companion/assets/img/placeholder_wide.jpg' );
 
 		for ( $i = 0; $i < $slider_count; $i ++ ) :

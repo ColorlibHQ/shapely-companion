@@ -43,7 +43,7 @@ class Shapely_Recent_Posts extends WP_Widget {
 					'ignore_sticky_posts' => 1,
 				);
 
-				$featured_query    = new WP_Query( $featured_args );
+				$featured_query      = new WP_Query( $featured_args );
 				$bootstrap_col_width = floor( 12 / $featured_query->post_count );
 				if ( $featured_query->have_posts() ) :
 				?>

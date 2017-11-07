@@ -12,8 +12,8 @@ class Shapely_Home_Contact extends WP_Widget {
 		add_action( 'customize_preview_init', array( $this, 'enqueue' ) );
 
 		$widget_ops = array(
-			'classname' => 'shapely_home_contact',
-			'description' => esc_html__( 'Shapely FrontPage Contact Section', 'shapely-companion' ),
+			'classname'                   => 'shapely_home_contact',
+			'description'                 => esc_html__( 'Shapely FrontPage Contact Section', 'shapely-companion' ),
 			'customize_selective_refresh' => true,
 		);
 		parent::__construct( 'shapely_home_contact', esc_html__( '[Shapely] Contact Section For FrontPage', 'shapely-companion' ), $widget_ops );
@@ -29,19 +29,19 @@ class Shapely_Home_Contact extends WP_Widget {
 	}
 
 	function widget( $args, $instance ) {
-		$title = isset( $instance['title'] ) ? $instance['title'] : '';
+		$title        = isset( $instance['title'] ) ? $instance['title'] : '';
 		$body_content = isset( $instance['body_content'] ) ? $instance['body_content'] : '';
-		$image_src = isset( $instance['image_src'] ) ? $instance['image_src'] : '';
-		$phone = isset( $instance['phone'] ) ? $instance['phone'] : '';
-		$email = isset( $instance['email'] ) ? $instance['email'] : '';
-		$address = isset( $instance['address'] ) ? $instance['address'] : '';
-		$contactform = isset( $instance['contactform'] ) ? $instance['contactform'] : '';
-		$socialicons = isset( $instance['socialicons'] ) ? $instance['socialicons'] : '';
+		$image_src    = isset( $instance['image_src'] ) ? $instance['image_src'] : '';
+		$phone        = isset( $instance['phone'] ) ? $instance['phone'] : '';
+		$email        = isset( $instance['email'] ) ? $instance['email'] : '';
+		$address      = isset( $instance['address'] ) ? $instance['address'] : '';
+		$contactform  = isset( $instance['contactform'] ) ? $instance['contactform'] : '';
+		$socialicons  = isset( $instance['socialicons'] ) ? $instance['socialicons'] : '';
 
-		$atts = '';
+		$atts  = '';
 		$class = '';
 		if ( '' != $image_src ) {
-			$atts = 'data-parallax="scroll" data-image-src="' . esc_url( $image_src ) . '" class="parallax-window"';
+			$atts  = 'data-parallax="scroll" data-image-src="' . esc_url( $image_src ) . '" class="parallax-window"';
 			$class = ' image-bg cover';
 		}
 
@@ -165,7 +165,7 @@ class Shapely_Home_Contact extends WP_Widget {
 		<p class="shapely-media-control" data-delegate-container="<?php echo esc_attr( $this->get_field_id( 'image_src' ) ); ?>">
 			<label for="<?php echo esc_attr( $this->get_field_id( 'image_src' ) ); ?>"><?php _e( 'Background image', 'shapely-companion' ); ?>:</label>
 
-			<img data-default="<?php echo $placeholder_url; ?>" src="<?php echo '' != $instance['image_src'] ? esc_url( $instance['image_src'] ) : $placeholder_url ; ?>"/>
+			<img data-default="<?php echo $placeholder_url; ?>" src="<?php echo '' != $instance['image_src'] ? esc_url( $instance['image_src'] ) : $placeholder_url; ?>"/>
 
 			<input type="hidden"
 				   name="<?php echo esc_attr( $this->get_field_name( 'image_src' ) ); ?>"
@@ -188,8 +188,8 @@ class Shapely_Home_Contact extends WP_Widget {
 				echo '<select id="' . esc_attr( $this->get_field_name( 'contactform' ) ) . '" name="' . esc_attr( $this->get_field_name( 'contactform' ) ) . '" class="widefat">';
 				echo '<option value="0">' . esc_html__( 'Select a form ...', 'shapely-companion' ) . '</option>';
 				$forms_args = array(
-					'post_type' => 'wpcf7_contact_form',
-					'post_status' => 'publish',
+					'post_type'      => 'wpcf7_contact_form',
+					'post_status'    => 'publish',
 					'posts_per_page' => -1,
 				);
 
@@ -256,15 +256,15 @@ class Shapely_Home_Contact extends WP_Widget {
 	 * @return array Updated safe values to be saved.
 	 */
 	public function update( $new_instance, $old_instance ) {
-		$instance = array();
-		$instance['title'] = ( ! empty( $new_instance['title'] )) ? wp_kses_post( $new_instance['title'] ) : '';
-		$instance['image_src'] = ( ! empty( $new_instance['image_src'] )) ? esc_url_raw( $new_instance['image_src'] ) : '';
-		$instance['body_content'] = ( ! empty( $new_instance['body_content'] )) ? wp_kses_post( $new_instance['body_content'] ) : '';
-		$instance['phone'] = ( ! empty( $new_instance['phone'] )) ? esc_html( $new_instance['phone'] ) : '';
-		$instance['address'] = ( ! empty( $new_instance['address'] )) ? esc_html( $new_instance['address'] ) : '';
-		$instance['email'] = ( ! empty( $new_instance['email'] )) ? esc_html( $new_instance['email'] ) : '';
-		$instance['contactform'] = ( ! empty( $new_instance['contactform'] )) ? absint( $new_instance['contactform'] ) : '';
-		$instance['socialicons'] = ( ! empty( $new_instance['socialicons'] )) ? esc_html( $new_instance['socialicons'] ) : '';
+		$instance                 = array();
+		$instance['title']        = ( ! empty( $new_instance['title'] ) ) ? wp_kses_post( $new_instance['title'] ) : '';
+		$instance['image_src']    = ( ! empty( $new_instance['image_src'] ) ) ? esc_url_raw( $new_instance['image_src'] ) : '';
+		$instance['body_content'] = ( ! empty( $new_instance['body_content'] ) ) ? wp_kses_post( $new_instance['body_content'] ) : '';
+		$instance['phone']        = ( ! empty( $new_instance['phone'] ) ) ? esc_html( $new_instance['phone'] ) : '';
+		$instance['address']      = ( ! empty( $new_instance['address'] ) ) ? esc_html( $new_instance['address'] ) : '';
+		$instance['email']        = ( ! empty( $new_instance['email'] ) ) ? esc_html( $new_instance['email'] ) : '';
+		$instance['contactform']  = ( ! empty( $new_instance['contactform'] ) ) ? absint( $new_instance['contactform'] ) : '';
+		$instance['socialicons']  = ( ! empty( $new_instance['socialicons'] ) ) ? esc_html( $new_instance['socialicons'] ) : '';
 
 		return $instance;
 	}

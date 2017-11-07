@@ -7,14 +7,14 @@
 class Shapely_Home_Portfolio extends WP_Widget {
 
 	private $defaults = array(
-		'title' => '',
-		'body_content' => '',
-		'fullwidth' => '1',
-		'mansonry' => '1',
+		'title'           => '',
+		'body_content'    => '',
+		'fullwidth'       => '1',
+		'mansonry'        => '1',
 		'backgroundcolor' => '#0e1015',
-		'textcolor' => '#ffffff',
-		'postsnumber' => 10,
-		'category' => 0,
+		'textcolor'       => '#ffffff',
+		'postsnumber'     => 10,
+		'category'        => 0,
 	);
 
 	function __construct() {
@@ -86,9 +86,9 @@ class Shapely_Home_Portfolio extends WP_Widget {
 
 						if ( has_post_thumbnail() ) {
 
-							$permalink = get_the_permalink();
+							$permalink     = get_the_permalink();
 							$thumbnail_url = get_the_post_thumbnail_url( get_the_ID(), 'full' );
-							$item_style = '';
+							$item_style    = '';
 							if ( ! $instance['mansonry'] ) {
 								$item_style = 'background-image: url(' . $thumbnail_url . ')';
 							}
@@ -147,11 +147,13 @@ class Shapely_Home_Portfolio extends WP_Widget {
 
 
 	function form( $instance ) {
-		$instance = wp_parse_args( $instance, $this->defaults );
-		$categories = $terms = get_terms( array(
-			'taxonomy' => 'jetpack-portfolio-type',
-		    'fields' => 'id=>name',
-		) );
+		$instance   = wp_parse_args( $instance, $this->defaults );
+		$categories = get_terms(
+			array(
+				'taxonomy' => 'jetpack-portfolio-type',
+				'fields'   => 'id=>name',
+			)
+		);
 		?>
 
 		<p>
@@ -237,15 +239,15 @@ class Shapely_Home_Portfolio extends WP_Widget {
 	 * @return array Updated safe values to be saved.
 	 */
 	public function update( $new_instance, $old_instance ) {
-		$instance                 = array();
-		$instance['title']        = ( ! empty( $new_instance['title'] ) ) ? wp_kses_post( $new_instance['title'] ) : '';
-		$instance['postsnumber']  = ( ! empty( $new_instance['postsnumber'] ) ) ? absint( $new_instance['postsnumber'] ) : '10';
-		$instance['body_content'] = ( ! empty( $new_instance['body_content'] ) ) ? wp_kses_post( $new_instance['body_content'] ) : '';
-		$instance['fullwidth']    = ( ! empty( $new_instance['fullwidth'] )) ? absint( $new_instance['fullwidth'] ) : 0;
-		$instance['mansonry']        = ( ! empty( $new_instance['mansonry'] )) ? absint( $new_instance['mansonry'] ) : 0;
-		$instance['category']        = ( ! empty( $new_instance['category'] )) ? absint( $new_instance['category'] ) : 0;
-		$instance['backgroundcolor'] = ( ! empty( $new_instance['backgroundcolor'] )) ? sanitize_hex_color( $new_instance['backgroundcolor'] ) : '#0e1015';
-		$instance['textcolor'] = ( ! empty( $new_instance['textcolor'] )) ? sanitize_hex_color( $new_instance['textcolor'] ) : '#ffffff';
+		$instance                    = array();
+		$instance['title']           = ( ! empty( $new_instance['title'] ) ) ? wp_kses_post( $new_instance['title'] ) : '';
+		$instance['postsnumber']     = ( ! empty( $new_instance['postsnumber'] ) ) ? absint( $new_instance['postsnumber'] ) : '10';
+		$instance['body_content']    = ( ! empty( $new_instance['body_content'] ) ) ? wp_kses_post( $new_instance['body_content'] ) : '';
+		$instance['fullwidth']       = ( ! empty( $new_instance['fullwidth'] ) ) ? absint( $new_instance['fullwidth'] ) : 0;
+		$instance['mansonry']        = ( ! empty( $new_instance['mansonry'] ) ) ? absint( $new_instance['mansonry'] ) : 0;
+		$instance['category']        = ( ! empty( $new_instance['category'] ) ) ? absint( $new_instance['category'] ) : 0;
+		$instance['backgroundcolor'] = ( ! empty( $new_instance['backgroundcolor'] ) ) ? sanitize_hex_color( $new_instance['backgroundcolor'] ) : '#0e1015';
+		$instance['textcolor']       = ( ! empty( $new_instance['textcolor'] ) ) ? sanitize_hex_color( $new_instance['textcolor'] ) : '#ffffff';
 
 		return $instance;
 	}
