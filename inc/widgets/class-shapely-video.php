@@ -228,14 +228,11 @@ class Shapely_Video extends WP_Widget {
 				?>
 				</label>
 
-	  <span class="video-path"
-				  style="display:block; width:100%"><?php echo esc_html( $instance['video_id'] ); ?></span>
-
-	  <input type="hidden"
+	  <input type="text"
 				   name="<?php echo esc_attr( $this->get_field_name( 'video_id' ) ); ?>"
 				   id="<?php echo esc_attr( $this->get_field_id( 'video_id' ) ); ?>"
 				   value="<?php echo esc_url( $instance['video_id'] ); ?>"
-				   class="image-id blazersix-media-control-target">
+				   class="image-id widefat blazersix-media-control-target">
 
 	  <button type="button" class="button upload-button"><?php _e( 'Choose Video', 'shapely-companion' ); ?></button>
 	  <button type="button" class="button remove-button"><?php _e( 'Remove Video', 'shapely-companion' ); ?></button>
