@@ -12,7 +12,7 @@ class Shapely_Page_Content extends WP_Widget {
 			'description'                 => esc_html__( 'This widget is used only in pages with Template Widget', 'shapely-companion' ),
 			'customize_selective_refresh' => true,
 		);
-		parent::__construct( 'shapely-page-content', esc_html__( '[Shapely] Paget Content', 'shapely-companion' ), $widget_ops );
+		parent::__construct( 'shapely-page-content', esc_html__( '[Shapely] Page Content', 'shapely-companion' ), $widget_ops );
 	}
 
 	function widget( $args, $instance ) {
