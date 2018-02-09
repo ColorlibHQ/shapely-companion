@@ -40,11 +40,11 @@ function shapely_companion_add_default_widgets() {
 					#check if a contact form 7 exist.
 					if ( false !== strpos( $id_widget, 'shapely_home_contact' ) ) {
 						$cf_args = array(
-							'post_type' => 'wpcf7_contact_form',
+							'post_type'   => 'wpcf7_contact_form',
 							'post_status' => 'publish',
-							'fields' => 'ids',
+							'fields'      => 'ids',
 						);
-						$cf7 = get_posts( $cf_args );
+						$cf7     = get_posts( $cf_args );
 						if ( ! empty( $cf7 ) && isset( $cf7[0] ) ) {
 							$args->contactform = $cf7[0];
 						}
@@ -101,7 +101,7 @@ function shapely_companion_import_content() {
 		} elseif ( 'import-widgets' == $_POST['import'] ) {
 			shapely_companion_add_default_widgets();
 		} elseif ( 'set-frontpage' == $_POST['import'] ) {
-			
+
 			$frontpage_title = __( 'Front Page', 'shapely-companion' );
 			$blog_title      = __( 'Blog', 'shapely-companion' );
 
