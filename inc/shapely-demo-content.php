@@ -40,11 +40,11 @@ function shapely_companion_add_default_widgets() {
 					#check if a contact form 7 exist.
 					if ( false !== strpos( $id_widget, 'shapely_home_contact' ) ) {
 						$cf_args = array(
-							'post_type' => 'wpcf7_contact_form',
+							'post_type'   => 'wpcf7_contact_form',
 							'post_status' => 'publish',
-							'fields' => 'ids',
+							'fields'      => 'ids',
 						);
-						$cf7 = get_posts( $cf_args );
+						$cf7     = get_posts( $cf_args );
 						if ( ! empty( $cf7 ) && isset( $cf7[0] ) ) {
 							$args->contactform = $cf7[0];
 						}
@@ -100,13 +100,51 @@ function shapely_companion_import_content() {
 
 		} elseif ( 'import-widgets' == $_POST['import'] ) {
 			shapely_companion_add_default_widgets();
+		} elseif ( 'set-frontpage' == $_POST['import'] ) {
+
+			$frontpage_title = __( 'Front Page', 'shapely-companion' );
+			$blog_title      = __( 'Blog', 'shapely-companion' );
+
+			$frontpage_id = wp_insert_post(
+				array(
+					'post_title'  => $frontpage_title,
+					'post_status' => 'publish',
+					'post_type'   => 'page',
+				)
+			);
+			$blog_id      = wp_insert_post(
+				array(
+					'post_title'  => $blog_title,
+					'post_status' => 'publish',
+					'post_type'   => 'page',
+				)
+			);
+
+			if ( - 1 != $frontpage_id ) {
+				update_post_meta( $frontpage_id, '_wp_page_template', 'page-templates/template-home.php' );
+			} // End if().
+
+			update_option( 'show_on_front', 'page' );
+			update_option( 'page_on_front', $frontpage_id );
+			update_option( 'page_for_posts', $blog_id );
+
 		}
 
 		update_option( 'shapely_imported_demo', true );
 
-		echo 'succes';
+		echo wp_json_encode(
+			array(
+				'status'  => true,
+				'message' => 'ok',
+			)
+		);
 	} else {
-		echo 'error';
+		echo wp_json_encode(
+			array(
+				'status'  => false,
+				'message' => 'nok',
+			)
+		);
 	}// End if().
 
 	exit();

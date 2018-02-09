@@ -71,9 +71,7 @@ jQuery(function( $ ) {
 
             jQuery.post( shapelyCompanion.ajaxurl, data, function( response ) {
                 var ext = response.substr( ( response.lastIndexOf( '.' ) + 1 ) );
-                if ( 'mp4' === ext ) {
-                    $( mediaControl.container ).find( '.video-path' ).text( response );
-                } else {
+                if ( 'mp4' !== ext ) {
                     $( mediaControl.container ).find( 'img' ).attr( 'src', response );
                 }
 
@@ -100,11 +98,9 @@ jQuery(function( $ ) {
             context.on( 'click', '.shapely-media-control > .remove-button', function( e ) {
                 var container = $( this ).parent(),
                     sibling = container.find( '.image-id' ),
-                    img = container.find( 'img' ),
-                    span = container.find( '.video-path' );
+                    img = container.find( 'img' );
                 e.preventDefault();
                 img.attr( 'src', img.attr( 'data-default' ) );
-                span.text( '' );
                 sibling.val( '' ).trigger( 'change' );
 
             });

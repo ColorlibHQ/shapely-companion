@@ -8,8 +8,8 @@ class Shapely_Home_Call_For_Action extends WP_Widget {
 	function __construct() {
 
 		$widget_ops = array(
-			'classname'   => 'shapely_home_CFA',
-			'description' => esc_html__( '[Shapely] Call for Action Section', 'shapely-companion' ),
+			'classname'                   => 'shapely_home_CFA',
+			'description'                 => esc_html__( '[Shapely] Call for Action Section', 'shapely-companion' ),
 			'customize_selective_refresh' => true,
 		);
 		parent::__construct( 'shapely_home_CFA', esc_html__( '[Shapely] Call for Action Section For FrontPage', 'shapely-companion' ), $widget_ops );

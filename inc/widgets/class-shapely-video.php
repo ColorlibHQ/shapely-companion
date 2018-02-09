@@ -106,7 +106,7 @@ class Shapely_Video extends WP_Widget {
 	public function form( $instance ) {
 		$defaults = array(
 			'autoplay'     => 'on',
-			'mute'            => 'on',
+			'mute'         => 'on',
 			'video_id'     => '',
 			'vimeo_id'     => '',
 			'video_type'   => 'youtube',
@@ -228,14 +228,11 @@ class Shapely_Video extends WP_Widget {
 				?>
 				</label>
 
-	  <span class="video-path"
-				  style="display:block; width:100%"><?php echo esc_html( $instance['video_id'] ); ?></span>
-
-	  <input type="hidden"
+	  <input type="text"
 				   name="<?php echo esc_attr( $this->get_field_name( 'video_id' ) ); ?>"
 				   id="<?php echo esc_attr( $this->get_field_id( 'video_id' ) ); ?>"
 				   value="<?php echo esc_url( $instance['video_id'] ); ?>"
-				   class="image-id blazersix-media-control-target">
+				   class="image-id widefat blazersix-media-control-target">
 
 	  <button type="button" class="button upload-button"><?php _e( 'Choose Video', 'shapely-companion' ); ?></button>
 	  <button type="button" class="button remove-button"><?php _e( 'Remove Video', 'shapely-companion' ); ?></button>
@@ -249,7 +246,7 @@ class Shapely_Video extends WP_Widget {
 				?>
 				</label>
 
-	  <img data-default="<?php echo $placeholder_url; ?>" style="display:block; width:100%" src="<?php echo '' != $instance['image_src'] ? esc_url( $instance['image_src'] ) : $placeholder_url ; ?>"/>
+	  <img data-default="<?php echo $placeholder_url; ?>" style="display:block; width:100%" src="<?php echo '' != $instance['image_src'] ? esc_url( $instance['image_src'] ) : $placeholder_url; ?>"/>
 	  <input type="hidden"
 				   name="<?php echo esc_attr( $this->get_field_name( 'image_src' ) ); ?>"
 				   id="<?php echo esc_attr( $this->get_field_id( 'image_src' ) ); ?>"
@@ -276,7 +273,7 @@ class Shapely_Video extends WP_Widget {
 		$instance = array();
 
 		$instance['youtube_id']   = ( ! empty( $new_instance['youtube_id'] ) ) ? strip_tags( $new_instance['youtube_id'] ) : '';
-		$instance['vimeo_id']   = ( ! empty( $new_instance['vimeo_id'] ) ) ? absint( $new_instance['vimeo_id'] ) : '';
+		$instance['vimeo_id']     = ( ! empty( $new_instance['vimeo_id'] ) ) ? absint( $new_instance['vimeo_id'] ) : '';
 		$instance['video_id']     = ( ! empty( $new_instance['video_id'] ) ) ? esc_url_raw( $new_instance['video_id'] ) : '';
 		$instance['image_src']    = ( ! empty( $new_instance['image_src'] ) ) ? esc_url_raw( $new_instance['image_src'] ) : '';
 		$instance['video_height'] = ( ! empty( $new_instance['video_height'] ) ) ? absint( $new_instance['video_height'] ) : '';

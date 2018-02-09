@@ -17,15 +17,20 @@ class Shapely_Recent_Posts extends WP_Widget {
 	}
 
 	function widget( $args, $instance ) {
-		$title = isset( $instance['title'] ) ? $instance['title'] : __( 'Recent Posts', 'shapely-companion' );
-		$limit = isset( $instance['limit'] ) ? $instance['limit'] : 5;
+		$defaults = array(
+			'title'   => esc_html__( 'Recent Posts', 'shapely-companion' ),
+			'limie'   => 5,
+			'excerpt' => 0,
+		);
+
+		$instance = wp_parse_args( $instance, $defaults );
 
 		echo $args['before_widget'];
 		?>
 		<section>
 			<?php
 			echo $args['before_title'];
-			echo wp_kses_post( $title );
+			echo '<h3 class="mb32">' . wp_kses_post( $instance['title'] ) . '</h3>';
 			echo $args['after_title'];
 
 			/**
@@ -38,12 +43,12 @@ class Shapely_Recent_Posts extends WP_Widget {
 
 				<?php
 				$featured_args = array(
-					'posts_per_page'      => $limit,
+					'posts_per_page'      => $instance['limit'],
 					'post_type'           => 'post',
 					'ignore_sticky_posts' => 1,
 				);
 
-				$featured_query    = new WP_Query( $featured_args );
+				$featured_query      = new WP_Query( $featured_args );
 				$bootstrap_col_width = floor( 12 / $featured_query->post_count );
 				if ( $featured_query->have_posts() ) :
 				?>
@@ -59,15 +64,24 @@ class Shapely_Recent_Posts extends WP_Widget {
 
 							<!-- content -->
 							<li class="post-content col-sm-<?php echo esc_attr( $bootstrap_col_width ); ?>">
+								<a class="widget-post-thumbnail" href="<?php echo esc_url( get_permalink() ); ?>">
+								<?php
+								if ( has_post_thumbnail() ) {
+									the_post_thumbnail();
+								}
+								?>
+								</a>
+								<h4 class="widget-post-title">
 								<a href="<?php echo esc_url( get_permalink() ); ?>">
-									<?php
-									if ( has_post_thumbnail() ) {
-										the_post_thumbnail();
-									}
-?>
 									<?php echo esc_html( get_the_title() ); ?>
 								</a>
+								</h4>
 								<span class="date"><?php echo esc_html( get_the_date( 'd M , Y' ) ); ?></span>
+
+								<?php if ( $instance['excerpt'] ) : ?>
+									<div class="widget-post-excerpt"><?php the_excerpt(); ?></div>
+								<?php endif ?>
+
 							</li>
 							<!-- end content -->
 
@@ -89,30 +103,28 @@ class Shapely_Recent_Posts extends WP_Widget {
 
 	function form( $instance ) {
 
-		if ( ! isset( $instance['title'] ) ) {
-			$instance['title'] = esc_html__( 'Recent Posts', 'shapely-companion' );
-		}
-		if ( ! isset( $instance['limit'] ) ) {
-			$instance['limit'] = 5;
-		}
+		$defaults = array(
+			'title'   => esc_html__( 'Recent Posts', 'shapely-companion' ),
+			'limit'   => 5,
+			'excerpt' => 0,
+		);
+
+		$instance = wp_parse_args( $instance, $defaults );
+
 		?>
 
-		<p><label
-				for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title', 'shapely-companion' ); ?></label>
+		<p><label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title', 'shapely-companion' ); ?></label>
 
-			<input type="text" value="<?php echo esc_attr( $instance['title'] ); ?>"
-				   name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>"
-				   id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"
-				   class="widefat"/>
+			<input type="text" value="<?php echo esc_attr( $instance['title'] ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" class="widefat"/>
+		</p>
+		<p>
+			<input type="checkbox" value="1" name="<?php echo esc_attr( $this->get_field_name( 'excerpt' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'excerpt' ) ); ?>" <?php checked( 1, $instance['excerpt'] ); ?> class="widefat"/>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'excerpt' ) ); ?>"><?php esc_html_e( 'Show Excerpt', 'shapely-companion' ); ?></label>
 		</p>
 
-		<p><label
-				for="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>"><?php esc_html_e( 'Limit Posts Number', 'shapely-companion' ); ?></label>
+		<p><label for="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>"><?php esc_html_e( 'Limit Posts Number', 'shapely-companion' ); ?></label>
 
-			<input type="text" value="<?php echo esc_attr( $instance['limit'] ); ?>"
-				   name="<?php echo esc_attr( $this->get_field_name( 'limit' ) ); ?>"
-				   id="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>"
-				   class="widefat"/>
+			<input type="text" value="<?php echo esc_attr( $instance['limit'] ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'limit' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>" class="widefat"/>
 		</p>
 
 		<?php
@@ -129,9 +141,10 @@ class Shapely_Recent_Posts extends WP_Widget {
 	 * @return array Updated safe values to be saved.
 	 */
 	public function update( $new_instance, $old_instance ) {
-		$instance          = array();
-		$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? wp_kses_post( $new_instance['title'] ) : '';
-		$instance['limit'] = ( ! empty( $new_instance['limit'] ) && is_numeric( $new_instance['limit'] ) ) ? absint( $new_instance['limit'] ) : '';
+		$instance            = array();
+		$instance['title']   = ( ! empty( $new_instance['title'] ) ) ? wp_kses_post( $new_instance['title'] ) : '';
+		$instance['limit']   = ( ! empty( $new_instance['limit'] ) && is_numeric( $new_instance['limit'] ) ) ? absint( $new_instance['limit'] ) : '';
+		$instance['excerpt'] = empty( $new_instance['excerpt'] ) ? 0 : 1;
 
 		return $instance;
 	}
