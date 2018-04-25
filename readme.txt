@@ -3,7 +3,7 @@ Contributors: colorlibplugins, silkalns
 Tags: woocommerce, widgets, plugin, demo, companion, home page, one page, parallax, social, portfolio, projects
 Requires at least: 3.8
 Tested up to: 4.8
-Stable tag: 1.2.1
+Stable tag: 1.2.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
