@@ -200,12 +200,13 @@ class Shapely_Home_Parallax extends WP_Widget {
 			<button type="button" class="button remove-button"><?php _e( 'Remove Image', 'shapely-companion' ); ?></button>
 		</p>
 
-		<p><label
+		<p class="shapely-editor-container"><label
 				for="<?php echo esc_attr( $this->get_field_id( 'body_content' ) ); ?>"><?php esc_html_e( 'Content ', 'shapely-companion' ); ?></label>
 
 			<textarea name="<?php echo esc_attr( $this->get_field_name( 'body_content' ) ); ?>"
 					  id="<?php echo esc_attr( $this->get_field_id( 'body_content' ) ); ?>"
-					  class="widefat"><?php echo wp_kses( $instance['body_content'], $allowed_tags ); ?></textarea>
+					  class="widefat"><?php echo wp_kses( $instance['body_content'], $allowed_tags ); ?>
+			</textarea>
 		</p>
 
 		<p><label
@@ -263,7 +264,7 @@ class Shapely_Home_Parallax extends WP_Widget {
 				   class="widefat"/>
 		</p>
 
-		<div class="checkbox_switch">
+		<div class="checkbox_switch wp-clearfix">
 				<span class="customize-control-title onoffswitch_label">
 					<?php _e( 'Border bottom', 'shapely-companion' ); ?>
 				</span>

@@ -4,6 +4,8 @@
 			return;
 		}
 
+		var illdyCompanion = {};
+
 		wp.customize.selectiveRefresh.bind( 'widget-updated', function( placement ) {
             var maxHeight, container, msnry, element;
 			$( '.logo-carousel' ).flexslider({
@@ -22,6 +24,7 @@
 			if ( 'function' === typeof $( '.parallax-window' ).parallax ) {
 				$( '.parallax-window' ).parallax();
 			}
+
 			if ( $( '.masonry' ).length && 'undefined' !== typeof Masonry ) {
 				container = document.querySelector( '.masonry' );
 				msnry = new Masonry( container, {
@@ -51,6 +54,7 @@
 					testimonialHeight();
 				}, 3000 );
 			}
+
 
 			$( '.slider-arrow-controls' ).flexslider({
 				controlNav: false

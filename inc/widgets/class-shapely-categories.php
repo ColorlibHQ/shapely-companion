@@ -108,7 +108,7 @@ class Shapely_Categories extends WP_Widget {
 		</p>
 
 
-		<div class="checkbox_switch">
+		<div class="checkbox_switch wp-clearfix">
 				<span class="customize-control-title onoffswitch_label">
 					<?php _e( 'Enable Posts Count', 'shapely-companion' ); ?>
 				</span>

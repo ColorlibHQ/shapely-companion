@@ -139,7 +139,7 @@ class Shapely_Video extends WP_Widget {
 		 </select>
 		</p>
 
-		<div class="checkbox_switch">
+		<div class="checkbox_switch wp-clearfix">
 	   <span class="customize-control-title onoffswitch_label">
 					<?php _e( 'Autoplay', 'shapely-companion' ); ?>
 	   </span>
@@ -154,7 +154,7 @@ class Shapely_Video extends WP_Widget {
 		 </div>
 		</div>
 
-		<div class="checkbox_switch">
+		<div class="checkbox_switch wp-clearfix">
 	   <span class="customize-control-title onoffswitch_label">
 					<?php _e( 'Mute', 'shapely-companion' ); ?>
 	   </span>
@@ -169,7 +169,7 @@ class Shapely_Video extends WP_Widget {
 		 </div>
 		</div>
 
-		<div class="checkbox_switch">
+		<div class="checkbox_switch wp-clearfix">
 	   <span class="customize-control-title onoffswitch_label">
 					<?php _e( 'Full height', 'shapely-companion' ); ?>
 	   </span>

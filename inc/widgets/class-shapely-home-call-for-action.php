@@ -66,13 +66,15 @@ class Shapely_Home_Call_For_Action extends WP_Widget {
 		}
 		?>
 
-		<p><label
+		<p class="shapely-editor-container"><label
 				for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Callout Text ', 'shapely-companion' ); ?></label>
 
-			<input type="text" value="<?php echo esc_attr( $instance['title'] ); ?>"
+			<textarea
 				   name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>"
 				   id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"
-				   class="widefat"/>
+				   class="widefat" >
+			<?php echo wp_kses_post( $instance['title'] ); ?>
+			</textarea>
 		</p>
 
 		<p><label
