@@ -5,6 +5,7 @@
  * Shapely Theme
  */
 class Shapely_Home_Features extends WP_Widget {
+
 	function __construct() {
 
 		$widget_ops = array(
@@ -49,30 +50,29 @@ class Shapely_Home_Features extends WP_Widget {
 				</div>
 				<!--end of row-->
 				<div class="row">
-				<?php
-				for ( $i = 1; $i < 4; $i ++ ) {
-					if ( '' != $title[ $i ] ) {
-					?>
+					<?php
+					for ( $i = 1; $i < 4; $i ++ ) {
+						if ( '' != $title[ $i ] ) {
+							?>
 							<div class="col-sm-4">
-							<div class="feature feature-1">
-								<div class="text-center">
-									<i class="<?php echo esc_attr( $icon[ $i ] ); ?>"></i>
-									<h4><?php echo wp_kses_post( $title[ $i ] ); ?></h4>
+								<div class="feature feature-1">
+									<div class="text-center">
+										<i class="<?php echo esc_attr( $icon[ $i ] ); ?>"></i>
+										<h4><?php echo wp_kses_post( $title[ $i ] ); ?></h4>
+									</div>
+									<p><?php echo wp_kses_post( $body_content[ $i ] ); ?></p>
 								</div>
-								<p><?php echo wp_kses_post( $body_content[ $i ] ); ?></p>
-							</div>
-							<!--end of feature-->
+								<!--end of feature-->
 							</div>
 							<?php
+						}
 					}
-				}
-				?>
+					?>
 				</div>
 				<!--end of row-->
 			</div>
 			<!--end of container-->
 		</section>
-
 
 		<?php
 
@@ -123,19 +123,18 @@ class Shapely_Home_Features extends WP_Widget {
 				for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title ', 'shapely-companion' ); ?></label>
 
 			<input type="text" value="<?php echo esc_attr( $instance['title'] ); ?>"
-				   name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>"
-				   id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"
-				   class="widefat"/>
+			       name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>"
+			       id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"
+			       class="widefat" />
 		</p>
 
-		<p><label
+		<p class="shapely-editor-container"><label
 				for="<?php echo esc_attr( $this->get_field_id( 'body_content' ) ); ?>"><?php esc_html_e( 'Content ', 'shapely-companion' ); ?></label>
 
 			<textarea name="<?php echo esc_attr( $this->get_field_name( 'body_content' ) ); ?>"
-					  id="<?php echo esc_attr( $this->get_field_id( 'body_content' ) ); ?>"
-					  class="widefat"><?php echo esc_attr( $instance['body_content'] ); ?></textarea>
+			          id="<?php echo esc_attr( $this->get_field_id( 'body_content' ) ); ?>"
+			          class="widefat"><?php echo esc_attr( $instance['body_content'] ); ?></textarea>
 		</p>
-
 
 		<?php for ( $i = 1; $i < 4; $i ++ ) { ?>
 			<br>
@@ -145,21 +144,21 @@ class Shapely_Home_Features extends WP_Widget {
 					for="<?php echo esc_attr( $this->get_field_id( 'title' . $i ) ); ?>"><?php esc_html_e( 'Title ', 'shapely-companion' ); ?></label>
 
 				<input type="text" value="<?php echo esc_attr( $instance[ 'title' . $i ] ); ?>"
-					   name="<?php echo esc_attr( $this->get_field_name( 'title' . $i ) ); ?>"
-					   id="<?php echo esc_attr( $this->get_field_id( 'title' . $i ) ); ?>"
-					   class="widefat"/>
+				       name="<?php echo esc_attr( $this->get_field_name( 'title' . $i ) ); ?>"
+				       id="<?php echo esc_attr( $this->get_field_id( 'title' . $i ) ); ?>"
+				       class="widefat" />
 			</p>
 
 			<p><label
 					for="<?php echo esc_attr( $this->get_field_id( 'icon' . $i ) ); ?>"><?php esc_html_e( 'Icon( Font Awsome ) ', 'shapely-companion' ); ?></label>
-									<?php
+				<?php
 
-									$get_fontawesome_icons = $this->get_fontawesome_icons();
-									$icon                  = ( isset( $instance[ 'icon' . $i ] ) && '' != $instance[ 'icon' . $i ] ) ? esc_html( $instance[ 'icon' . $i ] ) : '';
-					?>
+				$get_fontawesome_icons = $this->get_fontawesome_icons();
+				$icon                  = ( isset( $instance[ 'icon' . $i ] ) && '' != $instance[ 'icon' . $i ] ) ? esc_html( $instance[ 'icon' . $i ] ) : '';
+				?>
 
 				<select class="shapely-icon" id="<?php echo esc_attr( $this->get_field_id( 'icon' . $i ) ); ?>"
-						name="<?php echo esc_attr( $this->get_field_name( 'icon' . $i ) ); ?>">
+				        name="<?php echo esc_attr( $this->get_field_name( 'icon' . $i ) ); ?>">
 					<option value=""><?php _e( 'Select Icon', 'shapely-companion' ); ?></option>
 					<?php foreach ( $get_fontawesome_icons as $key => $get_fontawesome_icon ) : ?>
 						<option
@@ -167,17 +166,19 @@ class Shapely_Home_Features extends WP_Widget {
 					<?php endforeach; ?>
 				</select>
 				<span class="<?php echo esc_attr( $icon ); ?>"
-					  style="font-size: 24px;vertical-align: middle;margin-left: 10px;"></span>
+				      style="font-size: 24px;vertical-align: middle;margin-left: 10px;"></span>
 			</p>
 
-			<p><label
-				for="<?php echo esc_attr( $this->get_field_id( 'body_content' . $i ) ); ?>"><?php esc_html_e( 'Content ', 'shapely-companion' ); ?></label>
+			<p class="shapely-editor-container">
+			<label for="<?php echo esc_attr( $this->get_field_id( 'body_content' . $i ) ); ?>"><?php esc_html_e( 'Content ', 'shapely-companion' ); ?></label>
 
 			<textarea name="<?php echo esc_attr( $this->get_field_name( 'body_content' . $i ) ); ?>"
-					  id="<?php echo esc_attr( $this->get_field_id( 'body_content' . $i ) ); ?>"
-					  class="widefat"><?php echo esc_attr( $instance[ 'body_content' . $i ] ); ?></textarea>
+			          id="<?php echo esc_attr( $this->get_field_id( 'body_content' . $i ) ); ?>"
+			          class="widefat">
+				<?php echo wp_kses_post( $instance[ 'body_content' . $i ] ); ?>
+			</textarea>
 			</p><?php
-}// End for().
+		}// End for().
 	}
 
 	/**

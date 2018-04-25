@@ -100,5 +100,3 @@ jQuery( document ).ready( function() {// jscs:ignore validateLineBreaks
 	} );
 
 } );
-
-
