@@ -71,16 +71,13 @@ class Shapely_Home_Testimonials extends WP_Widget {
 											<?php
 											while ( $testimonial_query->have_posts() ) :
 												$testimonial_query->the_post();
-												?><?php if ( get_the_title() != '' ) : ?>
+												?>
+												<?php if ( get_the_title() != '' ) : ?>
 												<li>
 													<p><?php the_content(); ?></p>
 													<div class="testimonial-author-section">
 														<?php
-														the_post_thumbnail(
-															'thumbnail', array(
-																           'class' => 'testimonial-img',
-															           )
-														);
+														the_post_thumbnail( 'thumbnail', array( 'class' => 'testimonial-img' ) );
 														?>
 
 														<div class="testimonial-author">

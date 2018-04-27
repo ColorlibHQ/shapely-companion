@@ -57,28 +57,18 @@ class Shapely_Home_Parallax extends WP_Widget {
 
 		$instance = wp_parse_args( $instance, $this->defaults );
 
-		$title         = $instance['title'];
-		$image_src     = $instance['image_src'];
-		$image_pos     = $instance['image_pos'];
-		$body_content  = $instance['body_content'];
-		$button1       = $instance['button1'];
-		$button2       = $instance['button2'];
-		$button1_link  = $instance['button1_link'];
-		$button2_link  = $instance['button2_link'];
-		$border_bottom = $instance['border_bottom'];
-
 		echo $args['before_widget'];
 
 		/* Classes */
-		$class1 = ( 'background-full' == $image_pos ) ? 'cover fullscreen image-bg' : ( ( 'background-small' == $image_pos ) ? 'small-screen image-bg p0' : ( ( 'right' == $image_pos ) ? 'bg-secondary' : ( ( 'bottom' == $image_pos ) ? 'bg-secondary pb0' : '' ) ) );
-		$class2 = ( ( 'background-full' == $image_pos ) || ( 'background-small' == $image_pos ) ) ? 'top-parallax-section' : ( ( 'right' == $image_pos ) ? 'col-md-4 col-sm-5 mb-xs-24' : ( ( 'left' == $image_pos ) ? 'col-md-4 col-md-offset-1 col-sm-5 col-sm-offset-1' : ( ( 'bottom' == $image_pos ) ? 'col-sm-10 col-sm-offset-1 text-center' : ( ( 'top' == $image_pos ) ? 'col-sm-10 col-sm-offset-1 text-center mt30' : '' ) ) ) );
-		$class3 = ( ( 'background-full' == $image_pos ) || ( 'background-small' == $image_pos ) ) ? 'col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 text-center' : '';
-		$class4 = ( 'left' == $image_pos || 'right' == $image_pos ) ? 'row align-children' : 'row';
-		$class5 = ( 'right' == $image_pos ) ? 'col-md-7 col-md-offset-1 col-sm-6 col-sm-offset-1 text-center' : '';
-		$class6 = ( 'left' == $image_pos ) ? 'col-md-7 col-sm-6 text-center mb-xs-24' : '';
-		$class7 = ( 'background-full' == $image_pos ) ? 'fullscreen' : '';
+		$class1 = ( 'background-full' == $instance['image_pos'] ) ? 'cover fullscreen image-bg' : ( ( 'background-small' == $instance['image_pos'] ) ? 'small-screen image-bg p0' : ( ( 'right' == $instance['image_pos'] ) ? 'bg-secondary' : ( ( 'bottom' == $instance['image_pos'] ) ? 'bg-secondary pb0' : '' ) ) );
+		$class2 = ( ( 'background-full' == $instance['image_pos'] ) || ( 'background-small' == $instance['image_pos'] ) ) ? 'top-parallax-section' : ( ( 'right' == $instance['image_pos'] ) ? 'col-md-4 col-sm-5 mb-xs-24' : ( ( 'left' == $instance['image_pos'] ) ? 'col-md-4 col-md-offset-1 col-sm-5 col-sm-offset-1' : ( ( 'bottom' == $instance['image_pos'] ) ? 'col-sm-10 col-sm-offset-1 text-center' : ( ( 'top' == $instance['image_pos'] ) ? 'col-sm-10 col-sm-offset-1 text-center mt30' : '' ) ) ) );
+		$class3 = ( ( 'background-full' == $instance['image_pos'] ) || ( 'background-small' == $instance['image_pos'] ) ) ? 'col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 text-center' : '';
+		$class4 = ( 'left' == $instance['image_pos'] || 'right' == $instance['image_pos'] ) ? 'row align-children' : 'row';
+		$class5 = ( 'right' == $instance['image_pos'] ) ? 'col-md-7 col-md-offset-1 col-sm-6 col-sm-offset-1 text-center' : '';
+		$class6 = ( 'left' == $instance['image_pos'] ) ? 'col-md-7 col-sm-6 text-center mb-xs-24' : '';
+		$class7 = ( 'background-full' == $instance['image_pos'] ) ? 'fullscreen' : '';
 
-		if ( 'on' == $border_bottom ) {
+		if ( 'on' == $instance['border_bottom'] ) {
 			$class1 .= ' border-bottom';
 		}
 		/**
@@ -87,10 +77,10 @@ class Shapely_Home_Parallax extends WP_Widget {
 		?>
 		<section class="<?php echo esc_attr( $class1 ); ?>">
 			<?php
-			if ( ( 'background-full' == $image_pos || 'background-small' == $image_pos ) && '' != $image_src ) {
+			if ( ( 'background-full' == $instance['image_pos'] || 'background-small' == $instance['image_pos'] ) && '' != $instance['image_src'] ) {
 			?>
-			<div class="parallax-window <?php echo esc_attr( $class7 ); ?>" data-parallax="scroll" data-image-src="<?php echo esc_url( $image_src ); ?>" data-ios-fix="true" data-over-scroll-fix="true" data-android-fix="true">
-				<div class="<?php echo ( 'background-full' == $image_pos ) ? 'align-transform' : ''; ?>">
+			<div class="parallax-window <?php echo esc_attr( $class7 ); ?>" data-parallax="scroll" data-image-src="<?php echo esc_url( $instance['image_src'] ); ?>" data-ios-fix="true" data-over-scroll-fix="true" data-android-fix="true">
+				<div class="<?php echo ( 'background-full' == $instance['image_pos'] ) ? 'align-transform' : ''; ?>">
 					<?php } else { ?>
 					<div class="container">
 						<?php } ?>
@@ -98,10 +88,10 @@ class Shapely_Home_Parallax extends WP_Widget {
 						<div class="<?php echo esc_attr( $class4 ); ?>">
 
 							<?php
-							if ( ( 'left' == $image_pos || 'top' == $image_pos ) && '' != $image_src ) {
+							if ( ( 'left' == $instance['image_pos'] || 'top' == $instance['image_pos'] ) && '' != $instance['image_src'] ) {
 								?>
 								<div class="<?php echo esc_attr( $class6 ); ?>">
-									<img class="img-responsive" alt="<?php echo esc_attr( $title ); ?>" src="<?php echo esc_url( $image_src ); ?>">
+									<img class="img-responsive" alt="<?php echo esc_attr( $instance['title'] ); ?>" src="<?php echo esc_url( $instance['image_src'] ); ?>">
 								</div>
 								<?php
 							}
@@ -110,30 +100,30 @@ class Shapely_Home_Parallax extends WP_Widget {
 							<div class="<?php echo esc_attr( $class2 ); ?>">
 								<div class="<?php echo esc_attr( $class3 ); ?>">
 									<?php
-									echo ( '' != $title ) ? ( ( 'background-full' == $image_pos ) || ( 'background-small' == $image_pos ) ) ? '<h1>' . wp_kses_post( $title ) . '</h1>' : '<h3>' . wp_kses_post( $title ) . '</h3>' : '';
-									if ( '' != $body_content ) {
+									echo ( '' != $instance['title'] ) ? ( ( 'background-full' == $instance['image_pos'] ) || ( 'background-small' == $instance['image_pos'] ) ) ? '<h1>' . wp_kses_post( $instance['title'] ) . '</h1>' : '<h3>' . wp_kses_post( $instance['title'] ) . '</h3>' : '';
+									if ( '' != $instance['body_content'] ) {
 										echo '<div class="mb32">';
-										echo apply_filters( 'the_content', wp_kses( $body_content, $allowed_tags ) );
+										echo apply_filters( 'the_content', wp_kses( $instance['body_content'], $allowed_tags ) );
 										echo '</div>';
 									}
-									echo ( '' != $button2 && '' != $button2_link ) ? '<a class="btn btn-lg btn-white" href="' . esc_url( $button2_link ) . '">' . wp_kses_post( $button2 ) . '</a>' : '';
-									echo ( '' != $button1 && '' != $button1_link ) ? '<a class="btn btn-lg btn-filled" href="' . esc_url( $button1_link ) . '">' . wp_kses_post( $button1 ) . '</a>' : '';
+									echo ( '' != $instance['button2'] && '' != $instance['button2_link'] ) ? '<a class="btn btn-lg btn-white" href="' . esc_url( $instance['button2_link'] ) . '">' . wp_kses_post( $instance['button2'] ) . '</a>' : '';
+									echo ( '' != $instance['button1'] && '' != $instance['button1_link'] ) ? '<a class="btn btn-lg btn-filled" href="' . esc_url( $instance['button1_link'] ) . '">' . wp_kses_post( $instance['button1'] ) . '</a>' : '';
 									?>
 								</div>
 							</div>
 							<!--end of row-->
 							<?php
-							if ( ( 'right' == $image_pos || 'bottom' == $image_pos ) && '' != $image_src ) {
+							if ( ( 'right' == $instance['image_pos'] || 'bottom' == $instance['image_pos'] ) && '' != $instance['image_src'] ) {
 								?>
 								<div class="<?php echo esc_attr( $class5 ); ?>">
-									<img class="img-responsive" alt="<?php echo esc_attr( $title ); ?>" src="<?php echo esc_url( $image_src ); ?>">
+									<img class="img-responsive" alt="<?php echo esc_attr( $instance['title'] ); ?>" src="<?php echo esc_url( $instance['image_src'] ); ?>">
 								</div>
 								<?php
 							}
 							?>
 						</div>
 					</div>
-					<?php if ( 'background-full' == $image_pos || 'background-small' == $image_pos ) { ?>
+					<?php if ( 'background-full' == $instance['image_pos'] || 'background-small' == $instance['image_pos'] ) { ?>
 				</div>
 				<?php } ?>
 		</section>

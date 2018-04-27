@@ -180,7 +180,7 @@ class Shapely_Home_Features extends WP_Widget {
 				</textarea>
 			</p>
 			<?php
-}
+		}
 	}
 
 	/**
