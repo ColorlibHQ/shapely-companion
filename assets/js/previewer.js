@@ -3,7 +3,7 @@
 	'use strict';
 
 	$( document ).ready( function() {
-		if ( 'undefined' === typeof wp || !wp.customize || !wp.customize.selectiveRefresh ) {
+		if ( 'undefined' === typeof wp || ! wp.customize || ! wp.customize.selectiveRefresh ) {
 			return;
 		}
 
