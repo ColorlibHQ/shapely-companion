@@ -83,8 +83,11 @@
 
         wp.editor.initialize( editorId, {
           tinymce: {
+            browser_spellcheck: true,
+            mediaButtons: false,
+            wp_autoresize_on: true,
+            toolbar1: 'bold,italic,link,strikethrough',
             wpautop: true,
-            rows: 7,
             setup: function( editor ) {
               editor.on( 'change', function() {
                 editor.save();
