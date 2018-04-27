@@ -32,27 +32,23 @@ class Shapely_Home_Call_For_Action extends WP_Widget {
 
 		$instance = wp_parse_args( $instance, $this->defaults );
 
-		$title       = $instance['title'];
-		$button      = $instance['button'];
-		$button_link = $instance['button_link'];
-
 		echo $args['before_widget'];
 
 		/**
 		 * Widget Content
 		 */
 		?>
-		<?php if ( '' != $title ) : ?>
+		<?php if ( '' != $instance['title'] ) : ?>
 			<section class="cfa-section bg-secondary">
 				<div class="container">
 					<div class="row">
 						<div class="col-sm-12 text-center p0">
 							<div class="overflow-hidden">
 								<div class="col-sm-9">
-									<h3 class="cfa-text"><?php echo wp_kses_post( $title ); ?></h3>
+									<h3 class="cfa-text"><?php echo wp_kses_post( $instance['title'] ); ?></h3>
 								</div>
 								<div class="col-sm-3">
-									<a href="<?php echo esc_url_raw( $button_link ); ?>" class="mb0 btn btn-lg btn-filled cfa-button"><?php echo esc_html( $button ); ?></a>
+									<a href="<?php echo esc_url_raw( $instance['button_link'] ); ?>" class="mb0 btn btn-lg btn-filled cfa-button"><?php echo esc_html( $instance['button'] ); ?></a>
 								</div>
 							</div>
 						</div>
@@ -123,5 +119,4 @@ class Shapely_Home_Call_For_Action extends WP_Widget {
 
 		return $instance;
 	}
-
 }

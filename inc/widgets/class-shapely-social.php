@@ -64,7 +64,7 @@ class Shapely_Social extends WP_Widget {
 			<label for="<?php echo $this->get_field_id( 'title' ); ?>">
 				<?php echo esc_html__( 'Title ', 'shapely-companion' ); ?>
 			</label>
-			<input type="text" value="<?php echo esc_attr( $instance['title'] ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" class="widefat" />
+			<input type="text" value="<?php echo esc_attr( $instance['title'] ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" class="widefat"/>
 		</p>
 
 		<?php

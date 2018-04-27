@@ -133,8 +133,7 @@ class Shapely_Home_Portfolio extends WP_Widget {
 				</div>
 				<?php if ( '1' != $instance['fullwidth'] ) : ?>
 				</div>
-			<?php endif ?>
-			<?php
+			<?php endif ?><?php
 			endif;
 			wp_reset_postdata();
 			?>
@@ -153,15 +152,17 @@ class Shapely_Home_Portfolio extends WP_Widget {
 	 */
 	function form( $instance ) {
 		$instance   = wp_parse_args( $instance, $this->defaults );
-		$categories = get_terms( array(
-			'taxonomy' => 'jetpack-portfolio-type',
-			'fields'   => 'id=>name',
-		) );
+		$categories = get_terms(
+			array(
+				'taxonomy' => 'jetpack-portfolio-type',
+				'fields'   => 'id=>name',
+			)
+		);
 		?>
 
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php echo esc_html__( 'Title ', 'shapely-companion' ); ?></label>
-			<input type="text" value="<?php echo esc_attr( $instance['title'] ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" class="widefat" />
+			<input type="text" value="<?php echo esc_attr( $instance['title'] ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" class="widefat"/>
 		</p>
 
 		<p class="shapely-editor-container">
@@ -187,7 +188,7 @@ class Shapely_Home_Portfolio extends WP_Widget {
 
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'postsnumber' ) ); ?>"><?php echo esc_html__( 'Number of Projects ', 'shapely-companion' ); ?></label>
-			<input id="<?php echo esc_attr( $this->get_field_id( 'postsnumber' ) ); ?>" type="text" value="<?php echo esc_attr( $instance['postsnumber'] ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'postsnumber' ) ); ?>" class="widefat" />
+			<input id="<?php echo esc_attr( $this->get_field_id( 'postsnumber' ) ); ?>" type="text" value="<?php echo esc_attr( $instance['postsnumber'] ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'postsnumber' ) ); ?>" class="widefat"/>
 		</p>
 
 		<div class="checkbox_switch wp-clearfix">
@@ -214,12 +215,12 @@ class Shapely_Home_Portfolio extends WP_Widget {
 
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'backgroundcolor' ) ); ?>"><?php echo esc_html__( 'Background Color ', 'shapely-companion' ); ?></label><br>
-			<input type="text" value="<?php echo esc_attr( $instance['backgroundcolor'] ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'backgroundcolor' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'backgroundcolor' ) ); ?>" class="widefat shapely-color-picker" />
+			<input type="text" value="<?php echo esc_attr( $instance['backgroundcolor'] ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'backgroundcolor' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'backgroundcolor' ) ); ?>" class="widefat shapely-color-picker"/>
 		</p>
 
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'textcolor' ) ); ?>"><?php echo esc_html__( 'Text Color ', 'shapely-companion' ); ?></label><br>
-			<input type="text" value="<?php echo esc_attr( $instance['textcolor'] ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'textcolor' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'textcolor' ) ); ?>" class="widefat shapely-color-picker" />
+			<input type="text" value="<?php echo esc_attr( $instance['textcolor'] ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'textcolor' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'textcolor' ) ); ?>" class="widefat shapely-color-picker"/>
 		</p>
 
 		<?php

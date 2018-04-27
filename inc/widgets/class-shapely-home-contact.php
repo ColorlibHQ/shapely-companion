@@ -10,7 +10,7 @@ class Shapely_Home_Contact extends WP_Widget {
 
 	function __construct() {
 		add_action( 'admin_init', array( $this, 'enqueue' ) );
-		add_action( 'customize_controlsecho esc_html__nqueue_scripts', array( $this, 'enqueue' ) );
+		add_action( 'customize_controls_enqueue_scripts', array( $this, 'enqueue' ) );
 		add_action( 'customize_preview_init', array( $this, 'enqueue' ) );
 
 		$widget_ops = array(
@@ -264,5 +264,3 @@ class Shapely_Home_Contact extends WP_Widget {
 		return $instance;
 	}
 }
-
-?>

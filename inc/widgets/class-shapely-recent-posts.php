@@ -89,8 +89,7 @@ class Shapely_Recent_Posts extends WP_Widget {
 									<div class="widget-post-excerpt"><?php the_excerpt(); ?></div>
 								<?php endif ?>
 
-							</li>
-							<!-- end content -->
+							</li>							<!-- end content -->
 
 						<?php endif; ?>
 
@@ -123,21 +122,21 @@ class Shapely_Recent_Posts extends WP_Widget {
 			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>">
 				<?php echo esc_html__( 'Title', 'shapely-companion' ); ?>
 			</label>
-			<input type="text" value="<?php echo esc_attr( $instance['title'] ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" class="widefat" />
+			<input type="text" value="<?php echo esc_attr( $instance['title'] ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" class="widefat"/>
 		</p>
 
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'excerpt' ) ); ?>">
 				<?php echo esc_html__( 'Show Excerpt', 'shapely-companion' ); ?>
 			</label>
-			<input type="checkbox" value="1" name="<?php echo esc_attr( $this->get_field_name( 'excerpt' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'excerpt' ) ); ?>" <?php checked( 1, $instance['excerpt'] ); ?> class="widefat" />
+			<input type="checkbox" value="1" name="<?php echo esc_attr( $this->get_field_name( 'excerpt' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'excerpt' ) ); ?>" <?php checked( 1, $instance['excerpt'] ); ?> class="widefat"/>
 		</p>
 
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>">
 				<?php echo esc_html__( 'Limit Posts Number', 'shapely-companion' ); ?>
 			</label>
-			<input type="text" value="<?php echo esc_attr( $instance['limit'] ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'limit' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>" class="widefat" />
+			<input type="text" value="<?php echo esc_attr( $instance['limit'] ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'limit' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>" class="widefat"/>
 		</p>
 
 		<?php

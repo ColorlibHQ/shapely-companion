@@ -34,10 +34,12 @@ class Shapely_Page_Content extends WP_Widget {
 							<?php
 							the_content();
 
-							wp_link_pages( array(
-								'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'shapely-companion' ),
-								'after'  => '</div>',
-							) );
+							wp_link_pages(
+								array(
+									'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'shapely-companion' ),
+									'after'  => '</div>',
+								)
+							);
 							?>
 						</div>
 					</div>

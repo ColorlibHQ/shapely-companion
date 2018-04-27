@@ -46,5 +46,3 @@ class Shapely_Page_Title extends WP_Widget {
 	}
 
 }
-
-?>
