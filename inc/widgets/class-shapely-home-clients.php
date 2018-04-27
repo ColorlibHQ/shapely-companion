@@ -5,6 +5,9 @@
  * Shapely Theme
  */
 class Shapely_Home_Clients extends WP_Widget {
+
+	private $defaults = array();
+
 	function __construct() {
 
 		$widget_ops = array(
@@ -13,22 +16,37 @@ class Shapely_Home_Clients extends WP_Widget {
 			'customize_selective_refresh' => true,
 		);
 		parent::__construct( 'shapely_home_clients', esc_html__( '[Shapely] Client Section For FrontPage', 'shapely-companion' ), $widget_ops );
+
+		$this->defaults = array(
+			'title'       => __( 'Our Main Clients', 'shapely-companion' ),
+			'client_logo' => array(
+				'link' => array(),
+				'img'  => array(),
+			),
+		);
 	}
 
+	/**
+	 * @param array $args
+	 * @param array $instance
+	 */
 	function widget( $args, $instance ) {
-		$title = isset( $instance['title'] ) && ! empty( $instance['title'] ) ? $instance['title'] : __( 'Our Main Clients', 'shapely-companion' );
-		$logos = isset( $instance['client_logo'] ) ? $instance['client_logo'] : '';
+
+		$instance = wp_parse_args( $instance, $this->defaults );
+
+		$title = $instance['title'];
 
 		echo $args['before_widget'];
-		if ( gettype( $logos ) == 'object' ) {
-			$logos = get_object_vars( $logos );
+
+		if ( gettype( $instance['client_logo'] ) == 'object' ) {
+			$instance['client_logo'] = get_object_vars( $instance['client_logo'] );
 		}
 
 		/**
 		 * Widget Content
 		 */
 		?>
-		<?php if ( isset( $logos['img'] ) && count( $logos['img'] ) != 0 ) { ?>
+		<?php if ( isset( $instance['client_logo']['img'] ) && count( $instance['client_logo']['img'] ) > 0 ) { ?>
 			<section>
 				<div class="container">
 					<div class="row">
@@ -40,20 +58,19 @@ class Shapely_Home_Clients extends WP_Widget {
 					<div class="row">
 						<div class="logo-carousel">
 							<ul class="slides">
-							<?php
-							for ( $i = 0; $i < count( $logos['img'] ); $i ++ ) {
-								if ( '' != $logos['img'] && '' != $logos['link'] ) {
-								?>
+								<?php
+								for ( $i = 0; $i < count( $instance['client_logo']['img'] ); $i ++ ) {
+									if ( '' != $instance['client_logo']['img'] && '' != $instance['client_logo']['link'] ) {
+										?>
 										<li>
-										<a href="<?php echo esc_url_raw( $logos['link'][ $i ] ); ?>">
-											<img alt="<?php _e( 'Logos', 'shapely-companion' ); ?>"
-												 src="<?php echo esc_url_raw( $logos['img'][ $i ] ); ?>"/>
-										</a>
+											<a href="<?php echo esc_url_raw( $instance['client_logo']['link'][ $i ] ); ?>">
+												<img alt="<?php _e( 'Logos', 'shapely-companion' ); ?>" src="<?php echo esc_url_raw( $instance['client_logo']['img'][ $i ] ); ?>" />
+											</a>
 										</li>
 										<?php
+									}
 								}
-							}
-							?>
+								?>
 							</ul>
 						</div>
 						<!--end of logo slider-->
@@ -70,80 +87,65 @@ class Shapely_Home_Clients extends WP_Widget {
 	}
 
 
+	/**
+	 * @param array $instance
+	 *
+	 * @return string|void
+	 */
 	function form( $instance ) {
-		if ( ! isset( $instance['title'] ) ) {
-			$instance['title'] = '';
+
+		$instance = wp_parse_args( $instance, $this->defaults );
+
+		if ( gettype( $instance['client_logo'] ) == 'object' ) {
+			$instance['client_logo'] = get_object_vars( $instance['client_logo'] );
 		}
 
-		$logos = array();
-		if ( ! empty( $instance['client_logo'] ) ) {
-			$logos = $instance['client_logo'];
-			if ( gettype( $logos ) == 'object' ) {
-				$logos = get_object_vars( $logos );
-			}
-		}
-
-		if ( ! isset( $logos['img'] ) ) {
-			$logos['img'] = array();
-		}
-		if ( ! isset( $logos['link'] ) ) {
-			$logos['link'] = array();
-		}
 		?>
 
-		<p><label
-				for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title ', 'shapely-companion' ); ?></label>
-
-			<input type="text" value="<?php echo esc_attr( $instance['title'] ); ?>"
-				   name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>"
-				   id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"
-				   class="widefat"/>
+		<p><label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>">
+				<?php echo esc_html__( 'Title ', 'shapely-companion' ); ?>
+			</label>
+			<input type="text" value="<?php echo esc_attr( $instance['title'] ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" class="widefat" />
 		</p>
 
 		<ul class="client-sortable clone-wrapper">
+			<?php
+			$image_src       = $instance['client_logo']['img'];
+			$logo_link       = $instance['client_logo']['link'];
+			$slider_count    = ( isset( $image_src ) && count( $image_src ) > 0 ) ? count( $image_src ) : 3;
+			$placeholder_url = plugins_url( 'shapely-companion/assets/img/placeholder_wide.jpg' );
+
+			for ( $i = 0; $i < $slider_count; $i ++ ) :
+				?>
+				<li class="toclone">
+					<br>
+					<p class="shapely-media-control" data-delegate-container="<?php echo esc_attr( $this->get_field_id( 'client_logo' ) . '-' . absint( $i ) ); ?>">
+						<label
+							class="logo_heading"
+							for="<?php echo esc_attr( $this->get_field_id( 'client_logo' ) . '-' . absint( $i ) ); ?>">
+							<?php
+							_e( 'Logo #', 'shapely-companion' );
+							?>
+							<span class="count"><?php echo absint( $i ) + 1; ?></span>:</label>
+
+						<img data-default="<?php echo esc_url_raw( $placeholder_url ); ?>" src="<?php echo ( isset( $image_src[ $i ] ) && '' != $image_src[ $i ] ) ? esc_url( $image_src[ $i ] ) : esc_url_raw( $placeholder_url ); ?>" />
+
+						<input type="hidden" name="<?php echo esc_attr( $this->get_field_name( 'client_logo' ) . '[img][' . $i . ']' ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'client_logo' ) . '-' . (int) $i ); ?>" value="<?php echo ( isset( $image_src[ $i ] ) ) ? esc_url_raw( $image_src[ $i ] ) : ''; ?>" class="image-id blazersix-media-control-target">
+
+						<button class="button upload-button"><?php _e( 'Choose Image', 'shapely-companion' ); ?></button>
+					</p>
+
+					<label for="link<?php echo esc_attr( '-' . absint( $i ) ); ?>">
+						<?php _e( 'Link:', 'shapely-companion' ); ?>
+					</label>
+					<input name="<?php echo esc_attr( $this->get_field_name( 'client_logo' ) . '[link][' . $i . ']' ); ?>" id="link<?php echo esc_attr( '-' . absint( $i ) ); ?>" class="widefat client-link" type="text" size="36" value="<?php echo ( isset( $logo_link[ $i ] ) ) ? esc_url_raw( $logo_link[ $i ] ) : ''; ?>" /><br><br>
+
+					<a href="#" class="clone button-primary"><?php _e( 'Add', 'shapely-companion' ); ?></a>
+					<a href="#" class="delete button"><?php _e( 'Delete', 'shapely-companion' ); ?></a>
+				</li>
+			<?php endfor; ?>
+		</ul>
 		<?php
-		$image_src       = $logos['img'];
-		$logo_link       = $logos['link'];
-		$slider_count    = ( isset( $image_src ) && count( $image_src ) > 0 ) ? count( $image_src ) : 3;
-		$placeholder_url = plugins_url( 'shapely-companion/assets/img/placeholder_wide.jpg' );
-
-		for ( $i = 0; $i < $slider_count; $i ++ ) :
-		?>
-			<li class="toclone">
-				<br>
-				<p class="shapely-media-control"
-				   data-delegate-container="<?php echo esc_attr( $this->get_field_id( 'client_logo' ) . '-' . absint( $i ) ); ?>">
-					<label
-						class="logo_heading"
-						for="<?php echo esc_attr( $this->get_field_id( 'client_logo' ) . '-' . absint( $i ) ); ?>">
-										<?php
-										_e( 'Logo #', 'shapely-companion' );
-						?>
-						<span class="count"><?php echo absint( $i ) + 1; ?></span>:</label>
-
-					<img data-default="<?php echo $placeholder_url; ?>" src="<?php echo ( isset( $image_src[ $i ] ) && '' != $image_src[ $i ] ) ? esc_url( $image_src[ $i ] ) : $placeholder_url; ?>"/>
-
-					<input type="hidden"
-						   name="<?php echo esc_attr( $this->get_field_name( 'client_logo' ) . '[img][' . $i . ']' ); ?>"
-						   id="<?php echo esc_attr( $this->get_field_id( 'client_logo' ) . '-' . (int) $i ); ?>"
-						   value="<?php echo ( isset( $image_src[ $i ] ) ) ? esc_url( $image_src[ $i ] ) : ''; ?>"
-						   class="image-id blazersix-media-control-target">
-
-					<button type="button"
-							class="button upload-button"><?php _e( 'Choose Image', 'shapely-companion' ); ?></button>
-				</p>
-
-				<label><?php _e( 'Link:', 'shapely-companion' ); ?></label>
-				<input name="<?php echo esc_attr( $this->get_field_name( 'client_logo' ) . '[link][' . $i . ']' ); ?>"
-					   id="link<?php echo esc_attr( '-' . absint( $i ) ); ?>" class="widefat client-link" type="text"
-					   size="36"
-					   value="<?php echo ( isset( $logo_link[ $i ] ) ) ? esc_url( $logo_link[ $i ] ) : ''; ?>"/><br><br>
-
-				<a href="#" class="clone button-primary"><?php _e( 'Add', 'shapely-companion' ); ?></a>
-				<a href="#" class="delete button"><?php _e( 'Delete', 'shapely-companion' ); ?></a>
-			</li>
-		<?php endfor; ?>
-		</ul><?php
 
 	}
 
@@ -176,5 +178,3 @@ class Shapely_Home_Clients extends WP_Widget {
 	}
 
 }
-
-?>

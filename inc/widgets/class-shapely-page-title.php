@@ -5,6 +5,7 @@
  * shapely Theme
  */
 class Shapely_Page_Title extends WP_Widget {
+
 	function __construct() {
 
 		$widget_ops = array(
@@ -34,9 +35,13 @@ class Shapely_Page_Title extends WP_Widget {
 	}
 
 
-	function form( $instance ) { }
+	function form( $instance ) {
+	}
 
 	public function update( $new_instance, $old_instance ) {
+
+		$instance = $new_instance;
+
 		return $instance;
 	}
 

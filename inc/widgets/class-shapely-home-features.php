@@ -6,6 +6,10 @@
  */
 class Shapely_Home_Features extends WP_Widget {
 
+	private $defaults  = array();
+	private $all_icons = array();
+	private $icons     = array();
+
 	function __construct() {
 
 		$widget_ops = array(
@@ -16,23 +20,44 @@ class Shapely_Home_Features extends WP_Widget {
 
 		parent::__construct( 'shapely_home_features', esc_html__( '[Shapely] Features Section For FrontPage', 'shapely-companion' ), $widget_ops );
 
+		$this->defaults = array(
+			'title'         => '',
+			'title1'        => '',
+			'title2'        => '',
+			'title3'        => '',
+			'icon1'         => 'fa fa-cogs',
+			'icon2'         => 'fa fa-heartbeat',
+			'icon3'         => 'fa fa-paper-plane-o',
+			'body_content'  => '',
+			'body_content1' => '',
+			'body_content2' => '',
+			'body_content3' => '',
+		);
+
 	}
 
+	/**
+	 * @param array $args
+	 * @param array $instance
+	 */
 	function widget( $args, $instance ) {
-		$title[0]        = isset( $instance['title'] ) ? $instance['title'] : '';
-		$body_content[0] = isset( $instance['body_content'] ) ? $instance['body_content'] : '';
 
-		$title[1] = isset( $instance['title1'] ) ? $instance['title1'] : '';
-		$title[2] = isset( $instance['title2'] ) ? $instance['title2'] : '';
-		$title[3] = isset( $instance['title3'] ) ? $instance['title3'] : '';
+		$instance = wp_parse_args( $instance, $this->defaults );
 
-		$icon[1] = isset( $instance['icon1'] ) && ! empty( $instance['icon1'] ) ? $instance['icon1'] : 'fa fa-cogs';
-		$icon[2] = isset( $instance['icon2'] ) && ! empty( $instance['icon2'] ) ? $instance['icon2'] : 'fa fa-heartbeat';
-		$icon[3] = isset( $instance['icon3'] ) && ! empty( $instance['icon3'] ) ? $instance['icon3'] : 'fa fa-paper-plane-o';
+		$title[0]        = $instance['title'];
+		$body_content[0] = $instance['body_content'];
 
-		$body_content[1] = isset( $instance['body_content1'] ) ? $instance['body_content1'] : '';
-		$body_content[2] = isset( $instance['body_content2'] ) ? $instance['body_content2'] : '';
-		$body_content[3] = isset( $instance['body_content3'] ) ? $instance['body_content3'] : '';
+		$title[1] = $instance['title1'];
+		$title[2] = $instance['title2'];
+		$title[3] = $instance['title3'];
+
+		$icon[1] = $instance['icon1'];
+		$icon[2] = $instance['icon2'];
+		$icon[3] = $instance['icon3'];
+
+		$body_content[1] = $instance['body_content1'];
+		$body_content[2] = $instance['body_content2'];
+		$body_content[3] = $instance['body_content3'];
 
 		echo $args['before_widget'];
 
@@ -80,105 +105,82 @@ class Shapely_Home_Features extends WP_Widget {
 	}
 
 
+	/**
+	 * @param array $instance
+	 *
+	 * @return string|void
+	 */
 	function form( $instance ) {
-		if ( ! isset( $instance['title'] ) ) {
-			$instance['title'] = '';
-		}
-		if ( ! isset( $instance['body_content'] ) ) {
-			$instance['body_content'] = '';
-		}
 
-		if ( ! isset( $instance['title1'] ) ) {
-			$instance['title1'] = '';
-		}
-		if ( ! isset( $instance['title2'] ) ) {
-			$instance['title2'] = '';
-		}
-		if ( ! isset( $instance['title3'] ) ) {
-			$instance['title3'] = '';
-		}
-
-		if ( ! isset( $instance['icon1'] ) ) {
-			$instance['icon1'] = '';
-		}
-		if ( ! isset( $instance['icon2'] ) ) {
-			$instance['icon2'] = '';
-		}
-		if ( ! isset( $instance['icon3'] ) ) {
-			$instance['icon3'] = '';
-		}
-
-		if ( ! isset( $instance['body_content1'] ) ) {
-			$instance['body_content1'] = '';
-		}
-		if ( ! isset( $instance['body_content2'] ) ) {
-			$instance['body_content2'] = '';
-		}
-		if ( ! isset( $instance['body_content3'] ) ) {
-			$instance['body_content3'] = '';
-		}
+		$instance = wp_parse_args( $instance, $this->defaults );
 		?>
 
-		<p><label
-				for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title ', 'shapely-companion' ); ?></label>
+		<p><label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>">
+				<?php echo esc_html__( 'Title ', 'shapely-companion' ); ?>
+			</label>
 
-			<input type="text" value="<?php echo esc_attr( $instance['title'] ); ?>"
-			       name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>"
-			       id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"
-			       class="widefat" />
+			<input type="text" value="<?php echo esc_attr( $instance['title'] ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" class="widefat" />
 		</p>
 
-		<p class="shapely-editor-container"><label
-				for="<?php echo esc_attr( $this->get_field_id( 'body_content' ) ); ?>"><?php esc_html_e( 'Content ', 'shapely-companion' ); ?></label>
+		<p class="shapely-editor-container">
+			<label for="<?php echo esc_attr( $this->get_field_id( 'body_content' ) ); ?>">
+				<?php echo esc_html__( 'Content ', 'shapely-companion' ); ?>
+			</label>
 
-			<textarea name="<?php echo esc_attr( $this->get_field_name( 'body_content' ) ); ?>"
-			          id="<?php echo esc_attr( $this->get_field_id( 'body_content' ) ); ?>"
-			          class="widefat"><?php echo esc_attr( $instance['body_content'] ); ?></textarea>
+			<textarea name="<?php echo esc_attr( $this->get_field_name( 'body_content' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'body_content' ) ); ?>" class="widefat">
+				<?php echo wp_kses_post( nl2br( $instance['body_content'] ) ); ?>
+			</textarea>
 		</p>
 
 		<?php for ( $i = 1; $i < 4; $i ++ ) { ?>
 			<br>
-			<b><?php echo sprintf( __( 'Feature %s', 'shapely-companion' ), $i ); ?></b>
+			<b>
+				<?php
+				// Translators: Number of feature icons
+				echo sprintf( __( 'Feature %s', 'shapely-companion' ), $i );
+				?>
+			</b>
 
-			<p><label
-					for="<?php echo esc_attr( $this->get_field_id( 'title' . $i ) ); ?>"><?php esc_html_e( 'Title ', 'shapely-companion' ); ?></label>
-
-				<input type="text" value="<?php echo esc_attr( $instance[ 'title' . $i ] ); ?>"
-				       name="<?php echo esc_attr( $this->get_field_name( 'title' . $i ) ); ?>"
-				       id="<?php echo esc_attr( $this->get_field_id( 'title' . $i ) ); ?>"
-				       class="widefat" />
+			<p>
+				<label for="<?php echo esc_attr( $this->get_field_id( 'title' . $i ) ); ?>">
+					<?php echo esc_html__( 'Title ', 'shapely-companion' ); ?>
+				</label>
+				<input type="text" value="<?php echo esc_attr( $instance[ 'title' . $i ] ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' . $i ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'title' . $i ) ); ?>" class="widefat" />
 			</p>
 
-			<p><label
-					for="<?php echo esc_attr( $this->get_field_id( 'icon' . $i ) ); ?>"><?php esc_html_e( 'Icon( Font Awsome ) ', 'shapely-companion' ); ?></label>
+			<p>
+				<label for="<?php echo esc_attr( $this->get_field_id( 'icon' . $i ) ); ?>">
+					<?php echo esc_html__( 'Icon( Font Awsome ) ', 'shapely-companion' ); ?>
+				</label>
+
 				<?php
 
-				$get_fontawesome_icons = $this->get_fontawesome_icons();
-				$icon                  = ( isset( $instance[ 'icon' . $i ] ) && '' != $instance[ 'icon' . $i ] ) ? esc_html( $instance[ 'icon' . $i ] ) : '';
+				$fa_icons = $this->get_fontawesome_icons();
+				$icon     = ( isset( $instance[ 'icon' . $i ] ) && '' != $instance[ 'icon' . $i ] ) ? esc_html( $instance[ 'icon' . $i ] ) : '';
 				?>
 
-				<select class="shapely-icon" id="<?php echo esc_attr( $this->get_field_id( 'icon' . $i ) ); ?>"
-				        name="<?php echo esc_attr( $this->get_field_name( 'icon' . $i ) ); ?>">
-					<option value=""><?php _e( 'Select Icon', 'shapely-companion' ); ?></option>
-					<?php foreach ( $get_fontawesome_icons as $key => $get_fontawesome_icon ) : ?>
-						<option
-							value="fa <?php echo esc_attr( $key ); ?>" <?php selected( $icon, 'fa ' . $key ); ?>><?php echo esc_html( $get_fontawesome_icon ); ?></option>
+				<select class="shapely-icon" id="<?php echo esc_attr( $this->get_field_id( 'icon' . $i ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'icon' . $i ) ); ?>">
+					<option value="">
+						<?php echo esc_html__( 'Select Icon', 'shapely-companion' ); ?>
+					</option>
+					<?php foreach ( $fa_icons as $key => $get_fontawesome_icon ) : ?>
+						<option value="fa <?php echo esc_attr( $key ); ?>" <?php selected( $icon, 'fa ' . $key ); ?>>
+							<?php echo esc_html( $get_fontawesome_icon ); ?>
+						</option>
 					<?php endforeach; ?>
 				</select>
-				<span class="<?php echo esc_attr( $icon ); ?>"
-				      style="font-size: 24px;vertical-align: middle;margin-left: 10px;"></span>
+				<span class="<?php echo esc_attr( $icon ); ?>" style="font-size: 24px;vertical-align: middle;margin-left: 10px;"></span>
 			</p>
 
 			<p class="shapely-editor-container">
-			<label for="<?php echo esc_attr( $this->get_field_id( 'body_content' . $i ) ); ?>"><?php esc_html_e( 'Content ', 'shapely-companion' ); ?></label>
+				<label for="<?php echo esc_attr( $this->get_field_id( 'body_content' . $i ) ); ?>"><?php echo esc_html__( 'Content ', 'shapely-companion' ); ?></label>
 
-			<textarea name="<?php echo esc_attr( $this->get_field_name( 'body_content' . $i ) ); ?>"
-			          id="<?php echo esc_attr( $this->get_field_id( 'body_content' . $i ) ); ?>"
-			          class="widefat">
-				<?php echo wp_kses_post( $instance[ 'body_content' . $i ] ); ?>
-			</textarea>
-			</p><?php
-		}// End for().
+				<textarea name="<?php echo esc_attr( $this->get_field_name( 'body_content' . $i ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'body_content' . $i ) ); ?>" class="widefat">
+					<?php echo wp_kses_post( nl2br( $instance[ 'body_content' . $i ] ) ); ?>
+				</textarea>
+			</p>
+			<?php
+		}
 	}
 
 	/**
@@ -211,11 +213,13 @@ class Shapely_Home_Features extends WP_Widget {
 		return $instance;
 	}
 
-	/*
-	 * Function for font awsome list
+	/**
+	 * Function for font awseome list
+	 *
+	 * @return mixed
 	 */
 	private function get_fontawesome_icons() {
-		$icons = array(
+		$this->icons = array(
 			'fa-adjust'               => 'fa-adjust',
 			'fa-adn'                  => 'fa-adn',
 			'fa-align-center'         => 'fa-align-center',
@@ -739,10 +743,10 @@ class Shapely_Home_Features extends WP_Widget {
 			'fa-youtube-play'         => 'fa-youtube-play',
 			'fa-youtube-square'       => 'fa-youtube-square',
 		);
-		foreach ( $icons as $icon ) {
-			$all_icons[ $icon ] = $icon;
+		foreach ( $this->icons as $icon ) {
+			$this->all_icons[ $icon ] = $icon;
 		}
 
-		return $all_icons;
+		return $this->all_icons;
 	}
-} ?>
+}

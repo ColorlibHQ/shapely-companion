@@ -15,10 +15,11 @@
   "unused": false,
   "browser": true,
   "globals": {
+    "$": false,
     "jQuery": false,
     "wp": false,
     "shapelyCompanion": false,
-    "wpNavMenu" : false,
-    "Masonry" : false
+    "wpNavMenu": false,
+    "Masonry": false
   }
 }

@@ -5,6 +5,9 @@
  * Shapely Theme
  */
 class Shapely_Home_Testimonials extends WP_Widget {
+
+	private $defaults = array();
+
 	function __construct() {
 
 		$widget_ops = array(
@@ -13,35 +16,46 @@ class Shapely_Home_Testimonials extends WP_Widget {
 			'customize_selective_refresh' => true,
 		);
 		parent::__construct( 'shapely_home_testimonial', esc_html__( '[Shapely] Testimonial Section For FrontPage', 'shapely-companion' ), $widget_ops );
+
+		$this->defaults = array(
+			'title'     => esc_html__( 'People just like you are already loving Colorlib', 'shapely-companion' ),
+			'limit'     => 5,
+			'image_src' => '',
+		);
 	}
 
+	/**
+	 * @param array $args
+	 * @param array $instance
+	 */
 	function widget( $args, $instance ) {
-		$title     = isset( $instance['title'] ) ? $instance['title'] : esc_html__( 'People just like you are already loving Colorlib', 'shapely-companion' );
-		$limit     = isset( $instance['limit'] ) ? $instance['limit'] : 5;
-		$image_src = isset( $instance['image_src'] ) ? $instance['image_src'] : '';
 
-		if ( post_type_exists( 'jetpack-testimonial' ) ) {
-			echo $args['before_widget'];
+		$instance = wp_parse_args( $instance, $this->defaults );
 
-			/**
-			 * Widget Content
-			 */
+		$title     = $instance['title'];
+		$limit     = $instance['limit'];
+		$image_src = $instance['image_src'];
+
+		echo $args['before_widget'];
+
+		/**
+		 * Widget Content
+		 */
+		?>
+
+		<?php
+		$testimonial_args = array(
+			'post_type'           => 'jetpack-testimonial',
+			'posts_per_page'      => $limit,
+			'ignore_sticky_posts' => 1,
+		);
+
+		$testimonial_query = new WP_Query( $testimonial_args );
+
+		if ( $testimonial_query->have_posts() ) :
 			?>
-
-			<?php
-			$testimonial_args = array(
-				'post_type'           => 'jetpack-testimonial',
-				'posts_per_page'      => $limit,
-				'ignore_sticky_posts' => 1,
-			);
-
-			$testimonial_query = new WP_Query( $testimonial_args );
-
-			if ( $testimonial_query->have_posts() ) :
-			?>
-				<section class="parallax-section testimonial-section">
-				<div class="parallax-window" data-parallax="scroll" data-image-src="<?php echo esc_url( $image_src ); ?>"
-					 style="height: 500px;">
+			<section class="parallax-section testimonial-section">
+				<div class="parallax-window" data-parallax="scroll" data-image-src="<?php echo esc_url( $image_src ); ?>" style="height: 500px;">
 					<div class="container align-transform">
 						<div class="parallax-text image-bg testimonial">
 							<div class="row">
@@ -54,28 +68,26 @@ class Shapely_Home_Testimonials extends WP_Widget {
 								<div class="col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1">
 									<div class="text-slider slider-arrow-controls text-center relative">
 										<ul class="slides" style="overflow: hidden;">
-										<?php
-										while ( $testimonial_query->have_posts() ) :
-											$testimonial_query->the_post();
-?>
+											<?php
+											while ( $testimonial_query->have_posts() ) :
+												$testimonial_query->the_post();
+												?>
 												<?php if ( get_the_title() != '' ) : ?>
-													<li>
-														<p><?php the_content(); ?></p>
-														<div class="testimonial-author-section">
+												<li>
+													<p><?php the_content(); ?></p>
+													<div class="testimonial-author-section">
 														<?php
-															the_post_thumbnail(
-																'thumbnail', array(
-																	'class' => 'testimonial-img',
-																)
-															);
-																?>
+														the_post_thumbnail( 'thumbnail', array(
+															'class' => 'testimonial-img',
+														) );
+														?>
 
-															<div class="testimonial-author">
-																<strong><?php echo esc_html( get_the_title() ); ?></strong>
-															</div>
+														<div class="testimonial-author">
+															<strong><?php echo esc_html( get_the_title() ); ?></strong>
 														</div>
-													</li>
-												<?php endif; ?>
+													</div>
+												</li>
+											<?php endif; ?>
 
 											<?php endwhile; ?>
 										</ul>
@@ -87,65 +99,53 @@ class Shapely_Home_Testimonials extends WP_Widget {
 					</div>
 					<!--end of container-->
 				</div>
-				</section>
-				<?php
-			endif;
-			wp_reset_postdata();
-			echo $args['after_widget'];
-		}// End if().
+			</section>
+		<?php
+		endif;
+		wp_reset_postdata();
+		echo $args['after_widget'];
+
 	}
 
 
+	/**
+	 * @param array $instance
+	 *
+	 * @return string|void
+	 */
 	function form( $instance ) {
-		if ( ! isset( $instance['title'] ) ) {
-			$instance['title'] = '';
-		}
-		if ( ! isset( $instance['limit'] ) ) {
-			$instance['limit'] = '';
-		}
-		if ( ! isset( $instance['image_src'] ) ) {
-			$instance['image_src'] = '';
-		}
+
+		$instance = wp_parse_args( $instance, $this->defaults );
+
 		$placeholder_url = plugins_url( 'shapely-companion/assets/img/placeholder-image.jpg' );
 
 		?>
 
-		<p><label
-				for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title ', 'shapely-companion' ); ?></label>
-
-			<input type="text" value="<?php echo esc_attr( $instance['title'] ); ?>"
-				   name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>"
-				   id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"
-				   class="widefat"/>
+		<p>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>">
+				<?php esc_html_e( 'Title ', 'shapely-companion' ); ?>
+			</label>
+			<input type="text" value="<?php echo esc_attr( $instance['title'] ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" class="widefat" />
 		</p>
 
-		<p><label
-				for="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>"><?php esc_html_e( 'Limit ', 'shapely-companion' ); ?></label>
-
-			<input type="text" value="<?php echo esc_attr( $instance['limit'] ); ?>"
-				   name="<?php echo esc_attr( $this->get_field_name( 'limit' ) ); ?>"
-				   id="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>"
-				   class="widefat"/>
+		<p>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>">
+				<?php esc_html_e( 'Limit ', 'shapely-companion' ); ?>
+			</label>
+			<input type="text" value="<?php echo esc_attr( $instance['limit'] ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'limit' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>" class="widefat" />
 		</p>
 
-		<p class="shapely-media-control"
-		   data-delegate-container="<?php echo esc_attr( $this->get_field_id( 'image_src' ) ); ?>">
-			<label
-				for="<?php echo esc_attr( $this->get_field_id( 'image_src' ) ); ?>">
-								<?php
-								_e( 'Background Parallax Image:', 'shapely-companion' );
-				?>
-				:</label>
+		<p class="shapely-media-control" data-delegate-container="<?php echo esc_attr( $this->get_field_id( 'image_src' ) ); ?>">
 
-			<img data-default="<?php echo $placeholder_url; ?>" src="<?php echo '' != $instance['image_src'] ? esc_url( $instance['image_src'] ) : $placeholder_url; ?>"/>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'image_src' ) ); ?>">
+				<?php echo esc_html__( 'Background Parallax Image:', 'shapely-companion' ); ?>
+			</label>
 
-			<input type="hidden"
-				   name="<?php echo esc_attr( $this->get_field_name( 'image_src' ) ); ?>"
-				   id="<?php echo esc_attr( $this->get_field_id( 'image_src' ) ); ?>"
-				   value="<?php echo esc_url( $instance['image_src'] ); ?>"
-				   class="image-id blazersix-media-control-target">
+			<img data-default="<?php echo $placeholder_url; ?>" src="<?php echo '' != $instance['image_src'] ? esc_url( $instance['image_src'] ) : $placeholder_url; ?>" />
 
-			<button type="button" class="button upload-button"><?php _e( 'Choose Image', 'shapely-companion' ); ?></button>
+			<input type="hidden" name="<?php echo esc_attr( $this->get_field_name( 'image_src' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'image_src' ) ); ?>" value="<?php echo esc_url( $instance['image_src'] ); ?>" class="image-id blazersix-media-control-target">
+
+			<button class="button upload-button"><?php echo esc_html__( 'Choose Image', 'shapely-companion' ); ?></button>
 		</p>
 
 		<?php
@@ -169,7 +169,4 @@ class Shapely_Home_Testimonials extends WP_Widget {
 
 		return $instance;
 	}
-
 }
-
-?>

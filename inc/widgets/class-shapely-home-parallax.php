@@ -6,6 +6,8 @@
  */
 class Shapely_Home_Parallax extends WP_Widget {
 
+	private $defaults = array();
+
 	function __construct() {
 		add_action( 'admin_init', array( $this, 'enqueue' ) );
 		add_action( 'customize_controls_enqueue_scripts', array( $this, 'enqueue' ) );
@@ -17,17 +19,32 @@ class Shapely_Home_Parallax extends WP_Widget {
 			'customize_selective_refresh' => true,
 		);
 		parent::__construct( 'shapely_home_parallax', esc_html__( '[Shapely] Parralax Section For FrontPage', 'shapely-companion' ), $widget_ops );
+
+		$this->defaults = array(
+			'title'         => '',
+			'image_src'     => '',
+			'image_pos'     => esc_html__( 'left', 'shapely-companion' ),
+			'body_content'  => '',
+			'button1'       => '',
+			'button2'       => '',
+			'button1_link'  => '',
+			'button2_link'  => '',
+			'border_bottom' => '',
+		);
 	}
 
 	public function enqueue() {
 
 		if ( is_admin() && ! is_customize_preview() ) {
 			wp_enqueue_style( 'epsilon-styles', get_template_directory_uri() . '/inc/libraries/epsilon-framework/assets/css/style.css' );
-			wp_enqueue_script( 'epsilon-object', get_template_directory_uri() . '/inc/libraries/epsilon-framework/assets/js/epsilon.js', array( 'jquery' ) );
 		}
 
 	}
 
+	/**
+	 * @param array $args
+	 * @param array $instance
+	 */
 	function widget( $args, $instance ) {
 		$allowed_tags           = wp_kses_allowed_html( 'post' );
 		$allowed_tags['iframe'] = array(
@@ -38,15 +55,17 @@ class Shapely_Home_Parallax extends WP_Widget {
 			'allowfullscreen' => array(),
 		);
 
-		$title         = isset( $instance['title'] ) ? $instance['title'] : '';
-		$image_src     = isset( $instance['image_src'] ) ? $instance['image_src'] : '';
-		$image_pos     = isset( $instance['image_pos'] ) ? $instance['image_pos'] : esc_html__( 'left', 'shapely-companion' );
-		$body_content  = isset( $instance['body_content'] ) ? $instance['body_content'] : '';
-		$button1       = isset( $instance['button1'] ) ? $instance['button1'] : '';
-		$button2       = isset( $instance['button2'] ) ? $instance['button2'] : '';
-		$button1_link  = isset( $instance['button1_link'] ) ? $instance['button1_link'] : '';
-		$button2_link  = isset( $instance['button2_link'] ) ? $instance['button2_link'] : '';
-		$border_bottom = isset( $instance['border_bottom'] ) ? $instance['border_bottom'] : '';
+		$instance = wp_parse_args( $instance, $this->defaults );
+
+		$title         = $instance['title'];
+		$image_src     = $instance['image_src'];
+		$image_pos     = $instance['image_pos'];
+		$body_content  = $instance['body_content'];
+		$button1       = $instance['button1'];
+		$button2       = $instance['button2'];
+		$button1_link  = $instance['button1_link'];
+		$button2_link  = $instance['button2_link'];
+		$border_bottom = $instance['border_bottom'];
 
 		echo $args['before_widget'];
 
@@ -67,11 +86,10 @@ class Shapely_Home_Parallax extends WP_Widget {
 		 */
 		?>
 		<section class="<?php echo esc_attr( $class1 ); ?>">
-									<?php
-									if ( ( 'background-full' == $image_pos || 'background-small' == $image_pos ) && '' != $image_src ) {
-									?>
-										<div class="parallax-window <?php echo esc_attr( $class7 ); ?>" data-parallax="scroll"
-				 data-image-src="<?php echo esc_url( $image_src ); ?>" data-ios-fix="true" data-over-scroll-fix="true" data-android-fix="true">
+			<?php
+			if ( ( 'background-full' == $image_pos || 'background-small' == $image_pos ) && '' != $image_src ) {
+			?>
+			<div class="parallax-window <?php echo esc_attr( $class7 ); ?>" data-parallax="scroll" data-image-src="<?php echo esc_url( $image_src ); ?>" data-ios-fix="true" data-over-scroll-fix="true" data-android-fix="true">
 				<div class="<?php echo ( 'background-full' == $image_pos ) ? 'align-transform' : ''; ?>">
 					<?php } else { ?>
 					<div class="container">
@@ -81,10 +99,9 @@ class Shapely_Home_Parallax extends WP_Widget {
 
 							<?php
 							if ( ( 'left' == $image_pos || 'top' == $image_pos ) && '' != $image_src ) {
-							?>
-							<div class="<?php echo esc_attr( $class6 ); ?>">
-								<img class="img-responsive" alt="<?php echo esc_attr( $title ); ?>"
-									 src="<?php echo esc_url( $image_src ); ?>">
+								?>
+								<div class="<?php echo esc_attr( $class6 ); ?>">
+									<img class="img-responsive" alt="<?php echo esc_attr( $title ); ?>" src="<?php echo esc_url( $image_src ); ?>">
 								</div>
 								<?php
 							}
@@ -92,25 +109,24 @@ class Shapely_Home_Parallax extends WP_Widget {
 
 							<div class="<?php echo esc_attr( $class2 ); ?>">
 								<div class="<?php echo esc_attr( $class3 ); ?>">
-														<?php
-														echo ( '' != $title ) ? ( ( 'background-full' == $image_pos ) || ( 'background-small' == $image_pos ) ) ? '<h1>' . wp_kses_post( $title ) . '</h1>' : '<h3>' . wp_kses_post( $title ) . '</h3>' : '';
-														if ( '' != $body_content ) {
-															echo '<div class="mb32">';
-															echo apply_filters( 'the_content', wp_kses( $body_content, $allowed_tags ) );
-															echo '</div>';
-														}
-														echo ( '' != $button2 && '' != $button2_link ) ? '<a class="btn btn-lg btn-white" href="' . esc_url( $button2_link ) . '">' . wp_kses_post( $button2 ) . '</a>' : '';
-														echo ( '' != $button1 && '' != $button1_link ) ? '<a class="btn btn-lg btn-filled" href="' . esc_url( $button1_link ) . '">' . wp_kses_post( $button1 ) . '</a>' : '';
+									<?php
+									echo ( '' != $title ) ? ( ( 'background-full' == $image_pos ) || ( 'background-small' == $image_pos ) ) ? '<h1>' . wp_kses_post( $title ) . '</h1>' : '<h3>' . wp_kses_post( $title ) . '</h3>' : '';
+									if ( '' != $body_content ) {
+										echo '<div class="mb32">';
+										echo apply_filters( 'the_content', wp_kses( $body_content, $allowed_tags ) );
+										echo '</div>';
+									}
+									echo ( '' != $button2 && '' != $button2_link ) ? '<a class="btn btn-lg btn-white" href="' . esc_url( $button2_link ) . '">' . wp_kses_post( $button2 ) . '</a>' : '';
+									echo ( '' != $button1 && '' != $button1_link ) ? '<a class="btn btn-lg btn-filled" href="' . esc_url( $button1_link ) . '">' . wp_kses_post( $button1 ) . '</a>' : '';
 									?>
 								</div>
 							</div>
 							<!--end of row-->
 							<?php
 							if ( ( 'right' == $image_pos || 'bottom' == $image_pos ) && '' != $image_src ) {
-							?>
-							<div class="<?php echo esc_attr( $class5 ); ?>">
-								<img class="img-responsive" alt="<?php echo esc_attr( $title ); ?>"
-									 src="<?php echo esc_url( $image_src ); ?>">
+								?>
+								<div class="<?php echo esc_attr( $class5 ); ?>">
+									<img class="img-responsive" alt="<?php echo esc_attr( $title ); ?>" src="<?php echo esc_url( $image_src ); ?>">
 								</div>
 								<?php
 							}
@@ -128,6 +144,11 @@ class Shapely_Home_Parallax extends WP_Widget {
 	}
 
 
+	/**
+	 * @param array $instance
+	 *
+	 * @return string|void
+	 */
 	function form( $instance ) {
 		$allowed_tags           = wp_kses_allowed_html( 'post' );
 		$allowed_tags['iframe'] = array(
@@ -138,144 +159,101 @@ class Shapely_Home_Parallax extends WP_Widget {
 			'allowfullscreen' => array(),
 		);
 
-		if ( ! isset( $instance['title'] ) ) {
-			$instance['title'] = '';
-		}
-		if ( ! isset( $instance['image_src'] ) ) {
-			$instance['image_src'] = '';
-		}
-		if ( ! isset( $instance['image_pos'] ) ) {
-			$instance['image_pos'] = 'left';
-		}
-		if ( ! isset( $instance['body_content'] ) ) {
-			$instance['body_content'] = '';
-		}
-		if ( ! isset( $instance['button1'] ) ) {
-			$instance['button1'] = '';
-		}
-		if ( ! isset( $instance['button2'] ) ) {
-			$instance['button2'] = '';
-		}
-		if ( ! isset( $instance['button1_link'] ) ) {
-			$instance['button1_link'] = '';
-		}
-		if ( ! isset( $instance['button2_link'] ) ) {
-			$instance['button2_link'] = '';
-		}
-		if ( ! isset( $instance['border_bottom'] ) ) {
-			$instance['border_bottom'] = '';
-		}
+		$instance = wp_parse_args( $instance, $this->defaults );
 
 		$placeholder_url = plugins_url( 'shapely-companion/assets/img/placeholder-image.jpg' );
 
 		?>
 
-		<p><label
-				for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title ', 'shapely-companion' ); ?></label>
+		<p>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>">
+				<?php echo esc_html__( 'Title ', 'shapely-companion' ); ?>
+			</label>
 
-			<input type="text" value="<?php echo esc_attr( $instance['title'] ); ?>"
-				   name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>"
-				   id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"
-				   class="widefat"/>
+			<input type="text" value="<?php echo esc_attr( $instance['title'] ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" class="widefat" />
 		</p>
 
-		<p class="shapely-media-control"
-		   data-delegate-container="<?php echo esc_attr( $this->get_field_id( 'image_src' ) ); ?>">
+		<p class="shapely-media-control" data-delegate-container="<?php echo esc_attr( $this->get_field_id( 'image_src' ) ); ?>">
 			<label
 				for="<?php echo esc_attr( $this->get_field_id( 'image_src' ) ); ?>">
-								<?php
-								_e( 'Image', 'shapely-companion' );
+				<?php
+				echo esc_html__( 'Image', 'shapely-companion' );
 				?>
 				:</label>
 
-			<img data-default="<?php echo $placeholder_url; ?>" src="<?php echo '' != $instance['image_src'] ? esc_url( $instance['image_src'] ) : $placeholder_url; ?>"/>
+			<img data-default="<?php echo $placeholder_url; ?>" src="<?php echo '' != $instance['image_src'] ? esc_url( $instance['image_src'] ) : $placeholder_url; ?>" />
 
-			<input type="hidden"
-				   name="<?php echo esc_attr( $this->get_field_name( 'image_src' ) ); ?>"
-				   id="<?php echo esc_attr( $this->get_field_id( 'image_src' ) ); ?>"
-				   value="<?php echo esc_url( $instance['image_src'] ); ?>"
-				   class="image-id blazersix-media-control-target">
+			<input type="hidden" name="<?php echo esc_attr( $this->get_field_name( 'image_src' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'image_src' ) ); ?>" value="<?php echo esc_url( $instance['image_src'] ); ?>" class="image-id blazersix-media-control-target">
 
-			<button type="button" class="button upload-button"><?php _e( 'Choose Image', 'shapely-companion' ); ?></button>
-			<button type="button" class="button remove-button"><?php _e( 'Remove Image', 'shapely-companion' ); ?></button>
+			<button type="button" class="button upload-button"><?php echo esc_html__( 'Choose Image', 'shapely-companion' ); ?></button>
+			<button type="button" class="button remove-button"><?php echo esc_html__( 'Remove Image', 'shapely-companion' ); ?></button>
 		</p>
 
-		<p class="shapely-editor-container"><label
-				for="<?php echo esc_attr( $this->get_field_id( 'body_content' ) ); ?>"><?php esc_html_e( 'Content ', 'shapely-companion' ); ?></label>
+		<p class="shapely-editor-container">
+			<label for="<?php echo esc_attr( $this->get_field_id( 'body_content' ) ); ?>">
+				<?php echo esc_html__( 'Content ', 'shapely-companion' ); ?>
+			</label>
 
-			<textarea name="<?php echo esc_attr( $this->get_field_name( 'body_content' ) ); ?>"
-					  id="<?php echo esc_attr( $this->get_field_id( 'body_content' ) ); ?>"
-					  class="widefat"><?php echo wp_kses( $instance['body_content'], $allowed_tags ); ?>
+			<textarea name="<?php echo esc_attr( $this->get_field_name( 'body_content' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'body_content' ) ); ?>" class="widefat">
+				<?php echo wp_kses( nl2br( $instance['body_content'] ), $allowed_tags ); ?>
 			</textarea>
 		</p>
 
-		<p><label
-				for="<?php echo esc_attr( $this->get_field_id( 'image_pos' ) ); ?>"><?php esc_html_e( 'Image Position ', 'shapely-companion' ); ?></label>
-			<select name="<?php echo esc_attr( $this->get_field_name( 'image_pos' ) ); ?>"
-					id="<?php echo esc_attr( $this->get_field_id( 'image_pos' ) ); ?>" class="widefat">
-				<option
-					value="left" <?php selected( $instance['image_pos'], 'left' ); ?>><?php _e( 'Left', 'shapely-companion' ); ?></option>
-				<option
-					value="right" <?php selected( $instance['image_pos'], 'right' ); ?>><?php _e( 'Right', 'shapely-companion' ); ?></option>
-				<option
-					value="top" <?php selected( $instance['image_pos'], 'top' ); ?>><?php _e( 'Top', 'shapely-companion' ); ?></option>
-				<option
-					value="bottom" <?php selected( $instance['image_pos'], 'bottom' ); ?>><?php _e( 'Bottom', 'shapely-companion' ); ?></option>
-				<option
-					value="background-full" <?php selected( $instance['image_pos'], 'background-full' ); ?>><?php _e( 'Background Full', 'shapely-companion' ); ?></option>
-				<option
-					value="background-small" <?php selected( $instance['image_pos'], 'background-small' ); ?>><?php _e( 'Background Small', 'shapely-companion' ); ?></option>
+		<p>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'image_pos' ) ); ?>">
+				<?php echo esc_html__( 'Image Position ', 'shapely-companion' ); ?>
+			</label>
+
+			<select name="<?php echo esc_attr( $this->get_field_name( 'image_pos' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'image_pos' ) ); ?>" class="widefat">
+				<option value="left" <?php selected( $instance['image_pos'], 'left' ); ?>><?php echo esc_html__( 'Left', 'shapely-companion' ); ?></option>
+				<option value="right" <?php selected( $instance['image_pos'], 'right' ); ?>><?php echo esc_html__( 'Right', 'shapely-companion' ); ?></option>
+				<option value="top" <?php selected( $instance['image_pos'], 'top' ); ?>><?php echo esc_html__( 'Top', 'shapely-companion' ); ?></option>
+				<option value="bottom" <?php selected( $instance['image_pos'], 'bottom' ); ?>><?php echo esc_html__( 'Bottom', 'shapely-companion' ); ?></option>
+				<option value="background-full" <?php selected( $instance['image_pos'], 'background-full' ); ?>><?php echo esc_html__( 'Background Full', 'shapely-companion' ); ?></option>
+				<option value="background-small" <?php selected( $instance['image_pos'], 'background-small' ); ?>><?php echo esc_html__( 'Background Small', 'shapely-companion' ); ?></option>
 			</select>
 		</p>
 
-		<p><label
-				for="<?php echo esc_attr( $this->get_field_id( 'button1' ) ); ?>"><?php esc_html_e( 'Button 1 Text ', 'shapely-companion' ); ?></label>
+		<p>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'button1' ) ); ?>">
+				<?php echo esc_html__( 'Button 1 Text ', 'shapely-companion' ); ?>
+			</label>
 
-			<input type="text" value="<?php echo esc_attr( $instance['button1'] ); ?>"
-				   name="<?php echo esc_attr( $this->get_field_name( 'button1' ) ); ?>"
-				   id="<?php echo esc_attr( $this->get_field_id( 'button1' ) ); ?>"
-				   class="widefat"/>
+			<input type="text" value="<?php echo esc_attr( $instance['button1'] ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'button1' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'button1' ) ); ?>" class="widefat" />
 		</p>
 
-		<p><label
-				for="<?php echo esc_attr( $this->get_field_id( 'button1_link' ) ); ?>"><?php esc_html_e( 'Button 1 Link ', 'shapely-companion' ); ?></label>
+		<p>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'button1_link' ) ); ?>">
+				<?php echo esc_html__( 'Button 1 Link ', 'shapely-companion' ); ?>
+			</label>
 
-			<input type="text" value="<?php echo esc_url( $instance['button1_link'] ); ?>"
-				   name="<?php echo esc_attr( $this->get_field_name( 'button1_link' ) ); ?>"
-				   id="<?php echo esc_attr( $this->get_field_id( 'button1_link' ) ); ?>"
-				   class="widefat"/>
+			<input type="text" value="<?php echo esc_url( $instance['button1_link'] ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'button1_link' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'button1_link' ) ); ?>" class="widefat" />
 		</p>
 
-		<p><label
-				for="<?php echo esc_attr( $this->get_field_id( 'button2' ) ); ?>"><?php esc_html_e( 'Button 2 Text ', 'shapely-companion' ); ?></label>
+		<p>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'button2' ) ); ?>">
+				<?php echo esc_html__( 'Button 2 Text ', 'shapely-companion' ); ?>
+			</label>
 
-			<input type="text" value="<?php echo esc_attr( $instance['button2'] ); ?>"
-				   name="<?php echo esc_attr( $this->get_field_name( 'button2' ) ); ?>"
-				   id="<?php echo esc_attr( $this->get_field_id( 'button2' ) ); ?>"
-				   class="widefat"/>
+			<input type="text" value="<?php echo esc_attr( $instance['button2'] ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'button2' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'button2' ) ); ?>" class="widefat" />
 		</p>
 
-		<p><label
-				for="<?php echo esc_attr( $this->get_field_id( 'button2_link' ) ); ?>"><?php esc_html_e( 'Button 2 Link ', 'shapely-companion' ); ?></label>
+		<p>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'button2_link' ) ); ?>">
+				<?php echo esc_html__( 'Button 2 Link ', 'shapely-companion' ); ?>
+			</label>
 
-			<input type="text" value="<?php echo esc_url( $instance['button2_link'] ); ?>"
-				   name="<?php echo esc_attr( $this->get_field_name( 'button2_link' ) ); ?>"
-				   id="<?php echo esc_attr( $this->get_field_id( 'button2_link' ) ); ?>"
-				   class="widefat"/>
+			<input type="text" value="<?php echo esc_url( $instance['button2_link'] ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'button2_link' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'button2_link' ) ); ?>" class="widefat" />
 		</p>
 
 		<div class="checkbox_switch wp-clearfix">
 				<span class="customize-control-title onoffswitch_label">
-					<?php _e( 'Border bottom', 'shapely-companion' ); ?>
+					<?php echo esc_html__( 'Border bottom', 'shapely-companion' ); ?>
 				</span>
 			<div class="onoffswitch">
-				<input type="checkbox" id="<?php echo esc_attr( $this->get_field_name( 'border_bottom' ) ); ?>"
-					   name="<?php echo esc_attr( $this->get_field_name( 'border_bottom' ) ); ?>"
-					   class="onoffswitch-checkbox"
-					   value="on"
+				<input type="checkbox" id="<?php echo esc_attr( $this->get_field_name( 'border_bottom' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'border_bottom' ) ); ?>" class="onoffswitch-checkbox" value="on"
 					<?php checked( $instance['border_bottom'], 'on' ); ?>>
-				<label class="onoffswitch-label"
-					   for="<?php echo esc_attr( $this->get_field_name( 'border_bottom' ) ); ?>"></label>
+				<label class="onoffswitch-label" for="<?php echo esc_attr( $this->get_field_name( 'border_bottom' ) ); ?>"></label>
 			</div>
 		</div>
 		<?php
@@ -314,5 +292,3 @@ class Shapely_Home_Parallax extends WP_Widget {
 		return $instance;
 	}
 }
-
-?>
