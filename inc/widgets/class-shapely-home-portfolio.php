@@ -133,7 +133,8 @@ class Shapely_Home_Portfolio extends WP_Widget {
 				</div>
 				<?php if ( '1' != $instance['fullwidth'] ) : ?>
 				</div>
-			<?php endif ?><?php
+			<?php endif ?>
+						<?php
 			endif;
 			wp_reset_postdata();
 			?>

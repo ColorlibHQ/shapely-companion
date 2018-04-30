@@ -1,4 +1,4 @@
-/*jshint esversion: 6 */
+/* jshint es3:false, esversion:6 */
 /* jshint -W117 */
 (function( $ ) {// jscs:ignore validateLineBreaks
   'use strict';
@@ -41,7 +41,7 @@
           $( this ).find( '.image-id' ).attr( 'id', attrbaseid + index ).attr( 'name', attrbase + '[client_logo][img]' + '[' + index + ']' );
           $( this ).find( '.shapely-media-control' ).attr( 'data-delegate-container', attrbaseid + index );
           $( this ).find( 'img' ).attr( 'id', 'link-' + index ).attr( 'name', attrbase + '[client_logo][link]' + '[' + index + ']' ).trigger( 'change' );
-          index ++;
+          index++;
         } );
       } );
 
