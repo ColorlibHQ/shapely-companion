@@ -5,6 +5,7 @@
  * shapely Theme
  */
 class Shapely_Page_Content extends WP_Widget {
+
 	function __construct() {
 
 		$widget_ops = array(
@@ -15,6 +16,10 @@ class Shapely_Page_Content extends WP_Widget {
 		parent::__construct( 'shapely-page-content', esc_html__( '[Shapely] Page Content', 'shapely-companion' ), $widget_ops );
 	}
 
+	/**
+	 * @param array $args
+	 * @param array $instance
+	 */
 	function widget( $args, $instance ) {
 
 		echo $args['before_widget'];
@@ -27,14 +32,14 @@ class Shapely_Page_Content extends WP_Widget {
 					<div class="entry-content">
 						<div class="shapely-content">
 							<?php
-								the_content();
+							the_content();
 
-								wp_link_pages(
-									array(
-										'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'shapely-companion' ),
-										'after'  => '</div>',
-									)
-								);
+							wp_link_pages(
+								array(
+									'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'shapely-companion' ),
+									'after'  => '</div>',
+								)
+							);
 							?>
 						</div>
 					</div>
@@ -48,12 +53,18 @@ class Shapely_Page_Content extends WP_Widget {
 	}
 
 
-	function form( $instance ) { }
-
-	public function update( $new_instance, $old_instance ) {
-		return $instance;
+	/**
+	 * @param array $instance
+	 *
+	 * @return string|void
+	 */
+	function form( $instance ) {
 	}
 
-}
+	public function update( $new_instance, $old_instance ) {
 
-?>
+		$instance = $new_instance;
+
+		return $instance;
+	}
+}

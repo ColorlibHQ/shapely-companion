@@ -43,7 +43,13 @@ function shapely_companion_widgets_init() {
 	register_widget( 'Shapely_Page_Content' );
 
 	if ( defined( 'JETPACK__VERSION' ) ) {
-		register_widget( 'Shapely_Home_Testimonials' );
-		register_widget( 'Shapely_Home_Portfolio' );
+
+		if ( post_type_exists( 'jetpack-portfolio' ) ) {
+			register_widget( 'Shapely_Home_Portfolio' );
+		}
+
+		if ( post_type_exists( 'jetpack-testimonial' ) ) {
+			register_widget( 'Shapely_Home_Testimonials' );
+		}
 	}
 }
