@@ -6,6 +6,8 @@
  */
 class Shapely_Home_Contact extends WP_Widget {
 
+	private $defaults = array();
+
 	function __construct() {
 		add_action( 'admin_init', array( $this, 'enqueue' ) );
 		add_action( 'customize_controls_enqueue_scripts', array( $this, 'enqueue' ) );
@@ -17,26 +19,42 @@ class Shapely_Home_Contact extends WP_Widget {
 			'customize_selective_refresh' => true,
 		);
 		parent::__construct( 'shapely_home_contact', esc_html__( '[Shapely] Contact Section For FrontPage', 'shapely-companion' ), $widget_ops );
+
+		$this->defaults = array(
+			'title'        => '',
+			'body_content' => '',
+			'image_src'    => '',
+			'email'        => '',
+			'address'      => '',
+			'contactform'  => '',
+			'socialicons'  => '',
+		);
 	}
 
 	public function enqueue() {
 
 		if ( is_admin() && ! is_customize_preview() ) {
 			wp_enqueue_style( 'epsilon-styles', get_template_directory_uri() . '/inc/libraries/epsilon-framework/assets/css/style.css' );
-			wp_enqueue_script( 'epsilon-object', get_template_directory_uri() . '/inc/libraries/epsilon-framework/assets/js/epsilon.js', array( 'jquery' ) );
 		}
 
 	}
 
+	/**
+	 * @param array $args
+	 * @param array $instance
+	 */
 	function widget( $args, $instance ) {
-		$title        = isset( $instance['title'] ) ? $instance['title'] : '';
-		$body_content = isset( $instance['body_content'] ) ? $instance['body_content'] : '';
-		$image_src    = isset( $instance['image_src'] ) ? $instance['image_src'] : '';
-		$phone        = isset( $instance['phone'] ) ? $instance['phone'] : '';
-		$email        = isset( $instance['email'] ) ? $instance['email'] : '';
-		$address      = isset( $instance['address'] ) ? $instance['address'] : '';
-		$contactform  = isset( $instance['contactform'] ) ? $instance['contactform'] : '';
-		$socialicons  = isset( $instance['socialicons'] ) ? $instance['socialicons'] : '';
+
+		$instance = wp_parse_args( $instance, $this->defaults );
+
+		$title        = $instance['title'];
+		$body_content = $instance['body_content'];
+		$image_src    = $instance['image_src'];
+		$phone        = $instance['phone'];
+		$email        = $instance['email'];
+		$address      = $instance['address'];
+		$contactform  = $instance['contactform'];
+		$socialicons  = $instance['socialicons'];
 
 		$atts  = '';
 		$class = '';
@@ -55,17 +73,17 @@ class Shapely_Home_Contact extends WP_Widget {
 			<div <?php echo $atts; ?>>
 				<div class="container">
 					<div class="text-center">
-					<?php
+						<?php
 
-					if ( '' != $title ) {
-						echo '<h1>' . wp_kses_post( $title ) . '</h1>';
-					}
+						if ( '' != $title ) {
+							echo '<h1>' . wp_kses_post( $title ) . '</h1>';
+						}
 
-					if ( '' != $body_content ) {
-						echo '<p class="mb64">' . wp_kses_post( $body_content ) . '</p>';
-					}
+						if ( '' != $body_content ) {
+							echo '<p class="mb64">' . wp_kses_post( nl2br( $body_content ) ) . '</p>';
+						}
 
-					?>
+						?>
 					</div>
 					<div class="row">
 						<div class="col-md-4">
@@ -73,17 +91,17 @@ class Shapely_Home_Contact extends WP_Widget {
 
 							if ( '' != $phone ) {
 								echo '<p class="mb0"><strong>' . __( 'Phone :', 'shapely-companion' ) . '</strong></p>';
-								echo '<p class="mb32"><a href="tel:' . $phone . '">' . $phone . '</a></p>';
+								echo '<p class="mb32"><a href="tel:' . esc_attr( $phone ) . '">' . esc_html( $phone ) . '</a></p>';
 							}
 
 							if ( '' != $email ) {
 								echo '<p class="mb0"><strong>' . __( 'Email :', 'shapely-companion' ) . '</strong></p>';
-								echo '<p class="mb32"><a href="mailto:' . $email . '">' . $email . '</a></p>';
+								echo '<p class="mb32"><a href="mailto:' . esc_attr( $email ) . '">' . esc_html( antispambot( $email ) ) . '</a></p>';
 							}
 
 							if ( '' != $address ) {
 								echo '<p class="mb0"><strong>' . __( 'Address :', 'shapely-companion' ) . '</strong></p>';
-								echo '<p class="mb32">' . $address . '</p>';
+								echo '<p class="mb32">' . wp_kses_post( nl2br( $address ) ) . '</p>';
 							}
 
 							if ( 'on' == $socialicons ) {
@@ -98,7 +116,7 @@ class Shapely_Home_Contact extends WP_Widget {
 							<?php
 
 							if ( '' != $contactform ) {
-								echo do_shortcode( '[contact-form-7 id="' . $contactform . '"]' );
+								echo do_shortcode( '[contact-form-7 id="' . absint( $contactform ) . '"]' );
 							}
 
 							?>
@@ -115,70 +133,49 @@ class Shapely_Home_Contact extends WP_Widget {
 	}
 
 
+	/**
+	 * @param array $instance
+	 *
+	 * @return string|void
+	 */
 	function form( $instance ) {
-		if ( ! isset( $instance['title'] ) ) {
-			$instance['title'] = '';
-		}
-		if ( ! isset( $instance['image_src'] ) ) {
-			$instance['image_src'] = '';
-		}
-		if ( ! isset( $instance['image_pos'] ) ) {
-			$instance['image_pos'] = 'left';
-		}
-		if ( ! isset( $instance['body_content'] ) ) {
-			$instance['body_content'] = '';
-		}
-		if ( ! isset( $instance['phone'] ) ) {
-			$instance['phone'] = '';
-		}
-		if ( ! isset( $instance['address'] ) ) {
-			$instance['address'] = '';
-		}
-		if ( ! isset( $instance['email'] ) ) {
-			$instance['email'] = '';
-		}
-		if ( ! isset( $instance['contactform'] ) ) {
-			$instance['contactform'] = 0;
-		}
-		if ( ! isset( $instance['socialicons'] ) ) {
-			$instance['socialicons'] = '';
-		}
+
+		parent::form( $instance );
+
+		$instance        = wp_parse_args( $instance, $this->defaults );
 		$placeholder_url = plugins_url( 'shapely-companion/assets/img/placeholder-image.jpg' );
 
 		?>
 
-		<p><label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title ', 'shapely-companion' ); ?></label>
-
-			<input type="text" value="<?php echo esc_attr( $instance['title'] ); ?>"
-				   name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>"
-				   id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"
-				   class="widefat"/>
+		<p>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php echo esc_html__( 'Title ', 'shapely-companion' ); ?></label>
+			<input type="text" value="<?php echo esc_attr( $instance['title'] ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" class="widefat" />
 		</p>
 
-		<p><label for="<?php echo esc_attr( $this->get_field_id( 'body_content' ) ); ?>"><?php esc_html_e( 'Subtitle ', 'shapely-companion' ); ?></label>
-
-			<textarea name="<?php echo esc_attr( $this->get_field_name( 'body_content' ) ); ?>"
-					  id="<?php echo esc_attr( $this->get_field_id( 'body_content' ) ); ?>"
-					  class="widefat"><?php echo esc_attr( $instance['body_content'] ); ?></textarea>
+		<p class="shapely-editor-container">
+			<label for="<?php echo esc_attr( $this->get_field_id( 'body_content' ) ); ?>">
+				<?php echo esc_html__( 'Subtitle ', 'shapely-companion' ); ?>
+			</label>
+			<textarea name="<?php echo esc_attr( $this->get_field_name( 'body_content' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'body_content' ) ); ?>" class="widefat">
+				<?php echo wp_kses_post( $instance['body_content'] ); ?>
+			</textarea>
 		</p>
 
 		<p class="shapely-media-control" data-delegate-container="<?php echo esc_attr( $this->get_field_id( 'image_src' ) ); ?>">
-			<label for="<?php echo esc_attr( $this->get_field_id( 'image_src' ) ); ?>"><?php _e( 'Background image', 'shapely-companion' ); ?>:</label>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'image_src' ) ); ?>"><?php echo esc_html__( 'Background image', 'shapely-companion' ); ?>:</label>
 
-			<img data-default="<?php echo $placeholder_url; ?>" src="<?php echo '' != $instance['image_src'] ? esc_url( $instance['image_src'] ) : $placeholder_url; ?>"/>
+			<img data-default="<?php echo esc_url_raw( $placeholder_url ); ?>" src="<?php echo '' != $instance['image_src'] ? esc_url_raw( $instance['image_src'] ) : esc_url_raw( $placeholder_url ); ?>" />
 
-			<input type="hidden"
-				   name="<?php echo esc_attr( $this->get_field_name( 'image_src' ) ); ?>"
-				   id="<?php echo esc_attr( $this->get_field_id( 'image_src' ) ); ?>"
-				   value="<?php echo esc_url( $instance['image_src'] ); ?>"
-				   class="image-id blazersix-media-control-target">
+			<input type="hidden" name="<?php echo esc_attr( $this->get_field_name( 'image_src' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'image_src' ) ); ?>" value="<?php echo esc_url( $instance['image_src'] ); ?>" class="image-id blazersix-media-control-target">
 
-			<button type="button" class="button upload-button"><?php _e( 'Choose Image', 'shapely-companion' ); ?></button>
-			<button type="button" class="button remove-button"><?php _e( 'Remove Image', 'shapely-companion' ); ?></button>
+			<button class="button upload-button"><?php echo esc_html__( 'Choose Image', 'shapely-companion' ); ?></button>
+			<button class="button remove-button"><?php echo esc_html__( 'Remove Image', 'shapely-companion' ); ?></button>
 		</p>
 
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'contactform' ) ); ?>"><?php esc_html_e( 'Contact Form ', 'shapely-companion' ); ?></label>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'contactform' ) ); ?>">
+				<?php echo esc_html__( 'Contact Form ', 'shapely-companion' ); ?>
+			</label>
 			<?php
 
 			if ( ! defined( 'WPCF7_LOAD_JS' ) ) {
@@ -190,7 +187,7 @@ class Shapely_Home_Contact extends WP_Widget {
 				$forms_args = array(
 					'post_type'      => 'wpcf7_contact_form',
 					'post_status'    => 'publish',
-					'posts_per_page' => -1,
+					'posts_per_page' => - 1,
 				);
 
 				$forms = get_posts( $forms_args );
@@ -204,41 +201,39 @@ class Shapely_Home_Contact extends WP_Widget {
 			?>
 		</p>
 
-		<p><label for="<?php echo esc_attr( $this->get_field_id( 'phone' ) ); ?>"><?php esc_html_e( 'Phone number ', 'shapely-companion' ); ?></label>
-
-			<input type="text" value="<?php echo esc_attr( $instance['phone'] ); ?>"
-				   name="<?php echo esc_attr( $this->get_field_name( 'phone' ) ); ?>"
-				   id="<?php echo esc_attr( $this->get_field_id( 'phone' ) ); ?>"
-				   class="widefat"/>
+		<p>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'phone' ) ); ?>">
+				<?php echo esc_html__( 'Phone number ', 'shapely-companion' ); ?>
+			</label>
+			<input type="text" value="<?php echo esc_attr( $instance['phone'] ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'phone' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'phone' ) ); ?>" class="widefat" />
 		</p>
 
-		<p><label for="<?php echo esc_attr( $this->get_field_id( 'email' ) ); ?>"><?php esc_html_e( 'Email ', 'shapely-companion' ); ?></label>
-
-			<input type="text" value="<?php echo esc_attr( $instance['email'] ); ?>"
-				   name="<?php echo esc_attr( $this->get_field_name( 'email' ) ); ?>"
-				   id="<?php echo esc_attr( $this->get_field_id( 'email' ) ); ?>"
-				   class="widefat"/>
+		<p>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'email' ) ); ?>">
+				<?php echo esc_html__( 'Email ', 'shapely-companion' ); ?>
+			</label>
+			<input type="text" value="<?php echo esc_attr( $instance['email'] ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'email' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'email' ) ); ?>" class="widefat" />
 		</p>
 
-		<p><label for="<?php echo esc_attr( $this->get_field_id( 'address' ) ); ?>"><?php esc_html_e( 'Address ', 'shapely-companion' ); ?></label>
+		<p class="shapely-editor-container">
+			<label for="<?php echo esc_attr( $this->get_field_id( 'address' ) ); ?>">
+				<?php echo esc_html__( 'Address ', 'shapely-companion' ); ?>
+			</label>
 
-			<input type="text" value="<?php echo esc_attr( $instance['address'] ); ?>"
-				   name="<?php echo esc_attr( $this->get_field_name( 'address' ) ); ?>"
-				   id="<?php echo esc_attr( $this->get_field_id( 'address' ) ); ?>"
-				   class="widefat"/>
+			<textarea
+				name="<?php echo esc_attr( $this->get_field_name( 'address' ) ); ?>"
+				id="<?php echo esc_attr( $this->get_field_id( 'address' ) ); ?>">
+				<?php echo wp_kses_post( $instance['address'] ); ?>
+			</textarea>
 		</p>
-		<div class="checkbox_switch">
+		<div class="checkbox_switch wp-clearfix">
 				<span class="customize-control-title onoffswitch_label">
-					<?php _e( 'Show social icons', 'shapely-companion' ); ?>
+					<?php echo esc_html__( 'Show social icons', 'shapely-companion' ); ?>
 				</span>
 			<div class="onoffswitch">
-				<input type="checkbox" id="<?php echo esc_attr( $this->get_field_name( 'socialicons' ) ); ?>"
-					   name="<?php echo esc_attr( $this->get_field_name( 'socialicons' ) ); ?>"
-					   class="onoffswitch-checkbox"
-					   value="on"
+				<input type="checkbox" id="<?php echo esc_attr( $this->get_field_name( 'socialicons' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'socialicons' ) ); ?>" class="onoffswitch-checkbox" value="on"
 					<?php checked( $instance['socialicons'], 'on' ); ?>>
-				<label class="onoffswitch-label"
-					   for="<?php echo esc_attr( $this->get_field_name( 'socialicons' ) ); ?>"></label>
+				<label class="onoffswitch-label" for="<?php echo esc_attr( $this->get_field_name( 'socialicons' ) ); ?>"></label>
 			</div>
 		</div>
 
@@ -261,7 +256,7 @@ class Shapely_Home_Contact extends WP_Widget {
 		$instance['image_src']    = ( ! empty( $new_instance['image_src'] ) ) ? esc_url_raw( $new_instance['image_src'] ) : '';
 		$instance['body_content'] = ( ! empty( $new_instance['body_content'] ) ) ? wp_kses_post( $new_instance['body_content'] ) : '';
 		$instance['phone']        = ( ! empty( $new_instance['phone'] ) ) ? esc_html( $new_instance['phone'] ) : '';
-		$instance['address']      = ( ! empty( $new_instance['address'] ) ) ? esc_html( $new_instance['address'] ) : '';
+		$instance['address']      = ( ! empty( $new_instance['address'] ) ) ? wp_kses_post( $new_instance['address'] ) : '';
 		$instance['email']        = ( ! empty( $new_instance['email'] ) ) ? esc_html( $new_instance['email'] ) : '';
 		$instance['contactform']  = ( ! empty( $new_instance['contactform'] ) ) ? absint( $new_instance['contactform'] ) : '';
 		$instance['socialicons']  = ( ! empty( $new_instance['socialicons'] ) ) ? esc_html( $new_instance['socialicons'] ) : '';
@@ -269,5 +264,3 @@ class Shapely_Home_Contact extends WP_Widget {
 		return $instance;
 	}
 }
-
-?>
