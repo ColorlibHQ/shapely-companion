@@ -43,16 +43,12 @@ function shapely_companion_widgets_init() {
 	register_widget( 'Shapely_Page_Content' );
 
 
-
-	if ( class_exists('Jetpack') && Jetpack::is_module_active( 'custom-content-types' ) ) {
-
+	if ( class_exists( 'Jetpack' ) && Jetpack::is_module_active( 'custom-content-types' ) ) {
 		if ( get_option( 'jetpack_portfolio' ) ) {
 			register_widget( 'Shapely_Home_Portfolio' );
 		}
-
 		if ( get_option( 'jetpack_testimonial' ) ) {
 			register_widget( 'Shapely_Home_Testimonials' );
 		}
-
 	}
 }
