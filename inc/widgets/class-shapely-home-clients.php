@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Homepage parralax section Widget
+ * Homepage parallax section Widget
  * Shapely Theme
  */
 class Shapely_Home_Clients extends WP_Widget {

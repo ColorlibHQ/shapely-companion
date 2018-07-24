@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Homepage parralax section Widget
+ * Homepage parallax section Widget
  * Shapely Theme
  */
 class Shapely_Home_Contact extends WP_Widget {
@@ -24,6 +24,7 @@ class Shapely_Home_Contact extends WP_Widget {
 			'title'        => '',
 			'body_content' => '',
 			'image_src'    => '',
+			'phone'        => '',
 			'email'        => '',
 			'address'      => '',
 			'contactform'  => '',
