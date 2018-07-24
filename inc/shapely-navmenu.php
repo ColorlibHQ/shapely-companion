@@ -78,7 +78,7 @@ add_action( 'wp_update_nav_menu_item', 'shapely_update_menu_item', 10, 3 );
 
 function shapely_update_menu_item( $menu_id, $menu_item_db_id, $args ) {
 
-	if ( count( $_POST['menu-item'] ) == 1 ) {
+	if ( isset( $_POST['menu-item'] ) && count( $_POST['menu-item'] ) == 1 ) {
 		if ( isset( $_POST['menu-item']['-1'] ) ) {
 			$menu_item = $_POST['menu-item']['-1'];
 
