@@ -19,7 +19,7 @@ class Shapely_Recent_Posts extends WP_Widget {
 
 		$this->defaults = array(
 			'title'   => esc_html__( 'Recent Posts', 'shapely-companion' ),
-			'limie'   => 5,
+			'limit'   => 5,
 			'excerpt' => 0,
 		);
 	}
