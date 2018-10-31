@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Homepage parralax section Widget
+ * Homepage parallax section Widget
  * Shapely Theme
  */
 class Shapely_Home_Parallax extends WP_Widget {
@@ -18,7 +18,7 @@ class Shapely_Home_Parallax extends WP_Widget {
 			'description'                 => esc_html__( 'Shapely FrontPage Parallax Section', 'shapely-companion' ),
 			'customize_selective_refresh' => true,
 		);
-		parent::__construct( 'shapely_home_parallax', esc_html__( '[Shapely] Parralax Section For FrontPage', 'shapely-companion' ), $widget_ops );
+		parent::__construct( 'shapely_home_parallax', esc_html__( '[Shapely] Parallax Section For FrontPage', 'shapely-companion' ), $widget_ops );
 
 		$this->defaults = array(
 			'title'         => '',
