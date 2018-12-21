@@ -62,6 +62,7 @@ module.exports = function( grunt ) {
           '!phpcs.ruleset.xml',
           '!Gruntfile.js',
           '!package.json',
+          '!package-lock.json',
           '!set_tags.sh',
           '!shapely.zip',
           '!nbproject/**' ],
