@@ -6,13 +6,12 @@
  */
 class Shapely_Social extends WP_Widget {
 
-	private $defaults = array();
+	private $defaults;
 
 	function __construct() {
-
 		$widget_ops = array(
-			'classname'                   => 'shapely-social',
-			'description'                 => esc_html__( 'shapely Social Widget', 'shapely-companion' ),
+			'classname'                   => 'widget-shapely-social',
+			'description'                 => esc_html__( 'Shapely Social Widget', 'shapely-companion' ),
 			'customize_selective_refresh' => true,
 		);
 		parent::__construct( 'shapely-social', esc_html__( '[Shapely] Social Widget', 'shapely-companion' ), $widget_ops );
@@ -24,64 +23,93 @@ class Shapely_Social extends WP_Widget {
 
 	function widget( $args, $instance ) {
 
-		$instance = wp_parse_args( $instance, $this->defaults );
+		$defaults = array(
+			'title'    => __( 'We are social', 'shapely-companion' ),
+			'nav_menu' => 0,
+			'alignment' => 'text-center',
+		);
+		$instance = wp_parse_args( (array) $instance, $defaults );
 
-		if ( ! function_exists( 'shapely_social_icons' ) ) {
-			echo __( 'This widget works only with Shapely theme. Please install and activate it first.', 'shapely-companion' );
-		}
+		$title = apply_filters( 'widget_title', $instance['title'] );
+
 		echo $args['before_widget'];
-		echo $args['before_title'];
-		echo esc_html( $instance['title'] );
-		echo $args['after_title'];
-
-		/**
-		 * Widget Content
-		 */
-		?>
-
-		<!-- social icons -->
-		<div class="social-icons sticky-sidebar-social">
-			<?php shapely_social_icons(); ?>
-		</div><!-- end social icons -->
-
-		<?php
+		echo '<section class="shapely-social-links ' . $instance['alignment'] . '">';
+		if ( '' != $title ) {
+			echo '<h3 class="cfa-text">' . esc_html( $title ) . '</h3>';
+		}
+		
+		wp_nav_menu(
+			array(
+				'menu'            => absint($instance['nav_menu']),
+				'container'       => 'nav',
+				'container_id'    => 'social',
+				'container_class' => 'social-icons',
+				'menu_id'         => 'menu-social-items',
+				'menu_class'      => 'list-inline social-list',
+				'depth'           => 1,
+				'fallback_cb'     => '',
+				'link_before'     => '<i class="social_icon fa"><span>',
+				'link_after'      => '</span></i>',
+			)
+		);
+		echo '</section>';
 
 		echo $args['after_widget'];
 	}
 
-	/**
-	 * @param array $instance
-	 *
-	 * @return string|void
-	 */
+
+	function update( $new_instance, $old_instance ) {
+		$instance              = $old_instance;
+		$instance['title']     = sanitize_text_field( $new_instance['title'] );
+		$instance['nav_menu']  = absint( $new_instance['nav_menu'] );
+		$instance['alignment'] = sanitize_text_field( $new_instance['alignment'] );
+
+		return $instance;
+	}
+
 	function form( $instance ) {
-		if ( ! isset( $instance['title'] ) ) {
-			$instance['title'] = esc_html__( 'Follow us', 'shapely-companion' );
-		}
+
+		$defaults = array(
+			'title'    => __( 'We are social', 'shapely-companion' ),
+			'nav_menu' => 0,
+			'alignment' => 'text-center',
+		);
+		$menus = wp_get_nav_menus();
+		$instance = wp_parse_args( (array) $instance, $defaults );
+
 		?>
+		<p>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title', 'shapely-companion' ); ?></label>
+			<input class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" type="text" value="<?php echo esc_attr( $instance['title'] ); ?>" />
+		</p>
 
 		<p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>">
-				<?php echo esc_html__( 'Title ', 'shapely-companion' ); ?>
-			</label>
-			<input type="text" value="<?php echo esc_attr( $instance['title'] ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" class="widefat"/>
+			<label for="<?php echo $this->get_field_id( 'nav_menu' ); ?>"><?php _e( 'Select Menu:', 'shapely-companion' ); ?></label>
+			<select id="<?php echo $this->get_field_id( 'nav_menu' ); ?>" name="<?php echo $this->get_field_name( 'nav_menu' ); ?>">
+				<option value="0"><?php _e( '&mdash; Select &mdash;', 'shapely-companion' ); ?></option>
+				<?php foreach ( $menus as $menu ) : ?>
+					<option value="<?php echo esc_attr( $menu->term_id ); ?>" <?php selected( $instance['nav_menu'], $menu->term_id ); ?>>
+						<?php echo esc_html( $menu->name ); ?>
+					</option>
+				<?php endforeach; ?>
+			</select>
+		</p>
+		<p>
+			<label for="<?php echo $this->get_field_id( 'alignment' ); ?>"><?php _e( 'Alignment:', 'shapely-companion' ); ?></label>
+			<select id="<?php echo $this->get_field_id( 'alignment' ); ?>" name="<?php echo $this->get_field_name( 'alignment' ); ?>">
+				<option value="text-left" <?php selected( $instance['alignment'], 'text-left' ); ?>>
+					<?php esc_html_e( 'Left', 'shapely-companion' ); ?>
+				</option>
+				<option value="text-center" <?php selected( $instance['alignment'], 'text-center' ); ?>>
+					<?php esc_html_e( 'Center', 'shapely-companion' ); ?>
+				</option>
+				<option value="text-right" <?php selected( $instance['alignment'], 'text-right' ); ?>>
+					<?php esc_html_e( 'Right', 'shapely-companion' ); ?>
+				</option>
+			</select>
 		</p>
 
 		<?php
-	}
-
-	/**
-	 * @param array $new_instance
-	 * @param array $old_instance
-	 *
-	 * @return array
-	 */
-	public function update( $new_instance, $old_instance ) {
-
-		$instance          = array();
-		$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? wp_kses_post( $new_instance['title'] ) : '';
-
-		return $instance;
 	}
 
 }
