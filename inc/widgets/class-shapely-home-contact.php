@@ -117,7 +117,7 @@ class Shapely_Home_Contact extends WP_Widget {
 							<?php
 
 							if ( '' != $contactform ) {
-								echo do_shortcode( '[contact-form-7 id="' . absint( $contactform ) . '"]' );
+								echo defined('KALIFORMS_VERSION') ? do_shortcode( '[kaliform id="' . absint( $contactform ) . '"]' ) : do_shortcode( '[contact-form-7 id="' . absint( $contactform ) . '"]' );
 							}
 
 							?>
@@ -179,14 +179,14 @@ class Shapely_Home_Contact extends WP_Widget {
 			</label>
 			<?php
 
-			if ( ! defined( 'WPCF7_LOAD_JS' ) ) {
-				echo '<br><span>' . esc_html__( 'Please install Contact Form 7 plugin', 'shapely-companion' ) . '</span>';
+			if ( ! defined( 'KALIFORMS_VERSION' ) ) {
+				echo '<br><span>' . esc_html__( 'Please install Kaliforms plugin', 'shapely-companion' ) . '</span>';
 				echo '<input type="hidden" id="' . esc_attr( $this->get_field_name( 'contactform' ) ) . '" name="' . esc_attr( $this->get_field_name( 'contactform' ) ) . '" value="0">';
 			} else {
 				echo '<select id="' . esc_attr( $this->get_field_name( 'contactform' ) ) . '" name="' . esc_attr( $this->get_field_name( 'contactform' ) ) . '" class="widefat">';
 				echo '<option value="0">' . esc_html__( 'Select a form ...', 'shapely-companion' ) . '</option>';
 				$forms_args = array(
-					'post_type'      => 'wpcf7_contact_form',
+					'post_type'      => 'kaliforms_forms',
 					'post_status'    => 'publish',
 					'posts_per_page' => - 1,
 				);
