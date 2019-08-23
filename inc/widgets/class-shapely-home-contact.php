@@ -120,7 +120,7 @@ class Shapely_Home_Contact extends WP_Widget {
 								echo defined('KALIFORMS_VERSION') ? do_shortcode( '[kaliform id="' . absint( $contactform ) . '"]' ) : do_shortcode( '[contact-form-7 id="' . absint( $contactform ) . '"]' );
 							}
 
-							?>
+?>
 						</div>
 					</div>
 				</div>
@@ -180,7 +180,7 @@ class Shapely_Home_Contact extends WP_Widget {
 			<?php
 
 			if ( ! defined( 'KALIFORMS_VERSION' ) ) {
-				echo '<br><span>' . esc_html__( 'Please install Kaliforms plugin', 'shapely-companion' ) . '</span>';
+				echo '<br><span>' . esc_html__( 'Please install Kali Forms plugin', 'shapely-companion' ) . '</span>';
 				echo '<input type="hidden" id="' . esc_attr( $this->get_field_name( 'contactform' ) ) . '" name="' . esc_attr( $this->get_field_name( 'contactform' ) ) . '" value="0">';
 			} else {
 				echo '<select id="' . esc_attr( $this->get_field_name( 'contactform' ) ) . '" name="' . esc_attr( $this->get_field_name( 'contactform' ) ) . '" class="widefat">';
