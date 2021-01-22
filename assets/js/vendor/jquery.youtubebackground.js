@@ -310,7 +310,7 @@ if ( typeof Object.create !== "function" ) {
 	// Scroll Stopped event.
 	$.fn.scrollStopped = function (callback) {
 		var $this = $(this), self = this;
-		$this.scroll(function () {
+		$this.on('scroll', function () {
 			if ( $this.data('scrollTimeout') ) {
 				clearTimeout($this.data('scrollTimeout'));
 			}
