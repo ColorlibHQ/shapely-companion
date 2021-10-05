@@ -157,6 +157,8 @@ class Shapely_Walker_Nav_Menu_Edit extends Walker_Nav_Menu {
 				</label>
 			</p>
 
+			<?php do_action( 'wp_nav_menu_item_custom_fields', $item_id, $item, $depth, $args, $id ); ?>
+
 			<fieldset class="field-move hide-if-no-js description description-wide">
 				<span class="field-move-visual-label" aria-hidden="true"><?php _e( 'Move', 'shapely-companion' ); ?></span>
 				<button type="button" class="button-link menus-move menus-move-up" data-dir="up"><?php _e( 'Up one', 'shapely-companion' ); ?></button>
