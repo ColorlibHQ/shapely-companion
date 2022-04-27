@@ -8,25 +8,25 @@ if ( ! defined( 'WPINC' ) ) {
 
 		<?php if ( ! Shapely_Notify_System::shapely_has_plugin( 'shapely-companion' ) || ! Shapely_Notify_System::shapely_has_plugin( 'jetpack' ) || ! Shapely_Notify_System::shapely_has_plugin( 'kali-forms' ) ) : ?>
 			<div>
-				<p><?php _e( 'In order to import the demo content you need to complete all the recommended actions from above.', 'shapely-companion' ); ?></p>
+				<p><?php esc_html_e( 'In order to import the demo content you need to complete all the recommended actions from above.', 'shapely-companion' ); ?></p>
 			</div>
 		<?php else : ?>
 			<div class="import-full-content">
 				<p>
 					<a href="#" class="button button-primary"
-					   data-action="import-all"><?php _e( 'I want my site to look like your demo', 'shapely-companion' ); ?></a>
+					   data-action="import-all"><?php esc_html_e( 'I want my site to look like your demo', 'shapely-companion' ); ?></a>
 					<span class="spinner"></span>
 				</p>
-				<div class="updated-message"><p><?php _e( 'Content Imported', 'shapely-companion' ); ?></p></div>
+				<div class="updated-message"><p><?php esc_html_e( 'Content Imported', 'shapely-companion' ); ?></p></div>
 			</div>
 			<div>
-				<p><?php _e( 'I want only to import demo widgets', 'shapely-companion' ); ?></p>
+				<p><?php esc_html_e( 'I want only to import demo widgets', 'shapely-companion' ); ?></p>
 				<p>
 					<a href="#" class="button button-secondary"
-					   data-action="import-widgets"><?php _e( 'Import Widgets', 'shapely-companion' ); ?></a>
+					   data-action="import-widgets"><?php esc_html_e( 'Import Widgets', 'shapely-companion' ); ?></a>
 					<span class="spinner"></span>
 				</p>
-				<div class="updated-message"><p><?php _e( 'Content Imported', 'shapely-companion' ); ?></p></div>
+				<div class="updated-message"><p><?php esc_html_e( 'Content Imported', 'shapely-companion' ); ?></p></div>
 			</div>
 		<?php endif ?>
 

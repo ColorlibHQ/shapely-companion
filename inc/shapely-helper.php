@@ -33,7 +33,7 @@ add_action( 'wp_ajax_shapely_get_attachment_image', 'shapely_get_attachment_imag
 add_action( 'wp_ajax_nopriv_shapely_get_attachment_image', 'shapely_get_attachment_image' );
 
 function shapely_get_attachment_image() {
-	$id  = intval( $_POST['attachment_id'] );
+	$id  = isset( $_POST['attachment_id'] ) ? intval( $_POST['attachment_id'] ) : 0;
 	$src = wp_get_attachment_image_src( $id, 'full', false );
 
 	if ( ! empty( $src[0] ) ) {
@@ -47,7 +47,7 @@ add_action( 'wp_ajax_shapely_get_attachment_media', 'shapely_get_attachment_medi
 add_action( 'wp_ajax_nopriv_shapely_get_attachment_media', 'shapely_get_attachment_media' );
 
 function shapely_get_attachment_media() {
-	$id  = intval( $_POST['attachment_id'] );
+	$id  = isset( $_POST['attachment_id'] ) ? intval( $_POST['attachment_id'] ) : 0;
 	$src = wp_get_attachment_image_src( $id, 'full', false );
 
 	if ( ! empty( $src[0] ) ) {

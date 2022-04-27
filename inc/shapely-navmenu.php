@@ -22,11 +22,11 @@ function shapely_nav_menu_item_link_meta_box() {
 	$widgets_name = array();
 	?>
 	<div class="customlinkdiv" id="shapelysectionsdiv">
-		<input type="hidden" value="custom" name="menu-item[<?php echo $_nav_menu_placeholder; ?>][menu-item-type]" />
+		<input type="hidden" value="custom" name="menu-item[<?php echo esc_attr( $_nav_menu_placeholder ); ?>][menu-item-type]" />
 		<p id="menu-item-url-wrap" class="wp-clearfix">
-			<label class="howto" for="custom-menu-item-url"><?php _e( 'Section', 'shapely-companion' ); ?></label>
-			<select id="shapely-section-item-widget" name="menu-item[<?php echo $_nav_menu_placeholder; ?>][menu-item-url]" type="text" class="code menu-item-textbox">
-				<option value="0"><?php _e( 'Select a Section', 'shapely-companion' ); ?></option>
+			<label class="howto" for="custom-menu-item-url"><?php esc_html_e( 'Section', 'shapely-companion' ); ?></label>
+			<select id="shapely-section-item-widget" name="menu-item[<?php echo esc_attr( $_nav_menu_placeholder ); ?>][menu-item-url]" type="text" class="code menu-item-textbox">
+				<option value="0"><?php esc_html_e( 'Select a Section', 'shapely-companion' ); ?></option>
 				<?php
 
 				if ( is_active_sidebar( 'sidebar-home' ) ) {
@@ -47,7 +47,7 @@ function shapely_nav_menu_item_link_meta_box() {
 							$title = $widget;
 						}
 
-						echo '<option value="' . $widget . '">' . $title . '</option>';
+						echo '<option value="' . esc_attr( $widget ) . '">' . esc_html( $title ) . '</option>';
 					}
 				}
 
@@ -55,12 +55,12 @@ function shapely_nav_menu_item_link_meta_box() {
 			</select>
 		</p>
 		<p id="menu-item-name-wrap" class="wp-clearfix">
-			<label class="howto" for="custom-menu-item-name"><?php _e( 'URL', 'shapely-companion' ); ?></label>
-			<input id="shapely-section-item-url" name="menu-item[<?php echo $_nav_menu_placeholder; ?>][menu-item-url]" type="text" class="regular-text menu-item-textbox" />
+			<label class="howto" for="custom-menu-item-name"><?php esc_html_e( 'URL', 'shapely-companion' ); ?></label>
+			<input id="shapely-section-item-url" name="menu-item[<?php echo esc_attr( $_nav_menu_placeholder ); ?>][menu-item-url]" type="text" class="regular-text menu-item-textbox" />
 		</p>
 		<p id="menu-item-name-wrap" class="wp-clearfix">
-			<label class="howto" for="custom-menu-item-name"><?php _e( 'Label', 'shapely-companion' ); ?></label>
-			<input id="shapely-section-item-name" name="menu-item[<?php echo $_nav_menu_placeholder; ?>][menu-item-title]" type="text" class="regular-text menu-item-textbox" />
+			<label class="howto" for="custom-menu-item-name"><?php esc_html_e( 'Label', 'shapely-companion' ); ?></label>
+			<input id="shapely-section-item-name" name="menu-item[<?php echo esc_attr( $_nav_menu_placeholder ); ?>][menu-item-title]" type="text" class="regular-text menu-item-textbox" />
 		</p>
 
 		<p class="button-controls wp-clearfix">
@@ -80,14 +80,14 @@ function shapely_update_menu_item( $menu_id, $menu_item_db_id, $args ) {
 
 	if ( isset( $_POST['menu-item'] ) && count( $_POST['menu-item'] ) == 1 ) {
 		if ( isset( $_POST['menu-item']['-1'] ) ) {
-			$menu_item = $_POST['menu-item']['-1'];
+			$menu_item = array_map( 'sanitize_text_field', wp_unslash( $_POST['menu-item']['-1'] ) );
 
 			if ( isset( $menu_item['menu-item-extra'] ) && 'shapely-section' == $menu_item['menu-item-extra'] ) {
 				update_post_meta( $menu_item_db_id, '_menu_item_extra', 'shapely-section' );
 			}
 
 			if ( isset( $menu_item['menu-item-widget'] ) ) {
-				update_post_meta( $menu_item_db_id, '_menu_item_widget', sanitize_text_field( $menu_item['menu-item-widget'] ) );
+				update_post_meta( $menu_item_db_id, '_menu_item_widget', $menu_item['menu-item-widget'] );
 			}
 		}
 	}

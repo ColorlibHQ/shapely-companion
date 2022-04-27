@@ -33,7 +33,7 @@ class Shapely_Social extends WP_Widget {
 		$title = apply_filters( 'widget_title', $instance['title'] );
 
 		echo $args['before_widget'];
-		echo '<section class="shapely-social-links ' . $instance['alignment'] . '">';
+		echo '<section class="shapely-social-links ' . esc_attr( $instance['alignment'] ) . '">';
 		if ( '' != $title ) {
 			echo '<h3 class="cfa-text">' . esc_html( $title ) . '</h3>';
 		}
@@ -84,9 +84,9 @@ class Shapely_Social extends WP_Widget {
 		</p>
 
 		<p>
-			<label for="<?php echo $this->get_field_id( 'nav_menu' ); ?>"><?php _e( 'Select Menu:', 'shapely-companion' ); ?></label>
-			<select id="<?php echo $this->get_field_id( 'nav_menu' ); ?>" name="<?php echo $this->get_field_name( 'nav_menu' ); ?>">
-				<option value="0"><?php _e( '&mdash; Select &mdash;', 'shapely-companion' ); ?></option>
+			<label for="<?php echo esc_attr( $this->get_field_id( 'nav_menu' ) ); ?>"><?php esc_html_e( 'Select Menu:', 'shapely-companion' ); ?></label>
+			<select id="<?php echo esc_attr( $this->get_field_id( 'nav_menu' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'nav_menu' ) ); ?>">
+				<option value="0"><?php esc_html_e( '&mdash; Select &mdash;', 'shapely-companion' ); ?></option>
 				<?php foreach ( $menus as $menu ) : ?>
 					<option value="<?php echo esc_attr( $menu->term_id ); ?>" <?php selected( $instance['nav_menu'], $menu->term_id ); ?>>
 						<?php echo esc_html( $menu->name ); ?>
@@ -95,8 +95,8 @@ class Shapely_Social extends WP_Widget {
 			</select>
 		</p>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'alignment' ); ?>"><?php _e( 'Alignment:', 'shapely-companion' ); ?></label>
-			<select id="<?php echo $this->get_field_id( 'alignment' ); ?>" name="<?php echo $this->get_field_name( 'alignment' ); ?>">
+			<label for="<?php echo esc_attr( $this->get_field_id( 'alignment' ) ); ?>"><?php esc_html_e( 'Alignment:', 'shapely-companion' ); ?></label>
+			<select id="<?php echo esc_attr( $this->get_field_id( 'alignment' ) ); ?>" name="<?php echo esc_attr( $this->get_field_id( 'alignment' ) ); ?>">
 				<option value="text-left" <?php selected( $instance['alignment'], 'text-left' ); ?>>
 					<?php esc_html_e( 'Left', 'shapely-companion' ); ?>
 				</option>

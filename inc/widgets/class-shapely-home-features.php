@@ -137,7 +137,7 @@ class Shapely_Home_Features extends WP_Widget {
 			<b>
 				<?php
 				// Translators: Number of feature icons
-				echo sprintf( __( 'Feature %s', 'shapely-companion' ), $i );
+				echo sprintf( esc_html__( 'Feature %s', 'shapely-companion' ), esc_html( $i ) );
 				?>
 			</b>
 

@@ -19,7 +19,7 @@ class Shapely_Page_Title extends WP_Widget {
 	function widget( $args, $instance ) {
 
 		if ( ! function_exists( 'shapely_top_callout' ) ) {
-			echo __( 'This widget works only with Shapely theme. Please install and activate it first.', 'shapely-companion' );
+			echo esc_html__( 'This widget works only with Shapely theme. Please install and activate it first.', 'shapely-companion' );
 		}
 		echo $args['before_widget'];
 

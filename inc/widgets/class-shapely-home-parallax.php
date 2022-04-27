@@ -171,7 +171,7 @@ class Shapely_Home_Parallax extends WP_Widget {
 				?>
 				:</label>
 
-			<img data-default="<?php echo $placeholder_url; ?>" src="<?php echo '' != $instance['image_src'] ? esc_url( $instance['image_src'] ) : $placeholder_url; ?>" />
+			<img data-default="<?php echo esc_url( $placeholder_url ); ?>" src="<?php echo '' != $instance['image_src'] ? esc_url( $instance['image_src'] ) : esc_url( $placeholder_url ); ?>" />
 
 			<input type="hidden" name="<?php echo esc_attr( $this->get_field_name( 'image_src' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'image_src' ) ); ?>" value="<?php echo esc_url( $instance['image_src'] ); ?>" class="image-id blazersix-media-control-target">
 
