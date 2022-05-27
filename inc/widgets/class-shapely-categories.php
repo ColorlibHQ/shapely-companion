@@ -75,8 +75,8 @@ class Shapely_Categories extends WP_Widget {
 					$pattern  = '/\([0-9]+\)/';
 					$variable = preg_replace( $pattern, '', $variable );
 				}
-
-				echo $variable;
+				
+				echo wp_kses_post( $variable );
 				?>
 			</ul>
 
@@ -100,14 +100,14 @@ class Shapely_Categories extends WP_Widget {
 		?>
 
 		<p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>">
+			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>">
 				<?php echo esc_html__( 'Title ', 'shapely-companion' ); ?>
 			</label>
 			<input type="text" value="<?php echo esc_attr( $instance['title'] ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" class="widefat"/>
 		</p>
 
 		<p>
-			<label for="<?php echo $this->get_field_id( 'limit' ); ?>">
+			<label for="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>">
 				<?php echo esc_html__( 'Limit Categories ', 'shapely-companion' ); ?>
 			</label>
 			<input type="text" value="<?php echo esc_attr( $instance['limit'] ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'limit' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'limit' ) ); ?>" class="widefat"/>
@@ -115,7 +115,7 @@ class Shapely_Categories extends WP_Widget {
 
 		<div class="checkbox_switch wp-clearfix">
 				<span class="customize-control-title onoffswitch_label">
-		<?php _e( 'Enable Posts Count', 'shapely-companion' ); ?>
+		<?php esc_html_e( 'Enable Posts Count', 'shapely-companion' ); ?>
 				</span>
 			<div class="onoffswitch">
 				<input type="checkbox" id="<?php echo esc_attr( $this->get_field_name( 'enable_count' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'enable_count' ) ); ?>" class="onoffswitch-checkbox" value="on"

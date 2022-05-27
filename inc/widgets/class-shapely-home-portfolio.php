@@ -119,7 +119,7 @@ class Shapely_Home_Portfolio extends WP_Widget {
 											<?php
 											the_title( '<h5 class="mb0">', '</h5>' );
 											if ( ! empty( $project_types ) ) {
-												echo '<span>' . implode( ' / ', $project_types ) . '</span>';
+												echo '<span>' . wp_kses_post( implode( ' / ', $project_types ) ) . '</span>';
 											}
 											?>
 										</div>
@@ -180,7 +180,7 @@ class Shapely_Home_Portfolio extends WP_Widget {
 				<?php
 
 				foreach ( $categories as $id => $category ) {
-					echo '<option value="' . $id . '" ' . selected( $instance['category'], $id ) . '>' . $category . '</option>';
+					echo '<option value="' . esc_attr( $id ) . '" ' . selected( $instance['category'], $id ) . '>' . esc_html( $category ) . '</option>';
 				}
 
 				?>

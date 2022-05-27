@@ -70,8 +70,8 @@ class Shapely_Home_Contact extends WP_Widget {
 		 */
 		?>
 
-		<section class="contact-section<?php echo $class; ?>">
-			<div <?php echo $atts; ?>>
+		<section class="contact-section<?php echo esc_attr( $class ); ?>">
+			<div <?php echo esc_attr( $atts ); ?>>
 				<div class="container">
 					<div class="text-center">
 						<?php
@@ -91,17 +91,17 @@ class Shapely_Home_Contact extends WP_Widget {
 							<?php
 
 							if ( '' != $phone ) {
-								echo '<p class="mb0"><strong>' . __( 'Phone :', 'shapely-companion' ) . '</strong></p>';
+								echo '<p class="mb0"><strong>' . esc_html__( 'Phone :', 'shapely-companion' ) . '</strong></p>';
 								echo '<p class="mb32"><a href="tel:' . esc_attr( $phone ) . '">' . esc_html( $phone ) . '</a></p>';
 							}
 
 							if ( '' != $email ) {
-								echo '<p class="mb0"><strong>' . __( 'Email :', 'shapely-companion' ) . '</strong></p>';
+								echo '<p class="mb0"><strong>' . esc_html__( 'Email :', 'shapely-companion' ) . '</strong></p>';
 								echo '<p class="mb32"><a href="mailto:' . esc_attr( $email ) . '">' . esc_html( antispambot( $email ) ) . '</a></p>';
 							}
 
 							if ( '' != $address ) {
-								echo '<p class="mb0"><strong>' . __( 'Address :', 'shapely-companion' ) . '</strong></p>';
+								echo '<p class="mb0"><strong>' . esc_html__( 'Address :', 'shapely-companion' ) . '</strong></p>';
 								echo '<p class="mb32">' . wp_kses_post( nl2br( $address ) ) . '</p>';
 							}
 

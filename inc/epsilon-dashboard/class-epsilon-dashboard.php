@@ -204,10 +204,10 @@ if ( ! class_exists( 'Epsilon_Dashboard' ) ) {
 						?>
 						<li class="epsilon-dw-feed-item">
 							<span class="epsilon-dw-date-container">
-								<span class="epsilon-dw-day-container"><?php echo date( 'd', $item['date'] ); ?></span> 
-								<span class="epsilon-dw-month-container"><?php echo substr( date( 'M', $item['date'] ), 0, 3 ); ?></span>
+								<span class="epsilon-dw-day-container"><?php echo esc_html( date( 'd', $item['date'] ) ); ?></span> 
+								<span class="epsilon-dw-month-container"><?php echo esc_html( substr( date( 'M', $item['date'] ), 0, 3 ) ); ?></span>
 							</span>
-							<a href="<?php echo add_query_arg( $query_args, $item['link'] ); ?>" target="_blank"><?php echo $item['title']; ?></a>
+							<a href="<?php echo esc_url( add_query_arg( $query_args, $item['link'] ) ); ?>" target="_blank"><?php echo esc_html( $item['title'] ); ?></a>
 							<div class="clear"></div>
 						</li>
 						<?php

@@ -37,7 +37,7 @@ function shapely_companion_portfolio_link( $post ) {
 	<?php wp_nonce_field( basename( __FILE__ ), 'shapely_companion_portfolio_link_nonce' ); ?>
 
   <p>
-	<label for="shapely-companion-portfolio-link"><?php _e( "Use this if you'd like to link your custom portfolio/project works to external websites. Defaults to dedicated portfolio URL.", 'shapely-companion' ); ?></label>
+	<label for="shapely-companion-portfolio-link"><?php esc_html_e( "Use this if you'd like to link your custom portfolio/project works to external websites. Defaults to dedicated portfolio URL.", 'shapely-companion' ); ?></label>
 	<br />
 	<input class="widefat" type="text" name="shapely-companion-portfolio-link" id="shapely-companion-portfolio-link" value="<?php echo esc_url( get_post_meta( $post->ID, 'shapely_companion_portfolio_link', true ) ); ?>" size="30" />
   </p>
@@ -47,7 +47,7 @@ function shapely_companion_portfolio_link( $post ) {
 function shapely_companion_save_post_class_meta( $post_id, $post ) {
 
 	/* Verify the nonce before proceeding. */
-	if ( ! isset( $_POST['shapely_companion_portfolio_link_nonce'] ) || ! wp_verify_nonce( $_POST['shapely_companion_portfolio_link_nonce'], basename( __FILE__ ) ) ) {
+	if ( ! isset( $_POST['shapely_companion_portfolio_link_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['shapely_companion_portfolio_link_nonce'] ) ), basename( __FILE__ ) ) ) {
 		return $post_id;
 	}
 
@@ -60,7 +60,7 @@ function shapely_companion_save_post_class_meta( $post_id, $post ) {
 	}
 
 	/* Get the posted data and sanitize it for use as an HTML class. */
-	$new_meta_value = ( isset( $_POST['shapely-companion-portfolio-link'] ) ? esc_url( $_POST['shapely-companion-portfolio-link'] ) : '' );
+	$new_meta_value = ( isset( $_POST['shapely-companion-portfolio-link'] ) ? sanitize_url( wp_unslash( ( $_POST['shapely-companion-portfolio-link'] ) ) ) : '' );
 
 	/* Get the meta key. */
 	$meta_key = 'shapely_companion_portfolio_link';
