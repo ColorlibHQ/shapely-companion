@@ -2,8 +2,8 @@
 Contributors: colorlibplugins, silkalns
 Tags: woocommerce, widgets, plugin, demo, companion, home page, one page, parallax, social, portfolio, projects
 Requires at least: 3.8
-Tested up to: 5.6
-Stable tag: 1.2.6
+Tested up to: 6.0
+Stable tag: 1.2.7
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -52,7 +52,10 @@ You can still use Shapely theme without this plugin but you won't be able to imp
 
 == Changelog ==
 
-= 1.2.5 =
+= 1.2.7 =
+* Fixed: Sanitizations & Security
+
+= 1.2.6 =
 * Fixed demo images
 * compatibility with jQuery 3.0
 
