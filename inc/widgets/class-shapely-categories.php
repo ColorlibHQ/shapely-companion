@@ -42,10 +42,10 @@ class Shapely_Categories extends WP_Widget {
 
 		$instance = wp_parse_args( $instance, $this->defaults );
 
-		echo $args['before_widget'];
-		echo $args['before_title'];
+		echo $args['before_widget']; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
+		echo $args['before_title']; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
 		echo esc_html( $instance['title'] );
-		echo $args['after_title'];
+		echo $args['after_title']; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
 
 		/**
 		 * Widget Content
@@ -84,7 +84,7 @@ class Shapely_Categories extends WP_Widget {
 
 		<?php
 
-		echo $args['after_widget'];
+		echo $args['after_widget']; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
 	}
 
 

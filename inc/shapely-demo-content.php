@@ -67,6 +67,21 @@ add_action( 'wp_ajax_shapely_companion_import_content', 'shapely_companion_impor
 
 function shapely_companion_import_content() {
 
+	if( !isset( $_POST['nonce'] ) ) {
+		wp_send_json_error( 'no nonce' );
+		die();
+	}
+
+	if ( ! wp_verify_nonce( $_POST['nonce'], 'welcome_nonce' ) ) {//phpcs:ignore
+		wp_send_json_error();
+		die();
+	}
+
+	if ( ! current_user_can( 'manage_options' ) ) {
+		wp_send_json_error( 'user capabilities' );
+		die();
+	}
+
 	if ( isset( $_POST['import'] ) ) {
 
 		if ( 'import-all' == $_POST['import'] ) {

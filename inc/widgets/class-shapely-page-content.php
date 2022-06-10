@@ -22,7 +22,7 @@ class Shapely_Page_Content extends WP_Widget {
 	 */
 	function widget( $args, $instance ) {
 
-		echo $args['before_widget'];
+		echo $args['before_widget']; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
 
 		?>
 
@@ -49,7 +49,7 @@ class Shapely_Page_Content extends WP_Widget {
 
 		<?php
 
-		echo $args['after_widget'];
+		echo $args['after_widget']; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
 	}
 
 

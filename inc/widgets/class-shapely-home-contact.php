@@ -64,14 +64,14 @@ class Shapely_Home_Contact extends WP_Widget {
 			$class = ' image-bg cover';
 		}
 
-		echo $args['before_widget'];
+		echo $args['before_widget']; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
 		/**
 		 * Widget Content
 		 */
 		?>
 
 		<section class="contact-section<?php echo esc_attr( $class ); ?>">
-			<div <?php echo esc_attr( $atts ); ?>>
+			<div <?php echo $atts; ?>>
 				<div class="container">
 					<div class="text-center">
 						<?php
@@ -134,7 +134,7 @@ class Shapely_Home_Contact extends WP_Widget {
 		<div class="clearfix"></div>
 		<?php
 
-		echo $args['after_widget'];
+		echo $args['after_widget']; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
 	}
 
 
