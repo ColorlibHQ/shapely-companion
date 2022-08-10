@@ -2,7 +2,7 @@ jQuery( document ).ready(function() {// jscs:ignore validateLineBreaks
 
     jQuery( '#demo_content .button' ).on('click', function( evt ) {
         var currentButton = jQuery( this );
-        var ajaxData = { 'action': 'shapely_companion_import_content', 'import': jQuery( this ).data( 'action' ) };
+        var ajaxData = { 'action': 'shapely_companion_import_content', 'import': jQuery( this ).data( 'action' ), 'nonce': shapelyCompanion.nonce };
         evt.preventDefault();
         jQuery( this ).addClass( 'disabled' );
         jQuery( this ).next( '.spinner' ).addClass( 'is-active' );

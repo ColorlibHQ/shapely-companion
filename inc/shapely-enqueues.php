@@ -10,6 +10,7 @@ function shapely_companion_admin_scripts( $hook ) {
 	wp_localize_script(
 		'shapely-companion-admin-js', 'shapelyCompanion', array(
 			'ajaxurl' => admin_url( 'admin-ajax.php' ),
+			'nonce' => wp_create_nonce( "welcome_nonce" ),
 		)
 	);
 	if ( 'widgets.php' == $hook || 'customize.php' == $hook ) {

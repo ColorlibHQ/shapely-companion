@@ -72,7 +72,7 @@ class Shapely_Walker_Nav_Menu_Edit extends Walker_Nav_Menu {
 
 		$submenu_text = '';
 		if ( 0 == $depth ) {
-			$submenu_text = 'style="display: none;"';
+			$submenu_text = 'display: none;';
 		}
 		$move_up_url = wp_nonce_url( add_query_arg(
 			array(
@@ -97,7 +97,7 @@ class Shapely_Walker_Nav_Menu_Edit extends Walker_Nav_Menu {
 						<span class="menu-item-title">
 							<?php echo esc_html( $title ); ?>
 						</span>
-						<span class="is-submenu" <?php echo $submenu_text; ?>> <?php esc_html_e( 'sub item', 'shapely-companion' ); ?></span>
+						<span class="is-submenu" style="<?php echo esc_attr( $submenu_text ); ?>"> <?php esc_html_e( 'sub item', 'shapely-companion' ); ?></span>
 					</span> <span class="item-controls">
 						<span class="item-type"><?php echo esc_html( $item->type_label ); ?></span>
 						<span class="item-order hide-if-js">

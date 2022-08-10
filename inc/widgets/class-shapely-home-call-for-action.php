@@ -32,7 +32,7 @@ class Shapely_Home_Call_For_Action extends WP_Widget {
 
 		$instance = wp_parse_args( $instance, $this->defaults );
 
-		echo $args['before_widget'];
+		echo $args['before_widget']; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
 
 		/**
 		 * Widget Content
@@ -60,7 +60,7 @@ class Shapely_Home_Call_For_Action extends WP_Widget {
 		<?php
 		endif;
 
-		echo $args['after_widget'];
+		echo $args['after_widget']; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
 	}
 
 

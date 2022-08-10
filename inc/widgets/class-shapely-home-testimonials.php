@@ -36,7 +36,7 @@ class Shapely_Home_Testimonials extends WP_Widget {
 		$limit     = $instance['limit'];
 		$image_src = $instance['image_src'];
 
-		echo $args['before_widget'];
+		echo $args['before_widget']; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
 
 		/**
 		 * Widget Content
@@ -101,7 +101,7 @@ class Shapely_Home_Testimonials extends WP_Widget {
 		<?php
 		endif;
 		wp_reset_postdata();
-		echo $args['after_widget'];
+		echo $args['after_widget']; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
 
 	}
 

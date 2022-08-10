@@ -32,13 +32,13 @@ class Shapely_Recent_Posts extends WP_Widget {
 
 		$instance = wp_parse_args( $instance, $this->defaults );
 
-		echo $args['before_widget'];
+		echo $args['before_widget']; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
 		?>
 		<section>
 			<?php
-			echo $args['before_title'];
+			echo $args['before_title']; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
 			echo '<h3 class="mb32">' . wp_kses_post( $instance['title'] ) . '</h3>';
-			echo $args['after_title'];
+			echo $args['after_title']; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
 
 			/**
 			 * Widget Content
@@ -104,7 +104,7 @@ class Shapely_Recent_Posts extends WP_Widget {
 			</div> <!-- end posts wrapper -->
 		</section>
 		<?php
-		echo $args['after_widget'];
+		echo $args['after_widget']; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
 	}
 
 	/**

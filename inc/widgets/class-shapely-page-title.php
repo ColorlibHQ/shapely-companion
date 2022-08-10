@@ -21,7 +21,7 @@ class Shapely_Page_Title extends WP_Widget {
 		if ( ! function_exists( 'shapely_top_callout' ) ) {
 			echo esc_html__( 'This widget works only with Shapely theme. Please install and activate it first.', 'shapely-companion' );
 		}
-		echo $args['before_widget'];
+		echo $args['before_widget']; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
 
 		?>
 
@@ -31,7 +31,7 @@ class Shapely_Page_Title extends WP_Widget {
 
 		<?php
 
-		echo $args['after_widget'];
+		echo $args['after_widget']; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
 	}
 
 
