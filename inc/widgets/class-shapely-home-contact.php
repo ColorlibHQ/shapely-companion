@@ -117,11 +117,29 @@ class Shapely_Home_Contact extends WP_Widget {
 							<?php
 							if ( '' != $contactform && is_numeric( $contactform ) ) {
 								$post = get_post( $contactform );
-								if( 'kaliforms_forms' === $post->post_type ) {
-									echo do_shortcode( '[kaliform id="' . absint( $contactform ) . '"]' );
+								
+								// Log the contact form data for debugging
+								if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+									error_log( 'Shapely Contact Form Debug - Form ID: ' . $contactform );
+									error_log( 'Shapely Contact Form Debug - Post exists: ' . ( $post ? 'yes' : 'no' ) );
+									if ( $post ) {
+										error_log( 'Shapely Contact Form Debug - Post type: ' . $post->post_type );
+									}
 								}
-								if( 'wpcf7_contact_form' === $post->post_type ) {
-									echo do_shortcode( '[contact-form-7 id="' . absint( $contactform ) . '"]' );
+								
+								// Only proceed if post exists
+								if ( ! $post ) {
+									// Display a message for admins only
+									if ( current_user_can( 'manage_options' ) ) {
+										echo '<div class="alert alert-warning">Contact form with ID ' . esc_html( $contactform ) . ' does not exist. Please update this widget with a valid form.</div>';
+									}
+								} else {
+									// Post exists, check type
+									if ( 'kaliforms_forms' === $post->post_type ) {
+										echo do_shortcode( '[kaliform id="' . absint( $contactform ) . '"]' );
+									} elseif ( 'wpcf7_contact_form' === $post->post_type ) {
+										echo do_shortcode( '[contact-form-7 id="' . absint( $contactform ) . '"]' );
+									}
 								}
 							}
 							?>

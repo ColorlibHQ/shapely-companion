@@ -48,8 +48,10 @@ class Shapely_Social extends WP_Widget {
 				'menu_class'      => 'list-inline social-list',
 				'depth'           => 1,
 				'fallback_cb'     => '',
-				'link_before'     => '<i class="social_icon fa"><span>',
-				'link_after'      => '</span></i>',
+				'link_before'     => '<i class="fa-brands fa-',
+				'link_after'      => '"></i>',
+				'items_wrap'      => '<ul id="%1$s" class="%2$s">%3$s</ul>',
+				'walker'          => new Shapely_Social_Walker(),
 			)
 		);
 		echo '</section>';
@@ -112,4 +114,40 @@ class Shapely_Social extends WP_Widget {
 		<?php
 	}
 
+}
+
+/**
+ * Custom walker class to handle social menu items
+ */
+class Shapely_Social_Walker extends Walker_Nav_Menu {
+	function start_el( &$output, $item, $depth = 0, $args = array(), $id = 0 ) {
+		$classes = empty( $item->classes ) ? array() : (array) $item->classes;
+		$icon_class = '';
+		
+		// Find the icon class
+		foreach ( $classes as $class ) {
+			// Look for any class that starts with fa-
+			if ( strpos( $class, 'fa-' ) === 0 ) {
+				// Remove the fa- prefix and convert to lowercase
+				$icon_class = strtolower( substr( $class, 3 ) );
+				break;
+			}
+		}
+
+		// If no icon class found, try to get it from the menu item title
+		if ( empty( $icon_class ) ) {
+			$icon_class = strtolower( sanitize_title( $item->title ) );
+		}
+
+		// Special handling for x.com links
+		if ( strpos( $item->url, 'x.com' ) !== false || strpos( $item->url, 'twitter.com' ) !== false ) {
+			$icon_class = 'twitter';
+		}
+
+		$output .= '<li class="' . implode( ' ', $classes ) . '">';
+		$output .= '<a href="' . esc_url( $item->url ) . '">';
+		$output .= '<i class="fa-brands fa-' . esc_attr( $icon_class ) . '"></i>';
+		$output .= '</a>';
+		$output .= '</li>';
+	}
 }

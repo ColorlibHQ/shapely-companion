@@ -1,9 +1,9 @@
-=== Plugin Name ===
+=== Shapely Companion ===
 Contributors: colorlibplugins, silkalns
-Tags: woocommerce, widgets, plugin, demo, companion, home page, one page, parallax, social, portfolio, projects
-Requires at least: 3.8
-Tested up to: 6.0
-Stable tag: 1.2.7
+Tags: woocommerce, widgets, demo, companion, one page
+Requires at least: 6.4
+Tested up to: 6.8
+Stable tag: 1.2.10
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -51,6 +51,24 @@ Currently it works only with Shapely theme.
 You can still use Shapely theme without this plugin but you won't be able to import demo content and use theme specific widgets that you see on front page of theme demo.
 
 == Changelog ==
+
+= 1.2.10 =
+* Fixed demo content import functionality
+* Added proper error handling for failed imports
+* Fixed contact form widget PHP warnings
+* Added null checks for non-existent contact forms
+* Improved AJAX response handling in admin.js
+* Enhanced demo content with better sample posts
+* Fixed frontpage template assignment during import
+* Added detailed error logging for debugging
+
+= 1.2.9 =
+* Fixed compatibility with PHP 8.4
+* Fixed broken demo content
+* Improved widget alignment options
+* Added better social menu integration
+* Enhanced category widget functionality
+* Updated Font Awesome to version 6
 
 = 1.2.7 =
 * Fixed: Sanitizations & Security
