@@ -2,8 +2,9 @@
 Contributors: colorlibplugins, silkalns
 Tags: woocommerce, widgets, demo, companion, one page
 Requires at least: 6.4
-Tested up to: 6.8
-Stable tag: 1.2.10
+Requires PHP: 7.4
+Tested up to: 7.0
+Stable tag: 1.2.11
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -51,6 +52,16 @@ Currently it works only with Shapely theme.
 You can still use Shapely theme without this plugin but you won't be able to import demo content and use theme specific widgets that you see on front page of theme demo.
 
 == Changelog ==
+
+= 1.2.11 =
+* Security: the shapely_get_attachment_image and shapely_get_attachment_media AJAX actions were also registered for logged-out visitors (wp_ajax_nopriv_) with no nonce and no capability check, letting anyone resolve an arbitrary attachment ID to its URL and enumerate media attached to drafts and private posts. Both now require an authenticated user with the upload_files capability and a valid nonce.
+* Fixed the Portfolio and Testimonials widgets silently disappearing on Jetpack 13 and newer. Registration was gated on Jetpack::is_module_active( 'custom-content-types' ), which now returns false even when the post types are registered and enabled, so both sections vanished from the demo homepage.
+* Import Demo Content is now idempotent: it reuses the existing Front Page and Blog pages instead of creating duplicate front-page-2 / blog-2 pages each time it is run.
+* Replaced the deprecated get_page_by_title() (deprecated in WordPress 6.2) in the demo importer.
+* Fixed the Clients widget logo re-ordering breaking under jQuery 4, which removes jQuery.fn.bind().
+* Fixed the Call for Action widget rendering an empty <a href=""></a> when no button was configured, and using esc_url_raw() for HTML output, which left ampersands unencoded in links with query strings.
+* Committed the admin.js AJAX response handling that shipped in 1.2.10 but was never pushed to the repository.
+* Tested against WordPress 7.0 and PHP 8.5.
 
 = 1.2.10 =
 * Fixed demo content import functionality
@@ -117,3 +128,8 @@ You can still use Shapely theme without this plugin but you won't be able to imp
 
 = 1.0.0 =
 * Initial release.
+
+== Upgrade Notice ==
+
+= 1.2.11 =
+Security release. Two AJAX endpoints were reachable by logged-out visitors and could be used to enumerate media URLs, including attachments on drafts and private posts. Updating is recommended for all sites.

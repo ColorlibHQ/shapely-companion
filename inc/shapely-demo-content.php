@@ -63,6 +63,57 @@ function shapely_companion_add_default_widgets() {
 	update_option( 'sidebars_widgets', $sidebars_widgets );
 }
 
+/**
+ * Find an existing page by title, or create it.
+ *
+ * The importer previously called wp_insert_post() unconditionally, so pressing
+ * "Import Demo Content" a second time produced duplicate "Front Page" and
+ * "Blog" pages (front-page-2, blog-2) and a doubled homepage. get_page_by_title()
+ * is deliberately not used: it was deprecated in WordPress 6.2.
+ *
+ * @param string $title   Page title.
+ * @param string $content Content used only when the page is created.
+ *
+ * @return int Page ID.
+ */
+function shapely_companion_get_or_create_page( $title, $content ) {
+	$existing = new WP_Query(
+		array(
+			'post_type'              => 'page',
+			'title'                  => $title,
+			'post_status'            => array( 'publish', 'draft', 'pending', 'private' ),
+			'posts_per_page'         => 1,
+			'no_found_rows'          => true,
+			'update_post_term_cache' => false,
+			'update_post_meta_cache' => false,
+			'orderby'                => 'ID',
+			'order'                  => 'ASC',
+		)
+	);
+
+	if ( ! empty( $existing->posts ) ) {
+		$id = (int) $existing->posts[0]->ID;
+		if ( 'publish' !== get_post_status( $id ) ) {
+			wp_update_post(
+				array(
+					'ID'          => $id,
+					'post_status' => 'publish',
+				)
+			);
+		}
+		return $id;
+	}
+
+	return (int) wp_insert_post(
+		array(
+			'post_title'   => $title,
+			'post_status'  => 'publish',
+			'post_type'    => 'page',
+			'post_content' => $content,
+		)
+	);
+}
+
 add_action( 'wp_ajax_shapely_companion_import_content', 'shapely_companion_import_content' );
 
 function shapely_companion_import_content() {
@@ -101,27 +152,16 @@ function shapely_companion_import_content() {
 			$frontpage_title = __( 'Front Page', 'shapely-companion' );
 			$blog_title      = __( 'Blog', 'shapely-companion' );
 
-			// Create front page
-			$frontpage_id = wp_insert_post(
-				array(
-					'post_title'    => $frontpage_title,
-					'post_status'   => 'publish',
-					'post_type'     => 'page',
-					'post_content'  => 'This is your front page. Click edit to change this text.',
-				)
+			// Reuse the existing front page if the importer has already run.
+			$frontpage_id = shapely_companion_get_or_create_page(
+				$frontpage_title,
+				'This is your front page. Click edit to change this text.'
 			);
-			$log[] = 'Front page created with ID: ' . $frontpage_id;
+			$log[] = 'Front page ID: ' . $frontpage_id;
 
-			// Create blog page
-			$blog_id = wp_insert_post(
-				array(
-					'post_title'    => $blog_title,
-					'post_status'   => 'publish',
-					'post_type'     => 'page',
-					'post_content'  => 'This is your blog page.',
-				)
-			);
-			$log[] = 'Blog page created with ID: ' . $blog_id;
+			// Reuse the existing blog page if the importer has already run.
+			$blog_id = shapely_companion_get_or_create_page( $blog_title, 'This is your blog page.' );
+			$log[] = 'Blog page ID: ' . $blog_id;
 
 			if ( -1 != $frontpage_id ) {
 				update_post_meta( $frontpage_id, '_wp_page_template', 'page-templates/template-home.php' );

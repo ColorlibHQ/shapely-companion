@@ -29,7 +29,7 @@
     function shapelySort() {
       $( '.client-sortable' ).sortable( {
         handle: '.logo_heading'
-      } ).bind( 'sortupdate', function() {
+      } ).on( 'sortupdate', function() {
         let index = 0, img;
         let attrname = $( this ).find( 'input:first' ).attr( 'name' );
         let attrbase = attrname.substring( 0, attrname.indexOf( '][' ) + 1 );
