@@ -1,6 +1,20 @@
-# Created by .ignore support plugin (hsz.mobi)
-/node_modules/
-.idea/
-/.standard.json
+# Dependencies
+node_modules/
+vendor/
+
+# Build output
+build/
 shapely-companion.zip
-package-lock.json
+
+# Editors / OS
+.idea/
+.vscode/
+.DS_Store
+*.swp
+
+# Generated
+.standard.json
+*.map
+
+# package-lock.json is intentionally committed so `npm ci` installs the exact
+# tree that was tested. It was previously ignored by mistake.

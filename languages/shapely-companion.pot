@@ -1,0 +1,673 @@
+# Copyright (C) 2026 Colorlib
+# This file is distributed under the GPL-2.0+.
+msgid ""
+msgstr ""
+"Project-Id-Version: Shapely Companion 1.2.11 1.2.11\n"
+"Report-Msgid-Bugs-To: https://www.colorlib.com/\n"
+"Last-Translator: Colorlib <office@colorlib.com>\n"
+"Language-Team: Colorlib <office@colorlib.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-08-05T12:41:46+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: shapely-companion\n"
+
+#. Plugin Name of the plugin
+#: shapely-companion.php
+msgid "Shapely Companion"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: shapely-companion.php
+msgid "https://colorlib.com/wp/themes/shapely/"
+msgstr ""
+
+#. Description of the plugin
+#: shapely-companion.php
+msgid "Shapely Companion is a companion plugin for Shapely theme."
+msgstr ""
+
+#. Author of the plugin
+#: shapely-companion.php
+msgid "Colorlib"
+msgstr ""
+
+#. Author URI of the plugin
+#: shapely-companion.php
+msgid "https://colorlib.com"
+msgstr ""
+
+#: inc/class-shapely-walker-nav-menu-edit.php:50
+msgid "Homepage Widget"
+msgstr ""
+
+#. translators: %s: title of menu item which is invalid
+#: inc/class-shapely-walker-nav-menu-edit.php:64
+#, php-format
+msgid "%s (Invalid)"
+msgstr ""
+
+#. translators: %s: title of menu item in draft status
+#: inc/class-shapely-walker-nav-menu-edit.php:68
+#, php-format
+msgid "%s (Pending)"
+msgstr ""
+
+#: inc/class-shapely-walker-nav-menu-edit.php:100
+msgid "sub item"
+msgstr ""
+
+#: inc/class-shapely-walker-nav-menu-edit.php:104
+msgid "Move up"
+msgstr ""
+
+#: inc/class-shapely-walker-nav-menu-edit.php:106
+msgid "Move down"
+msgstr ""
+
+#: inc/class-shapely-walker-nav-menu-edit.php:108
+msgid "Edit menu item"
+msgstr ""
+
+#: inc/class-shapely-walker-nav-menu-edit.php:108
+msgid "Edit"
+msgstr ""
+
+#: inc/class-shapely-walker-nav-menu-edit.php:117
+#: inc/shapely-navmenu.php:58
+msgid "URL"
+msgstr ""
+
+#: inc/class-shapely-walker-nav-menu-edit.php:124
+msgid "Navigation Label"
+msgstr ""
+
+#: inc/class-shapely-walker-nav-menu-edit.php:130
+msgid "Title Attribute"
+msgstr ""
+
+#: inc/class-shapely-walker-nav-menu-edit.php:137
+msgid "Open link in a new tab"
+msgstr ""
+
+#: inc/class-shapely-walker-nav-menu-edit.php:142
+msgid "CSS Classes (optional)"
+msgstr ""
+
+#: inc/class-shapely-walker-nav-menu-edit.php:148
+msgid "Link Relationship (XFN)"
+msgstr ""
+
+#: inc/class-shapely-walker-nav-menu-edit.php:154
+msgid "Description"
+msgstr ""
+
+#: inc/class-shapely-walker-nav-menu-edit.php:156
+msgid "The description will be displayed in the menu if the current theme supports it."
+msgstr ""
+
+#: inc/class-shapely-walker-nav-menu-edit.php:161
+msgid "Move"
+msgstr ""
+
+#: inc/class-shapely-walker-nav-menu-edit.php:162
+msgid "Up one"
+msgstr ""
+
+#: inc/class-shapely-walker-nav-menu-edit.php:163
+msgid "Down one"
+msgstr ""
+
+#: inc/class-shapely-walker-nav-menu-edit.php:166
+msgid "To the top"
+msgstr ""
+
+#: inc/class-shapely-walker-nav-menu-edit.php:172
+#, php-format
+msgid "Original: %s"
+msgstr ""
+
+#: inc/class-shapely-walker-nav-menu-edit.php:185
+msgid "Remove"
+msgstr ""
+
+#: inc/class-shapely-walker-nav-menu-edit.php:193
+msgid "Cancel"
+msgstr ""
+
+#: inc/epsilon-dashboard/class-epsilon-dashboard.php:81
+msgid "WordPress Guides/Tutorials"
+msgstr ""
+
+#: inc/shapely-demo-content.php:152
+#: inc/shapely-demo-content.php:211
+msgid "Front Page"
+msgstr ""
+
+#: inc/shapely-demo-content.php:153
+#: inc/shapely-demo-content.php:212
+msgid "Blog"
+msgstr ""
+
+#: inc/shapely-metabox.php:25
+msgid "Custom Portfolio Link"
+msgstr ""
+
+#: inc/shapely-metabox.php:40
+msgid "Use this if you'd like to link your custom portfolio/project works to external websites. Defaults to dedicated portfolio URL."
+msgstr ""
+
+#: inc/shapely-navmenu.php:14
+msgid "Homepage Sections"
+msgstr ""
+
+#: inc/shapely-navmenu.php:27
+msgid "Section"
+msgstr ""
+
+#: inc/shapely-navmenu.php:29
+msgid "Select a Section"
+msgstr ""
+
+#: inc/shapely-navmenu.php:62
+msgid "Label"
+msgstr ""
+
+#: inc/shapely-navmenu.php:68
+msgid "Add to Menu"
+msgstr ""
+
+#: inc/views/shapely-demo-content.php:11
+msgid "In order to import the demo content you need to complete all the recommended actions from above."
+msgstr ""
+
+#: inc/views/shapely-demo-content.php:17
+msgid "I want my site to look like your demo"
+msgstr ""
+
+#: inc/views/shapely-demo-content.php:20
+#: inc/views/shapely-demo-content.php:29
+msgid "Content Imported"
+msgstr ""
+
+#: inc/views/shapely-demo-content.php:23
+msgid "I want only to import demo widgets"
+msgstr ""
+
+#: inc/views/shapely-demo-content.php:26
+msgid "Import Widgets"
+msgstr ""
+
+#: inc/widgets/class-shapely-categories.php:19
+msgid "Shapely Categories"
+msgstr ""
+
+#: inc/widgets/class-shapely-categories.php:22
+msgid "[Shapely] Categories"
+msgstr ""
+
+#: inc/widgets/class-shapely-categories.php:25
+msgid "Categories"
+msgstr ""
+
+#: inc/widgets/class-shapely-categories.php:104
+#: inc/widgets/class-shapely-home-clients.php:104
+#: inc/widgets/class-shapely-home-contact.php:174
+#: inc/widgets/class-shapely-home-features.php:119
+#: inc/widgets/class-shapely-home-features.php:146
+#: inc/widgets/class-shapely-home-parallax.php:160
+#: inc/widgets/class-shapely-home-portfolio.php:165
+#: inc/widgets/class-shapely-home-testimonials.php:124
+msgid "Title "
+msgstr ""
+
+#: inc/widgets/class-shapely-categories.php:111
+msgid "Limit Categories "
+msgstr ""
+
+#: inc/widgets/class-shapely-categories.php:118
+msgid "Enable Posts Count"
+msgstr ""
+
+#: inc/widgets/class-shapely-home-call-for-action.php:15
+msgid "[Shapely] Call for Action Section"
+msgstr ""
+
+#: inc/widgets/class-shapely-home-call-for-action.php:18
+msgid "[Shapely] Call for Action Section For FrontPage"
+msgstr ""
+
+#: inc/widgets/class-shapely-home-call-for-action.php:88
+msgid "Callout Text "
+msgstr ""
+
+#: inc/widgets/class-shapely-home-call-for-action.php:100
+msgid "Button Text "
+msgstr ""
+
+#: inc/widgets/class-shapely-home-call-for-action.php:107
+msgid "Button Link "
+msgstr ""
+
+#: inc/widgets/class-shapely-home-clients.php:15
+msgid "Shapely Client Section That Displays Logos In A Slider"
+msgstr ""
+
+#: inc/widgets/class-shapely-home-clients.php:18
+msgid "[Shapely] Client Section For FrontPage"
+msgstr ""
+
+#: inc/widgets/class-shapely-home-clients.php:21
+msgid "Our Main Clients"
+msgstr ""
+
+#: inc/widgets/class-shapely-home-clients.php:65
+msgid "Logos"
+msgstr ""
+
+#: inc/widgets/class-shapely-home-clients.php:124
+msgid "Logo #"
+msgstr ""
+
+#: inc/widgets/class-shapely-home-clients.php:132
+#: inc/widgets/class-shapely-home-contact.php:194
+#: inc/widgets/class-shapely-home-parallax.php:178
+#: inc/widgets/class-shapely-home-testimonials.php:146
+#: inc/widgets/class-shapely-video.php:218
+msgid "Choose Image"
+msgstr ""
+
+#: inc/widgets/class-shapely-home-clients.php:136
+msgid "Link:"
+msgstr ""
+
+#: inc/widgets/class-shapely-home-clients.php:140
+msgid "Add"
+msgstr ""
+
+#: inc/widgets/class-shapely-home-clients.php:141
+msgid "Delete"
+msgstr ""
+
+#: inc/widgets/class-shapely-home-contact.php:18
+msgid "Shapely FrontPage Contact Section"
+msgstr ""
+
+#: inc/widgets/class-shapely-home-contact.php:21
+msgid "[Shapely] Contact Section For FrontPage"
+msgstr ""
+
+#: inc/widgets/class-shapely-home-contact.php:94
+msgid "Phone :"
+msgstr ""
+
+#: inc/widgets/class-shapely-home-contact.php:99
+msgid "Email :"
+msgstr ""
+
+#: inc/widgets/class-shapely-home-contact.php:104
+msgid "Address :"
+msgstr ""
+
+#: inc/widgets/class-shapely-home-contact.php:180
+msgid "Subtitle "
+msgstr ""
+
+#: inc/widgets/class-shapely-home-contact.php:188
+msgid "Background image"
+msgstr ""
+
+#: inc/widgets/class-shapely-home-contact.php:195
+#: inc/widgets/class-shapely-home-parallax.php:179
+#: inc/widgets/class-shapely-video.php:219
+msgid "Remove Image"
+msgstr ""
+
+#: inc/widgets/class-shapely-home-contact.php:200
+msgid "Contact Form "
+msgstr ""
+
+#: inc/widgets/class-shapely-home-contact.php:205
+msgid "Please install Kali Forms plugin"
+msgstr ""
+
+#: inc/widgets/class-shapely-home-contact.php:209
+msgid "Select a form ..."
+msgstr ""
+
+#: inc/widgets/class-shapely-home-contact.php:229
+msgid "Phone number "
+msgstr ""
+
+#: inc/widgets/class-shapely-home-contact.php:236
+msgid "Email "
+msgstr ""
+
+#: inc/widgets/class-shapely-home-contact.php:243
+msgid "Address "
+msgstr ""
+
+#: inc/widgets/class-shapely-home-contact.php:254
+msgid "Show social icons"
+msgstr ""
+
+#: inc/widgets/class-shapely-home-features.php:17
+msgid "Widget to set Features in Home Section"
+msgstr ""
+
+#: inc/widgets/class-shapely-home-features.php:21
+msgid "[Shapely] Features Section For FrontPage"
+msgstr ""
+
+#: inc/widgets/class-shapely-home-features.php:127
+#: inc/widgets/class-shapely-home-features.php:176
+#: inc/widgets/class-shapely-home-parallax.php:184
+#: inc/widgets/class-shapely-home-portfolio.php:170
+msgid "Content "
+msgstr ""
+
+#. Translators: Number of feature icons
+#: inc/widgets/class-shapely-home-features.php:140
+#, php-format
+msgid "Feature %s"
+msgstr ""
+
+#: inc/widgets/class-shapely-home-features.php:153
+msgid "Icon( Font Awsome ) "
+msgstr ""
+
+#: inc/widgets/class-shapely-home-features.php:164
+msgid "Select Icon"
+msgstr ""
+
+#: inc/widgets/class-shapely-home-parallax.php:18
+msgid "Shapely FrontPage Parallax Section"
+msgstr ""
+
+#: inc/widgets/class-shapely-home-parallax.php:21
+msgid "[Shapely] Parallax Section For FrontPage"
+msgstr ""
+
+#: inc/widgets/class-shapely-home-parallax.php:26
+msgid "left"
+msgstr ""
+
+#: inc/widgets/class-shapely-home-parallax.php:170
+msgid "Image"
+msgstr ""
+
+#: inc/widgets/class-shapely-home-parallax.php:194
+msgid "Image Position "
+msgstr ""
+
+#: inc/widgets/class-shapely-home-parallax.php:198
+#: inc/widgets/class-shapely-social.php:103
+msgid "Left"
+msgstr ""
+
+#: inc/widgets/class-shapely-home-parallax.php:199
+#: inc/widgets/class-shapely-social.php:109
+msgid "Right"
+msgstr ""
+
+#: inc/widgets/class-shapely-home-parallax.php:200
+msgid "Top"
+msgstr ""
+
+#: inc/widgets/class-shapely-home-parallax.php:201
+msgid "Bottom"
+msgstr ""
+
+#: inc/widgets/class-shapely-home-parallax.php:202
+msgid "Background Full"
+msgstr ""
+
+#: inc/widgets/class-shapely-home-parallax.php:203
+msgid "Background Small"
+msgstr ""
+
+#: inc/widgets/class-shapely-home-parallax.php:209
+msgid "Button 1 Text "
+msgstr ""
+
+#: inc/widgets/class-shapely-home-parallax.php:217
+msgid "Button 1 Link "
+msgstr ""
+
+#: inc/widgets/class-shapely-home-parallax.php:225
+msgid "Button 2 Text "
+msgstr ""
+
+#: inc/widgets/class-shapely-home-parallax.php:233
+msgid "Button 2 Link "
+msgstr ""
+
+#: inc/widgets/class-shapely-home-parallax.php:241
+msgid "Border bottom"
+msgstr ""
+
+#: inc/widgets/class-shapely-home-portfolio.php:15
+msgid "Shapely Porfolio for Home Widget Section"
+msgstr ""
+
+#: inc/widgets/class-shapely-home-portfolio.php:18
+msgid "[Shapely] Porfolio for Home Widget Section"
+msgstr ""
+
+#: inc/widgets/class-shapely-home-portfolio.php:177
+msgid "Portfolio Types "
+msgstr ""
+
+#: inc/widgets/class-shapely-home-portfolio.php:179
+msgid "All Types "
+msgstr ""
+
+#: inc/widgets/class-shapely-home-portfolio.php:191
+msgid "Number of Projects "
+msgstr ""
+
+#: inc/widgets/class-shapely-home-portfolio.php:197
+msgid "Full Width Container"
+msgstr ""
+
+#: inc/widgets/class-shapely-home-portfolio.php:208
+msgid "Mansonry Layout"
+msgstr ""
+
+#: inc/widgets/class-shapely-home-portfolio.php:218
+msgid "Background Color "
+msgstr ""
+
+#: inc/widgets/class-shapely-home-portfolio.php:223
+msgid "Text Color "
+msgstr ""
+
+#: inc/widgets/class-shapely-home-testimonials.php:15
+msgid "Shapely Testimonial Widget Section"
+msgstr ""
+
+#: inc/widgets/class-shapely-home-testimonials.php:18
+msgid "[Shapely] Testimonial Section For FrontPage"
+msgstr ""
+
+#: inc/widgets/class-shapely-home-testimonials.php:21
+msgid "People just like you are already loving Colorlib"
+msgstr ""
+
+#: inc/widgets/class-shapely-home-testimonials.php:131
+msgid "Limit "
+msgstr ""
+
+#: inc/widgets/class-shapely-home-testimonials.php:139
+msgid "Background Parallax Image:"
+msgstr ""
+
+#: inc/widgets/class-shapely-page-content.php:13
+#: inc/widgets/class-shapely-page-title.php:13
+msgid "This widget is used only in pages with Template Widget"
+msgstr ""
+
+#: inc/widgets/class-shapely-page-content.php:16
+msgid "[Shapely] Page Content"
+msgstr ""
+
+#: inc/widgets/class-shapely-page-content.php:39
+msgid "Pages:"
+msgstr ""
+
+#: inc/widgets/class-shapely-page-title.php:16
+msgid "[Shapely] Page Title"
+msgstr ""
+
+#: inc/widgets/class-shapely-page-title.php:22
+msgid "This widget works only with Shapely theme. Please install and activate it first."
+msgstr ""
+
+#: inc/widgets/class-shapely-recent-posts.php:15
+msgid "Widget to show recent posts with thumbnails"
+msgstr ""
+
+#: inc/widgets/class-shapely-recent-posts.php:18
+msgid "[Shapely] Recent Posts"
+msgstr ""
+
+#: inc/widgets/class-shapely-recent-posts.php:21
+msgid "Recent Posts"
+msgstr ""
+
+#: inc/widgets/class-shapely-recent-posts.php:123
+#: inc/widgets/class-shapely-social.php:84
+msgid "Title"
+msgstr ""
+
+#: inc/widgets/class-shapely-recent-posts.php:130
+msgid "Show Excerpt"
+msgstr ""
+
+#: inc/widgets/class-shapely-recent-posts.php:137
+msgid "Limit Posts Number"
+msgstr ""
+
+#: inc/widgets/class-shapely-social.php:14
+msgid "Shapely Social Widget"
+msgstr ""
+
+#: inc/widgets/class-shapely-social.php:17
+msgid "[Shapely] Social Widget"
+msgstr ""
+
+#: inc/widgets/class-shapely-social.php:20
+msgid "Follow us"
+msgstr ""
+
+#: inc/widgets/class-shapely-social.php:27
+#: inc/widgets/class-shapely-social.php:75
+msgid "We are social"
+msgstr ""
+
+#: inc/widgets/class-shapely-social.php:89
+msgid "Select Menu:"
+msgstr ""
+
+#: inc/widgets/class-shapely-social.php:91
+msgid "&mdash; Select &mdash;"
+msgstr ""
+
+#: inc/widgets/class-shapely-social.php:100
+msgid "Alignment:"
+msgstr ""
+
+#: inc/widgets/class-shapely-social.php:106
+msgid "Center"
+msgstr ""
+
+#: inc/widgets/class-shapely-video.php:16
+msgid "Shapely Video Section"
+msgstr ""
+
+#: inc/widgets/class-shapely-video.php:18
+msgid "[Shapely] Video Section"
+msgstr ""
+
+#: inc/widgets/class-shapely-video.php:125
+msgid "General Controls"
+msgstr ""
+
+#: inc/widgets/class-shapely-video.php:129
+msgid "Video Type "
+msgstr ""
+
+#: inc/widgets/class-shapely-video.php:132
+msgid "YouTube"
+msgstr ""
+
+#: inc/widgets/class-shapely-video.php:133
+msgid "Vimeo"
+msgstr ""
+
+#: inc/widgets/class-shapely-video.php:134
+msgid "Upload"
+msgstr ""
+
+#: inc/widgets/class-shapely-video.php:140
+msgid "Autoplay"
+msgstr ""
+
+#: inc/widgets/class-shapely-video.php:152
+msgid "Mute"
+msgstr ""
+
+#: inc/widgets/class-shapely-video.php:163
+msgid "Full height"
+msgstr ""
+
+#: inc/widgets/class-shapely-video.php:174
+msgid "Video Height (in pixels): "
+msgstr ""
+
+#: inc/widgets/class-shapely-video.php:179
+msgid "YouTube Controls"
+msgstr ""
+
+#: inc/widgets/class-shapely-video.php:183
+msgid "YouTube ID: "
+msgstr ""
+
+#: inc/widgets/class-shapely-video.php:188
+msgid "Vimeo Controls"
+msgstr ""
+
+#: inc/widgets/class-shapely-video.php:192
+msgid "Vimeo ID: "
+msgstr ""
+
+#: inc/widgets/class-shapely-video.php:198
+msgid "Video Upload Controls"
+msgstr ""
+
+#: inc/widgets/class-shapely-video.php:203
+msgid "Video URL: "
+msgstr ""
+
+#: inc/widgets/class-shapely-video.php:207
+msgid "Choose Video"
+msgstr ""
+
+#: inc/widgets/class-shapely-video.php:208
+msgid "Remove Video"
+msgstr ""
+
+#: inc/widgets/class-shapely-video.php:212
+msgid "Placeholder: "
+msgstr ""
+
+#: shapely-companion.php:56
+msgid "From our blog"
+msgstr ""
+
+#: shapely-companion.php:108
+#, php-format
+msgid "In order to use the <strong>Shapely Companion</strong> plugin you have to also install the %1$sShapely Theme%2$s"
+msgstr ""
