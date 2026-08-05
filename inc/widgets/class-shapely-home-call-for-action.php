@@ -48,7 +48,17 @@ class Shapely_Home_Call_For_Action extends WP_Widget {
 									<h3 class="cfa-text"><?php echo wp_kses_post( $instance['title'] ); ?></h3>
 								</div>
 								<div class="col-sm-3">
-									<a href="<?php echo esc_url_raw( $instance['button_link'] ); ?>" class="mb0 btn btn-lg btn-filled cfa-button"><?php echo esc_html( $instance['button'] ); ?></a>
+									<?php
+									/*
+									 * Only emit the button when it has a label; rendering it
+									 * unconditionally produced <a href=""></a> -- an empty link
+									 * with no accessible name. esc_url() (not esc_url_raw()) is
+									 * the output escaper: esc_url_raw leaves "&" unencoded.
+									 */
+									if ( '' !== trim( (string) $instance['button'] ) ) :
+										?>
+										<a href="<?php echo esc_url( $instance['button_link'] ); ?>" class="mb0 btn btn-lg btn-filled cfa-button"><?php echo esc_html( $instance['button'] ); ?></a>
+									<?php endif; ?>
 								</div>
 							</div>
 						</div>

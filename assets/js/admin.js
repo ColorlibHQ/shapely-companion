@@ -10,8 +10,9 @@ jQuery( document ).ready(function() {// jscs:ignore validateLineBreaks
             type: 'POST',
             data: ajaxData,
             url: shapelyCompanion.ajaxurl,
+            dataType: 'json',
             success: function( data ) {
-                if ( 'succes' === data ) {
+                if ( data && ( true === data.success || ( data.data && true === data.data.status ) || 'succes' === data ) ) {
                     currentButton.removeClass( 'disabled' );
                     currentButton.next( '.spinner' ).removeClass( 'is-active' );
                     currentButton.parent().parent().find( '.updated-message' ).show();
@@ -61,7 +62,8 @@ jQuery(function( $ ) {
             var selector = $( '.shapely-media-control' ).find( mediaControl.selector );
             var data = {
                 action: 'shapely_get_attachment_media',
-                attachment_id: id
+                attachment_id: id,
+                nonce: shapelyCompanion.nonce
             };
 
             if ( ! selector.length ) {
