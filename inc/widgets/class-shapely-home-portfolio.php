@@ -37,6 +37,16 @@ class Shapely_Home_Portfolio extends WP_Widget {
 
 		$instance = wp_parse_args( $instance, $this->defaults );
 
+		/*
+		 * Nothing to show without the portfolio post type. WP_Query would still
+		 * return rows straight from the database when the type is unregistered
+		 * -- it does not validate post_type -- so the section would render with
+		 * items whose taxonomy, permalinks and archive links are all broken.
+		 */
+		if ( ! post_type_exists( 'jetpack-portfolio' ) ) {
+			return;
+		}
+
 		echo $args['before_widget']; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
 
 		/**
@@ -105,6 +115,19 @@ class Shapely_Home_Portfolio extends WP_Widget {
 								'fields' => 'names',
 							);
 							$project_types = wp_get_post_terms( get_the_ID(), 'jetpack-portfolio-type', $args_projects );
+
+							/*
+							 * wp_get_post_terms() returns a WP_Error when the taxonomy is
+							 * not registered -- which happens whenever Jetpack (or whatever
+							 * else supplied the portfolio post type) is deactivated while
+							 * portfolio posts remain in the database. ! empty() is true for
+							 * a WP_Error object, so the implode() below received the object
+							 * and raised a fatal TypeError on PHP 8, truncating the page
+							 * from this point down.
+							 */
+							if ( is_wp_error( $project_types ) ) {
+								$project_types = array();
+							}
 
 							?>
 							<div class="col-md-3 col-sm-6 project fadeIn<?php echo $instance['mansonry'] ? ' masonry-item' : ''; ?>">

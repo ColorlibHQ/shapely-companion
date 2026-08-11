@@ -4,7 +4,7 @@ Tags: woocommerce, widgets, demo, companion, one page
 Requires at least: 6.4
 Requires PHP: 7.4
 Tested up to: 7.0
-Stable tag: 1.2.11
+Stable tag: 1.2.12
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -52,6 +52,11 @@ Currently it works only with Shapely theme.
 You can still use Shapely theme without this plugin but you won't be able to import demo content and use theme specific widgets that you see on front page of theme demo.
 
 == Changelog ==
+
+= 1.2.12 =
+* Fixed a fatal error that blanked the lower half of the front page when the Portfolio section was in use and the portfolio post type was not registered -- for example with Jetpack deactivated while portfolio posts remained in the database. wp_get_post_terms() returns a WP_Error in that situation, and because ! empty() is true for an object, implode() received it and raised a TypeError on PHP 8, truncating the page from that point down.
+* The Portfolio and Testimonials widgets now render nothing when their post type is unregistered, instead of querying rows directly out of the database and producing items with broken taxonomy and permalinks.
+* This surfaced in 1.2.11: the widget registration fix in that release meant the Portfolio widget renders on setups where the previous, broken Jetpack check had silently suppressed it -- which had been masking this fault.
 
 = 1.2.11 =
 * Security: the shapely_get_attachment_image and shapely_get_attachment_media AJAX actions were also registered for logged-out visitors (wp_ajax_nopriv_) with no nonce and no capability check, letting anyone resolve an arbitrary attachment ID to its URL and enumerate media attached to drafts and private posts. Both now require an authenticated user with the upload_files capability and a valid nonce.
@@ -130,6 +135,9 @@ You can still use Shapely theme without this plugin but you won't be able to imp
 * Initial release.
 
 == Upgrade Notice ==
+
+= 1.2.12 =
+Fixes a fatal error that could blank the lower half of the front page when the Portfolio section is used without the portfolio post type registered. Recommended for anyone running 1.2.11.
 
 = 1.2.11 =
 Security release. Two AJAX endpoints were reachable by logged-out visitors and could be used to enumerate media URLs, including attachments on drafts and private posts. Updating is recommended for all sites.
