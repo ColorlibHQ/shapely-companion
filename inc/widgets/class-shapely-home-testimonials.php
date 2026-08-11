@@ -36,6 +36,11 @@ class Shapely_Home_Testimonials extends WP_Widget {
 		$limit     = $instance['limit'];
 		$image_src = $instance['image_src'];
 
+		// Same reasoning as the portfolio widget: no post type, nothing to show.
+		if ( ! post_type_exists( 'jetpack-testimonial' ) ) {
+			return;
+		}
+
 		echo $args['before_widget']; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
 
 		/**
