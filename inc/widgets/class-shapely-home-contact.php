@@ -9,9 +9,6 @@ class Shapely_Home_Contact extends WP_Widget {
 	private $defaults = array();
 
 	function __construct() {
-		add_action( 'admin_init', array( $this, 'enqueue' ) );
-		add_action( 'customize_controls_enqueue_scripts', array( $this, 'enqueue' ) );
-		add_action( 'customize_preview_init', array( $this, 'enqueue' ) );
 
 		$widget_ops = array(
 			'classname'                   => 'shapely_home_contact',
@@ -32,13 +29,6 @@ class Shapely_Home_Contact extends WP_Widget {
 		);
 	}
 
-	public function enqueue() {
-
-		if ( is_admin() && ! is_customize_preview() ) {
-			wp_enqueue_style( 'epsilon-styles', get_template_directory_uri() . '/inc/libraries/epsilon-framework/assets/css/style.css' );
-		}
-
-	}
 
 	/**
 	 * @param array $args
