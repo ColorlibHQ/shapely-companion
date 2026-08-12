@@ -4,7 +4,7 @@ Tags: woocommerce, widgets, demo, companion, one page
 Requires at least: 6.4
 Requires PHP: 7.4
 Tested up to: 7.0
-Stable tag: 1.2.12
+Stable tag: 1.2.13
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -52,6 +52,10 @@ Currently it works only with Shapely theme.
 You can still use Shapely theme without this plugin but you won't be able to import demo content and use theme specific widgets that you see on front page of theme demo.
 
 == Changelog ==
+
+= 1.2.13 =
+* Stopped loading two stylesheets out of the Shapely theme's own directory. The plugin was pulling `assets/css/font-awesome.min.css` and the bundled Epsilon framework's stylesheet from wherever the theme happened to be installed -- both of which the theme has since removed, so both 404'd on the widgets and customizer screens. Font Awesome now points at the theme's current copy and only when it is actually present; the Epsilon stylesheet is gone along with the dead hooks that loaded it
+* Font Awesome is no longer registered under the generic `font-awesome` handle, which could suppress another copy already on the page
 
 = 1.2.12 =
 * Fixed a fatal error that blanked the lower half of the front page when the Portfolio section was in use and the portfolio post type was not registered -- for example with Jetpack deactivated while portfolio posts remained in the database. wp_get_post_terms() returns a WP_Error in that situation, and because ! empty() is true for an object, implode() received it and raised a TypeError on PHP 8, truncating the page from that point down.
