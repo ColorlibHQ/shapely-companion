@@ -113,7 +113,13 @@ class Shapely_Home_Contact extends WP_Widget {
 								if ( ! $post ) {
 									// Display a message for admins only
 									if ( current_user_can( 'manage_options' ) ) {
-										echo '<div class="alert alert-warning">Contact form with ID ' . esc_html( $contactform ) . ' does not exist. Please update this widget with a valid form.</div>';
+										echo '<div class="alert alert-warning">' . esc_html(
+											sprintf(
+												/* translators: %d: ID of the missing contact form post. */
+												__( 'Contact form with ID %d does not exist. Please update this widget with a valid form.', 'shapely-companion' ),
+												absint( $contactform )
+											)
+										) . '</div>';
 									}
 								} else {
 									// Post exists, check type
@@ -145,8 +151,7 @@ class Shapely_Home_Contact extends WP_Widget {
 	 */
 	function form( $instance ) {
 
-		parent::form( $instance );
-
+		// Not parent::form(): WP_Widget::form() prints "There are no options for this widget."
 		$instance        = wp_parse_args( $instance, $this->defaults );
 		$placeholder_url = plugins_url( 'shapely-companion/assets/img/placeholder-image.jpg' );
 
