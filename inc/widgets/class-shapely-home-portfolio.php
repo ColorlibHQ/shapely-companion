@@ -200,8 +200,17 @@ class Shapely_Home_Portfolio extends WP_Widget {
 				<option value="0"><?php echo esc_html__( 'All Types ', 'shapely-companion' ); ?></option>
 				<?php
 
-				foreach ( $categories as $id => $category ) {
-					echo '<option value="' . esc_attr( $id ) . '" ' . selected( $instance['category'], $id ) . '>' . esc_html( $category ) . '</option>';
+				/*
+				 * get_terms() returns a WP_Error when the portfolio taxonomy is
+				 * not registered (Jetpack off). And selected() echoes unless told
+				 * not to, which printed "selected='selected'" ahead of the
+				 * <option> it belonged to, so the saved type never showed as
+				 * chosen and the next save reset it to "All Types".
+				 */
+				if ( is_array( $categories ) ) {
+					foreach ( $categories as $id => $category ) {
+						echo '<option value="' . esc_attr( $id ) . '" ' . selected( $instance['category'], $id, false ) . '>' . esc_html( $category ) . '</option>';
+					}
 				}
 
 				?>
