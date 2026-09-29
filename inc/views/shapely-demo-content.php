@@ -3,6 +3,15 @@
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
+
+/*
+ * Shapely_Notify_System belongs to the theme. Without it there is no way to
+ * tell whether the prerequisites are installed, so render nothing rather than
+ * fatal on the first static call below.
+ */
+if ( ! class_exists( 'Shapely_Notify_System' ) || ! method_exists( 'Shapely_Notify_System', 'shapely_has_plugin' ) ) {
+	return;
+}
 ?>
 <div id="demo_content">
 

@@ -95,7 +95,8 @@ class Shapely_Home_Contact extends WP_Widget {
 								echo '<p class="mb32">' . wp_kses_post( nl2br( $address ) ) . '</p>';
 							}
 
-							if ( 'on' == $socialicons ) {
+							// The icons come from the theme; skip them rather than fatal without it.
+							if ( 'on' == $socialicons && function_exists( 'shapely_social_icons' ) ) {
 								echo '<div class="social-icons sticky-sidebar-social">';
 								shapely_social_icons();
 								echo '</div>';
