@@ -107,16 +107,7 @@ class Shapely_Home_Contact extends WP_Widget {
 							<?php
 							if ( '' != $contactform && is_numeric( $contactform ) ) {
 								$post = get_post( $contactform );
-								
-								// Log the contact form data for debugging
-								if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-									error_log( 'Shapely Contact Form Debug - Form ID: ' . $contactform );
-									error_log( 'Shapely Contact Form Debug - Post exists: ' . ( $post ? 'yes' : 'no' ) );
-									if ( $post ) {
-										error_log( 'Shapely Contact Form Debug - Post type: ' . $post->post_type );
-									}
-								}
-								
+
 								// Only proceed if post exists
 								if ( ! $post ) {
 									// Display a message for admins only
