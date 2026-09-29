@@ -90,9 +90,7 @@ class Shapely_Home_Call_For_Action extends WP_Widget {
 			<textarea
 				name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>"
 				id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"
-				class="widefat">
-			<?php echo wp_kses_post( nl2br( $instance['title'] ) ); ?>
-			</textarea>
+				class="widefat"><?php echo esc_textarea( $instance['title'] ); ?></textarea>
 		</p>
 
 		<p>

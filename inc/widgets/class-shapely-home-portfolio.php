@@ -191,9 +191,7 @@ class Shapely_Home_Portfolio extends WP_Widget {
 
 		<p class="shapely-editor-container">
 			<label for="<?php echo esc_attr( $this->get_field_id( 'body_content' ) ); ?>"><?php echo esc_html__( 'Content ', 'shapely-companion' ); ?></label>
-			<textarea name="<?php echo esc_attr( $this->get_field_name( 'body_content' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'body_content' ) ); ?>" class="widefat">
-				<?php echo wp_kses_post( nl2br( $instance['body_content'] ) ); ?>
-			</textarea>
+			<textarea name="<?php echo esc_attr( $this->get_field_name( 'body_content' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'body_content' ) ); ?>" class="widefat"><?php echo esc_textarea( $instance['body_content'] ); ?></textarea>
 		</p>
 
 		<p>

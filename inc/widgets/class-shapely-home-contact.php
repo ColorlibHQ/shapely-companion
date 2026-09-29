@@ -161,9 +161,7 @@ class Shapely_Home_Contact extends WP_Widget {
 			<label for="<?php echo esc_attr( $this->get_field_id( 'body_content' ) ); ?>">
 				<?php echo esc_html__( 'Subtitle ', 'shapely-companion' ); ?>
 			</label>
-			<textarea name="<?php echo esc_attr( $this->get_field_name( 'body_content' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'body_content' ) ); ?>" class="widefat">
-				<?php echo wp_kses_post( $instance['body_content'] ); ?>
-			</textarea>
+			<textarea name="<?php echo esc_attr( $this->get_field_name( 'body_content' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'body_content' ) ); ?>" class="widefat"><?php echo esc_textarea( $instance['body_content'] ); ?></textarea>
 		</p>
 
 		<p class="shapely-media-control" data-delegate-container="<?php echo esc_attr( $this->get_field_id( 'image_src' ) ); ?>">
@@ -227,9 +225,7 @@ class Shapely_Home_Contact extends WP_Widget {
 
 			<textarea
 				name="<?php echo esc_attr( $this->get_field_name( 'address' ) ); ?>"
-				id="<?php echo esc_attr( $this->get_field_id( 'address' ) ); ?>">
-				<?php echo wp_kses_post( $instance['address'] ); ?>
-			</textarea>
+				id="<?php echo esc_attr( $this->get_field_id( 'address' ) ); ?>"><?php echo esc_textarea( $instance['address'] ); ?></textarea>
 		</p>
 		<div class="checkbox_switch wp-clearfix">
 				<span class="customize-control-title onoffswitch_label">
