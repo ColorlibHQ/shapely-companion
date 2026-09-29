@@ -30,10 +30,12 @@
       $( '.client-sortable' ).sortable( {
         handle: '.logo_heading'
       } ).on( 'sortupdate', function() {
-        let index = 0, img;
-        let attrname = $( this ).find( 'input:first' ).attr( 'name' );
+        // .first(), not the ':first' selector: positional selectors are
+        // deprecated since jQuery 3.4 and slated for removal.
+        let index = 0;
+        let attrname = $( this ).find( 'input' ).first().attr( 'name' );
         let attrbase = attrname.substring( 0, attrname.indexOf( '][' ) + 1 );
-        let attrid = $( this ).find( 'input:first' ).attr( 'id' );
+        let attrid = $( this ).find( 'input' ).first().attr( 'id' );
         let attrbaseid = attrid.substring( 0, attrid.indexOf( '-client_logo' ) + 13 );
 
         $( this ).find( 'li' ).each( function() {
