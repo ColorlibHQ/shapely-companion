@@ -78,8 +78,9 @@ add_action( 'wp_update_nav_menu_item', 'shapely_update_menu_item', 10, 3 );
 
 function shapely_update_menu_item( $menu_id, $menu_item_db_id, $args ) {
 
-	if ( isset( $_POST['menu-item'] ) && count( $_POST['menu-item'] ) == 1 ) {
-		if ( isset( $_POST['menu-item']['-1'] ) ) {
+	// count() and array_map() throw a TypeError on PHP 8 if these are not arrays.
+	if ( isset( $_POST['menu-item'] ) && is_array( $_POST['menu-item'] ) && count( $_POST['menu-item'] ) == 1 ) {
+		if ( isset( $_POST['menu-item']['-1'] ) && is_array( $_POST['menu-item']['-1'] ) ) {
 			$menu_item = array_map( 'sanitize_text_field', wp_unslash( $_POST['menu-item']['-1'] ) );
 
 			if ( isset( $menu_item['menu-item-extra'] ) && 'shapely-section' == $menu_item['menu-item-extra'] ) {
