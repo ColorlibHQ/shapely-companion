@@ -19,7 +19,8 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-define( 'SHAPELY_COMPANION', '1.2.10' );
+// Keep in step with the Version header; tools/check-version.mjs enforces it.
+define( 'SHAPELY_COMPANION', '1.2.13' );
 
 /**
  * Initialize widgets and theme compatibility check.

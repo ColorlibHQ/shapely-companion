@@ -4,9 +4,16 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 add_action( 'admin_enqueue_scripts', 'shapely_companion_admin_scripts' );
+
+/*
+ * Every plugin asset is versioned with SHAPELY_COMPANION. They were enqueued
+ * with no version (so ?ver= carried the WordPress version), '1.0' or '', none
+ * of which change when the plugin updates -- browsers kept serving the old
+ * widget.js and admin.js from cache after an update that changed them.
+ */
 function shapely_companion_admin_scripts( $hook ) {
-	wp_enqueue_style( 'shapely-companion-admin-css', plugins_url( 'assets/css/admin.css', dirname( __FILE__ ) ) );
-	wp_enqueue_script( 'shapely-companion-admin-js', plugins_url( 'assets/js/admin.js', dirname( __FILE__ ) ), array( 'jquery' ) );
+	wp_enqueue_style( 'shapely-companion-admin-css', plugins_url( 'assets/css/admin.css', dirname( __FILE__ ) ), array(), SHAPELY_COMPANION );
+	wp_enqueue_script( 'shapely-companion-admin-js', plugins_url( 'assets/js/admin.js', dirname( __FILE__ ) ), array( 'jquery' ), SHAPELY_COMPANION );
 	wp_localize_script(
 		'shapely-companion-admin-js', 'shapelyCompanion', array(
 			'ajaxurl' => admin_url( 'admin-ajax.php' ),
@@ -15,20 +22,21 @@ function shapely_companion_admin_scripts( $hook ) {
 	);
 	if ( 'widgets.php' == $hook || 'customize.php' == $hook ) {
 		wp_enqueue_media();
-		wp_enqueue_script( 'shapely_cloneya_js', plugins_url( 'assets/js/vendor/jquery-cloneya.min.js', dirname( __FILE__ ) ), array( 'jquery' ) );
+		wp_enqueue_script( 'shapely_cloneya_js', plugins_url( 'assets/js/vendor/jquery-cloneya.min.js', dirname( __FILE__ ) ), array( 'jquery' ), SHAPELY_COMPANION );
 		wp_enqueue_style( 'wp-color-picker' );
-		wp_enqueue_script( 'widget-js', plugins_url( 'assets/js/widget.js', dirname( __FILE__ ) ), array( 'media-upload', 'wp-color-picker' ), '1.0', true );
+		// widget.js calls .sortable() and .cloneya() as soon as it runs; say so.
+		wp_enqueue_script( 'widget-js', plugins_url( 'assets/js/widget.js', dirname( __FILE__ ) ), array( 'jquery', 'jquery-ui-sortable', 'shapely_cloneya_js', 'media-upload', 'wp-color-picker' ), SHAPELY_COMPANION, true );
 		shapely_companion_enqueue_font_awesome();
 	}
 
 	if ( 'nav-menus.php' == $hook ) {
-		wp_enqueue_script( 'shapley-nav-menu-js', plugins_url( 'assets/js/nav-menu.js', dirname( __FILE__ ) ), array( 'nav-menu' ), '1.0', true );
+		wp_enqueue_script( 'shapley-nav-menu-js', plugins_url( 'assets/js/nav-menu.js', dirname( __FILE__ ) ), array( 'nav-menu' ), SHAPELY_COMPANION, true );
 	}
 
 }
 
 function shapely_companion_customizer_live_preview() {
-	wp_enqueue_script( 'shapely-companion-previewer', plugins_url( 'assets/js/previewer.js', dirname( __FILE__ ) ), array( 'jquery', 'customize-preview' ), '', true );
+	wp_enqueue_script( 'shapely-companion-previewer', plugins_url( 'assets/js/previewer.js', dirname( __FILE__ ) ), array( 'jquery', 'customize-preview' ), SHAPELY_COMPANION, true );
 }
 add_action( 'customize_preview_init', 'shapely_companion_customizer_live_preview' );
 

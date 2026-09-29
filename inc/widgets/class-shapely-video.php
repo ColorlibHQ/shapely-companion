@@ -40,19 +40,19 @@ class Shapely_Video extends WP_Widget {
 				if ( empty( $instance['youtube_id'] ) ) {
 					$terminate = true;
 				}
-				wp_enqueue_script( 'ytbackground', plugins_url( 'assets/js/vendor/jquery.youtubebackground.js', dirname( dirname( __FILE__ ) ) ), array( 'jquery' ) );
+				wp_enqueue_script( 'ytbackground', plugins_url( 'assets/js/vendor/jquery.youtubebackground.js', dirname( dirname( __FILE__ ) ) ), array( 'jquery' ), SHAPELY_COMPANION );
 				break;
 			case 'vimeo':
 				if ( empty( $instance['vimeo_id'] ) ) {
 					$terminate = true;
 				}
-				wp_enqueue_script( 'vimeo-player', plugins_url( 'assets/js/vendor/player.min.js', dirname( dirname( __FILE__ ) ) ), array( 'jquery' ) );
+				wp_enqueue_script( 'vimeo-player', plugins_url( 'assets/js/vendor/player.min.js', dirname( dirname( __FILE__ ) ) ), array( 'jquery' ), SHAPELY_COMPANION );
 				break;
 			case 'upload':
 				if ( empty( $instance['video_id'] ) ) {
 					$terminate = true;
 				}
-				wp_enqueue_script( 'vide', plugins_url( 'assets/js/vendor/jquery.vide.min.js', dirname( dirname( __FILE__ ) ) ), array( 'jquery' ) );
+				wp_enqueue_script( 'vide', plugins_url( 'assets/js/vendor/jquery.vide.min.js', dirname( dirname( __FILE__ ) ) ), array( 'jquery' ), SHAPELY_COMPANION );
 				break;
 		}
 
