@@ -62,9 +62,9 @@ class Shapely_Social extends WP_Widget {
 
 	function update( $new_instance, $old_instance ) {
 		$instance              = $old_instance;
-		$instance['title']     = sanitize_text_field( $new_instance['title'] );
-		$instance['nav_menu']  = absint( $new_instance['nav_menu'] );
-		$instance['alignment'] = sanitize_text_field( $new_instance['alignment'] );
+		$instance['title']     = isset( $new_instance['title'] ) ? sanitize_text_field( $new_instance['title'] ) : '';
+		$instance['nav_menu']  = isset( $new_instance['nav_menu'] ) ? absint( $new_instance['nav_menu'] ) : 0;
+		$instance['alignment'] = isset( $new_instance['alignment'] ) && in_array( $new_instance['alignment'], array( 'text-left', 'text-center', 'text-right' ), true ) ? $new_instance['alignment'] : 'text-center';
 
 		return $instance;
 	}
@@ -98,7 +98,10 @@ class Shapely_Social extends WP_Widget {
 		</p>
 		<p>
 			<label for="<?php echo esc_attr( $this->get_field_id( 'alignment' ) ); ?>"><?php esc_html_e( 'Alignment:', 'shapely-companion' ); ?></label>
-			<select id="<?php echo esc_attr( $this->get_field_id( 'alignment' ) ); ?>" name="<?php echo esc_attr( $this->get_field_id( 'alignment' ) ); ?>">
+			<?php
+			// This used get_field_id() for the name too, so the choice was never saved.
+			?>
+			<select id="<?php echo esc_attr( $this->get_field_id( 'alignment' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'alignment' ) ); ?>">
 				<option value="text-left" <?php selected( $instance['alignment'], 'text-left' ); ?>>
 					<?php esc_html_e( 'Left', 'shapely-companion' ); ?>
 				</option>
@@ -139,14 +142,22 @@ class Shapely_Social_Walker extends Walker_Nav_Menu {
 			$icon_class = strtolower( sanitize_title( $item->title ) );
 		}
 
+		$url = (string) $item->url;
+
 		// Special handling for x.com links
-		if ( strpos( $item->url, 'x.com' ) !== false || strpos( $item->url, 'twitter.com' ) !== false ) {
+		if ( strpos( $url, 'x.com' ) !== false || strpos( $url, 'twitter.com' ) !== false ) {
 			$icon_class = 'twitter';
 		}
 
-		$output .= '<li class="' . implode( ' ', $classes ) . '">';
-		$output .= '<a href="' . esc_url( $item->url ) . '">';
-		$output .= '<i class="fa-brands fa-' . esc_attr( $icon_class ) . '"></i>';
+		/*
+		 * The link holds nothing but an icon, so it had no accessible name: a
+		 * screen reader announced every entry as just "link". The menu item's
+		 * label is the name, visually hidden.
+		 */
+		$output .= '<li class="' . esc_attr( implode( ' ', $classes ) ) . '">';
+		$output .= '<a href="' . esc_url( $url ) . '">';
+		$output .= '<i class="fa-brands fa-' . esc_attr( $icon_class ) . '" aria-hidden="true"></i>';
+		$output .= '<span class="screen-reader-text">' . esc_html( $item->title ) . '</span>';
 		$output .= '</a>';
 		$output .= '</li>';
 	}
