@@ -20,7 +20,8 @@ class Shapely_Home_Parallax extends WP_Widget {
 		$this->defaults = array(
 			'title'         => '',
 			'image_src'     => '',
-			'image_pos'     => esc_html__( 'left', 'shapely-companion' ),
+			// A stored option value, not display text: a translated default matched no position.
+			'image_pos'     => 'left',
 			'body_content'  => '',
 			'button1'       => '',
 			'button2'       => '',
