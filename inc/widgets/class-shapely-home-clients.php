@@ -40,11 +40,22 @@ class Shapely_Home_Clients extends WP_Widget {
 			$instance['client_logo'] = get_object_vars( $instance['client_logo'] );
 		}
 
+		/*
+		 * wp_parse_args() is shallow, so a saved client_logo without a 'link'
+		 * list (logos added but no links, or an older save) kept the key
+		 * missing, and each logo read $instance['client_logo']['link'][ $i ]
+		 * -- an "Undefined array key" warning per logo. count() on anything
+		 * but an array is a TypeError on PHP 8.
+		 */
+		$logos = ( is_array( $instance['client_logo'] ) && isset( $instance['client_logo']['img'] ) && is_array( $instance['client_logo']['img'] ) ) ? $instance['client_logo']['img'] : array();
+		$links = ( is_array( $instance['client_logo'] ) && isset( $instance['client_logo']['link'] ) && is_array( $instance['client_logo']['link'] ) ) ? $instance['client_logo']['link'] : array();
+		$logos = array_filter( $logos );
+
 		/**
 		 * Widget Content
 		 */
 		?>
-		<?php if ( isset( $instance['client_logo']['img'] ) && count( $instance['client_logo']['img'] ) > 0 ) { ?>
+		<?php if ( count( $logos ) > 0 ) { ?>
 			<section>
 				<div class="container">
 					<div class="row">
@@ -57,16 +68,21 @@ class Shapely_Home_Clients extends WP_Widget {
 						<div class="logo-carousel">
 							<ul class="slides">
 								<?php
-								for ( $i = 0; $i < count( $instance['client_logo']['img'] ); $i ++ ) {
-									if ( '' != $instance['client_logo']['img'] && '' != $instance['client_logo']['link'] ) {
-										?>
-										<li>
-											<a href="<?php echo esc_url_raw( $instance['client_logo']['link'][ $i ] ); ?>">
-												<img alt="<?php esc_html_e( 'Logos', 'shapely-companion' ); ?>" src="<?php echo esc_url_raw( $instance['client_logo']['img'][ $i ] ); ?>" />
-											</a>
-										</li>
-										<?php
-									}
+								/*
+								 * Empty logo slots are skipped: the old check compared the
+								 * whole img / link arrays to '', which is always true, so an
+								 * empty slot printed <img src="">. esc_url() is the output
+								 * escaper; esc_url_raw() left "&" unencoded in the markup.
+								 */
+								foreach ( $logos as $i => $logo ) {
+									$link = isset( $links[ $i ] ) ? $links[ $i ] : '';
+									?>
+									<li>
+										<a href="<?php echo esc_url( $link ); ?>">
+											<img alt="<?php esc_attr_e( 'Logos', 'shapely-companion' ); ?>" src="<?php echo esc_url( $logo ); ?>" />
+										</a>
+									</li>
+									<?php
 								}
 								?>
 							</ul>
