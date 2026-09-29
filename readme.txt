@@ -3,8 +3,8 @@ Contributors: colorlibplugins, silkalns
 Tags: woocommerce, widgets, demo, companion, one page
 Requires at least: 6.4
 Requires PHP: 7.4
-Tested up to: 7.0
-Stable tag: 1.2.13
+Tested up to: 7.1
+Stable tag: 1.2.14
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -52,6 +52,29 @@ Currently it works only with Shapely theme.
 You can still use Shapely theme without this plugin but you won't be able to import demo content and use theme specific widgets that you see on front page of theme demo.
 
 == Changelog ==
+
+= 1.2.14 =
+* Icon previews in the Features widget's settings are back. The plugin looked for Font Awesome in a folder the Shapely theme removed in 1.3.3; it now uses the theme's current copy.
+* Icons picked in the Features and Video widgets now show on the front end with Shapely 1.3.4 to 1.3.6, which otherwise load only a reduced icon set.
+* The Video widget's play and pause buttons use valid markup and are announced as "Play video" and "Pause video" by screen readers.
+* The Page Title widget no longer crashes the page when the Shapely theme is not active, and the Contact widget leaves out its social icons instead of crashing.
+* Running Import Demo Content more than once no longer creates duplicate Front Page, Blog and Sample Post entries. It reuses what an earlier import created, including imports done with older versions of the plugin.
+* The demo import now reports a failure instead of claiming success when it receives an option it does not recognise or cannot create the front page.
+* The imported Contact section uses a form that exists on your site (Kali Forms first, then Contact Form 7) instead of form #32 from the demo site, which showed a "form does not exist" warning.
+* Importing the demo widgets on a new site no longer fills the debug log with PHP deprecation notices.
+* Fixed a fatal error in the Recent Posts widget on a site with no published posts.
+* Text in the Features, Parallax, Portfolio, Contact and Call for Action widgets no longer gains extra line breaks and spaces every time the widget is saved.
+* The Contact widget's settings no longer start with "There are no options for this widget."
+* The Social widget now saves its Left / Center / Right alignment (it always stayed centred), and its icon links are announced by name to screen readers.
+* The Portfolio widget now keeps the portfolio type you picked; saving the widget again used to reset it to All Types.
+* The Clients widget no longer logs a warning for every logo without a link, and skips empty logo slots.
+* New Parallax widgets on sites in a language other than English get a working default image position.
+* The "From our blog" Dashboard widget no longer logs two deprecation notices on every Dashboard visit.
+* The Custom Portfolio Link box is back on project edit screens with Jetpack 13 and newer.
+* The Contact widget no longer writes debugging lines to debug.log on every page view.
+* The Menus screen no longer logs warnings for menu items whose linked page or post has been deleted.
+* The plugin's scripts and styles now carry the plugin version, so browsers load the new files after an update instead of cached old ones.
+* Tested with WordPress 7.1 and PHP 8.5.
 
 = 1.2.13 =
 * Stopped loading two stylesheets out of the Shapely theme's own directory. The plugin was pulling `assets/css/font-awesome.min.css` and the bundled Epsilon framework's stylesheet from wherever the theme happened to be installed -- both of which the theme has since removed, so both 404'd on the widgets and customizer screens. Font Awesome now points at the theme's current copy and only when it is actually present; the Epsilon stylesheet is gone along with the dead hooks that loaded it
@@ -139,6 +162,9 @@ You can still use Shapely theme without this plugin but you won't be able to imp
 * Initial release.
 
 == Upgrade Notice ==
+
+= 1.2.14 =
+Fixes a fatal error in the Recent Posts widget on sites without posts, stops Import Demo Content creating duplicate pages and posts, and restores widget icons with current Shapely versions.
 
 = 1.2.12 =
 Fixes a fatal error that could blank the lower half of the front page when the Portfolio section is used without the portfolio post type registered. Recommended for anyone running 1.2.11.
