@@ -116,150 +116,173 @@ function shapely_companion_get_or_create_page( $title, $content ) {
 
 add_action( 'wp_ajax_shapely_companion_import_content', 'shapely_companion_import_content' );
 
+/**
+ * End an import request with a JSON error.
+ *
+ * The Shapely theme's welcome screen treats anything other than
+ * `success: true` (or `data.status: true`) as a failure, so the shape of
+ * this payload is part of the contract with every released theme version.
+ *
+ * @param string $message Short machine-readable reason.
+ * @param int    $status  HTTP status code.
+ */
+function shapely_companion_import_error( $message, $status ) {
+	wp_send_json_error(
+		array(
+			'status'  => false,
+			'message' => $message,
+		),
+		$status
+	);
+}
+
+/**
+ * AJAX handler for the theme's "Import Demo Content" buttons.
+ *
+ * Contract with the Shapely theme (changing any of it breaks the import for
+ * every released theme version): action shapely_companion_import_content, a
+ * welcome_nonce nonce in $_POST['nonce'], and $_POST['import'] set to one of
+ * import-all, import-widgets or set-frontpage.
+ *
+ * Both inputs are read defensively: an array (nonce[]=x) used to reach
+ * wp_verify_nonce() unslashed and raise "Array to string conversion", and an
+ * unrecognised import value used to fall through every branch and still
+ * report success -- and set shapely_imported_demo -- having done nothing.
+ *
+ * Every path ends in wp_send_json_*(), which exits.
+ */
 function shapely_companion_import_content() {
+	$nonce = ( isset( $_POST['nonce'] ) && is_string( $_POST['nonce'] ) ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
 
-	if( !isset( $_POST['nonce'] ) ) {
-		wp_send_json_error( array(
-			'status'  => false,
-			'message' => 'missing nonce',
-		) );
-		die();
+	if ( '' === $nonce ) {
+		shapely_companion_import_error( 'missing nonce', 400 );
 	}
 
-	if ( ! wp_verify_nonce( $_POST['nonce'], 'welcome_nonce' ) ) {//phpcs:ignore
-		wp_send_json_error( array(
-			'status'  => false,
-			'message' => 'invalid nonce',
-		) );
-		die();
+	if ( ! wp_verify_nonce( $nonce, 'welcome_nonce' ) ) {
+		shapely_companion_import_error( 'invalid nonce', 403 );
 	}
 
+	// manage_options, not edit_theme_options: the import rewrites show_on_front.
 	if ( ! current_user_can( 'manage_options' ) ) {
-		wp_send_json_error( array(
-			'status'  => false,
-			'message' => 'user capabilities',
-		) );
-		die();
+		shapely_companion_import_error( 'user capabilities', 403 );
 	}
 
-	if ( isset( $_POST['import'] ) ) {
-		$import_option = sanitize_text_field( $_POST['import'] );
-		$log = array();
+	$import_option = ( isset( $_POST['import'] ) && is_string( $_POST['import'] ) ) ? sanitize_key( wp_unslash( $_POST['import'] ) ) : '';
 
-		if ( 'import-all' == $import_option ) {
-			$log[] = 'Starting import-all process';
+	if ( '' === $import_option ) {
+		shapely_companion_import_error( 'No import option specified', 400 );
+	}
 
-			$frontpage_title = __( 'Front Page', 'shapely-companion' );
-			$blog_title      = __( 'Blog', 'shapely-companion' );
+	if ( ! in_array( $import_option, array( 'import-all', 'import-widgets', 'set-frontpage' ), true ) ) {
+		shapely_companion_import_error( 'Unknown import option', 400 );
+	}
 
-			// Reuse the existing front page if the importer has already run.
-			$frontpage_id = shapely_companion_get_or_create_page(
-				$frontpage_title,
-				'This is your front page. Click edit to change this text.'
-			);
-			$log[] = 'Front page ID: ' . $frontpage_id;
+	$log = array();
 
-			// Reuse the existing blog page if the importer has already run.
-			$blog_id = shapely_companion_get_or_create_page( $blog_title, 'This is your blog page.' );
-			$log[] = 'Blog page ID: ' . $blog_id;
+	if ( 'import-all' == $import_option ) {
+		$log[] = 'Starting import-all process';
 
-			if ( -1 != $frontpage_id ) {
-				update_post_meta( $frontpage_id, '_wp_page_template', 'page-templates/template-home.php' );
-				$log[] = 'Template set for front page';
-			}
+		$frontpage_title = __( 'Front Page', 'shapely-companion' );
+		$blog_title      = __( 'Blog', 'shapely-companion' );
 
-			// Set pages as front and blog pages
-			update_option( 'show_on_front', 'page' );
-			update_option( 'page_on_front', $frontpage_id );
-			update_option( 'page_for_posts', $blog_id );
-			$log[] = 'Front and blog pages set in WordPress settings';
+		// Reuse the existing front page if the importer has already run.
+		$frontpage_id = shapely_companion_get_or_create_page(
+			$frontpage_title,
+			'This is your front page. Click edit to change this text.'
+		);
+		$log[] = 'Front page ID: ' . $frontpage_id;
 
-			// Import widgets
-			shapely_companion_add_default_widgets();
-			$log[] = 'Default widgets imported';
+		// Reuse the existing blog page if the importer has already run.
+		$blog_id = shapely_companion_get_or_create_page( $blog_title, 'This is your blog page.' );
+		$log[] = 'Blog page ID: ' . $blog_id;
 
-			// Create some demo posts for the blog
-			$demo_posts = array(
-				array(
-					'post_title'    => 'Sample Post 1',
-					'post_status'   => 'publish',
-					'post_type'     => 'post',
-					'post_content'  => 'This is a sample post with demo content.',
-					'post_category' => array( 1 ), // Default category
-				),
-				array(
-					'post_title'    => 'Sample Post 2',
-					'post_status'   => 'publish',
-					'post_type'     => 'post',
-					'post_content'  => 'Another sample post with demo content.',
-					'post_category' => array( 1 ), // Default category
-				),
-			);
-
-			foreach ( $demo_posts as $post_data ) {
-				$post_id = wp_insert_post( $post_data );
-				$log[] = 'Created demo post with ID: ' . $post_id;
-			}
-
-		} elseif ( 'import-widgets' == $import_option ) {
-			$log[] = 'Starting import-widgets process';
-			shapely_companion_add_default_widgets();
-			$log[] = 'Default widgets imported';
-		} elseif ( 'set-frontpage' == $import_option ) {
-			$log[] = 'Starting set-frontpage process';
-
-			$frontpage_title = __( 'Front Page', 'shapely-companion' );
-			$blog_title      = __( 'Blog', 'shapely-companion' );
-
-			$frontpage_id = wp_insert_post(
-				array(
-					'post_title'    => $frontpage_title,
-					'post_status'   => 'publish',
-					'post_type'     => 'page',
-					'post_content'  => 'This is your front page. Click edit to change this text.',
-				)
-			);
-			$log[] = 'Front page created with ID: ' . $frontpage_id;
-
-			$blog_id = wp_insert_post(
-				array(
-					'post_title'    => $blog_title,
-					'post_status'   => 'publish',
-					'post_type'     => 'page',
-					'post_content'  => 'This is your blog page.',
-				)
-			);
-			$log[] = 'Blog page created with ID: ' . $blog_id;
-
-			if ( -1 != $frontpage_id ) {
-				update_post_meta( $frontpage_id, '_wp_page_template', 'page-templates/template-home.php' );
-				$log[] = 'Template set for front page';
-			}
-
-			update_option( 'show_on_front', 'page' );
-			update_option( 'page_on_front', $frontpage_id );
-			update_option( 'page_for_posts', $blog_id );
-			$log[] = 'Front and blog pages set in WordPress settings';
+		if ( -1 != $frontpage_id ) {
+			update_post_meta( $frontpage_id, '_wp_page_template', 'page-templates/template-home.php' );
+			$log[] = 'Template set for front page';
 		}
 
-		update_option( 'shapely_imported_demo', true );
-		$log[] = 'Saved shapely_imported_demo option as true';
+		// Set pages as front and blog pages
+		update_option( 'show_on_front', 'page' );
+		update_option( 'page_on_front', $frontpage_id );
+		update_option( 'page_for_posts', $blog_id );
+		$log[] = 'Front and blog pages set in WordPress settings';
 
-		wp_send_json_success(
+		// Import widgets
+		shapely_companion_add_default_widgets();
+		$log[] = 'Default widgets imported';
+
+		// Create some demo posts for the blog
+		$demo_posts = array(
 			array(
-				'status'  => true,
-				'message' => 'ok',
-				'log'     => $log,
+				'post_title'    => 'Sample Post 1',
+				'post_status'   => 'publish',
+				'post_type'     => 'post',
+				'post_content'  => 'This is a sample post with demo content.',
+				'post_category' => array( 1 ), // Default category
+			),
+			array(
+				'post_title'    => 'Sample Post 2',
+				'post_status'   => 'publish',
+				'post_type'     => 'post',
+				'post_content'  => 'Another sample post with demo content.',
+				'post_category' => array( 1 ), // Default category
+			),
+		);
+
+		foreach ( $demo_posts as $post_data ) {
+			$post_id = wp_insert_post( $post_data );
+			$log[] = 'Created demo post with ID: ' . $post_id;
+		}
+
+	} elseif ( 'import-widgets' == $import_option ) {
+		$log[] = 'Starting import-widgets process';
+		shapely_companion_add_default_widgets();
+		$log[] = 'Default widgets imported';
+	} elseif ( 'set-frontpage' == $import_option ) {
+		$log[] = 'Starting set-frontpage process';
+
+		$frontpage_title = __( 'Front Page', 'shapely-companion' );
+		$blog_title      = __( 'Blog', 'shapely-companion' );
+
+		$frontpage_id = wp_insert_post(
+			array(
+				'post_title'    => $frontpage_title,
+				'post_status'   => 'publish',
+				'post_type'     => 'page',
+				'post_content'  => 'This is your front page. Click edit to change this text.',
 			)
 		);
-	} else {
-		wp_send_json_error(
+		$log[] = 'Front page created with ID: ' . $frontpage_id;
+
+		$blog_id = wp_insert_post(
 			array(
-				'status'  => false,
-				'message' => 'No import option specified',
+				'post_title'    => $blog_title,
+				'post_status'   => 'publish',
+				'post_type'     => 'page',
+				'post_content'  => 'This is your blog page.',
 			)
 		);
-	}// End if().
+		$log[] = 'Blog page created with ID: ' . $blog_id;
 
-	exit();
+		if ( -1 != $frontpage_id ) {
+			update_post_meta( $frontpage_id, '_wp_page_template', 'page-templates/template-home.php' );
+			$log[] = 'Template set for front page';
+		}
+
+		update_option( 'show_on_front', 'page' );
+		update_option( 'page_on_front', $frontpage_id );
+		update_option( 'page_for_posts', $blog_id );
+		$log[] = 'Front and blog pages set in WordPress settings';
+	}
+
+	update_option( 'shapely_imported_demo', true );
+	$log[] = 'Saved shapely_imported_demo option as true';
+
+	wp_send_json_success(
+		array(
+			'status'  => true,
+			'message' => 'ok',
+			'log'     => $log,
+		)
+	);
 }
