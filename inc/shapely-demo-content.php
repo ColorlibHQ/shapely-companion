@@ -64,35 +64,62 @@ function shapely_companion_add_default_widgets() {
 }
 
 /**
- * Find an existing page by title, or create it.
+ * Find a post or page an earlier demo import created, or create it.
  *
- * The importer previously called wp_insert_post() unconditionally, so pressing
- * "Import Demo Content" a second time produced duplicate "Front Page" and
- * "Blog" pages (front-page-2, blog-2) and a doubled homepage. get_page_by_title()
- * is deliberately not used: it was deprecated in WordPress 6.2.
+ * Every run of "Import Demo Content" used to insert new posts: set-frontpage
+ * always created another "Front Page" and "Blog" page (front-page-2, blog-2,
+ * ...), and import-all created another pair of "Sample Post" posts each time.
+ * 1.2.11 made import-all look pages up by title, but not set-frontpage or the
+ * sample posts, and a title lookup misses a page the owner has since renamed.
  *
- * @param string $title   Page title.
- * @param string $content Content used only when the page is created.
+ * Lookup order:
+ * 1. A post of this type tagged with the _shapely_companion_demo meta key
+ *    holding $key -- anything this importer created from 1.2.14 on.
+ * 2. A post with the slug the importer gives it (sanitize_title() of the
+ *    title), which is what earlier versions produced, so their pages and
+ *    posts are adopted and tagged rather than duplicated.
  *
- * @return int Page ID.
+ * Trashed posts are ignored: the owner deleted them, so a fresh one is made.
+ * get_page_by_title() is deliberately not used; it was deprecated in 6.2.
+ *
+ * @param string $key     Stable identifier for this piece of demo content.
+ * @param array  $postarr wp_insert_post() arguments; needs post_type and
+ *                        post_title. Content is used only when creating.
+ *
+ * @return int Post ID, or 0 if it could not be created.
  */
-function shapely_companion_get_or_create_page( $title, $content ) {
-	$existing = new WP_Query(
+function shapely_companion_get_or_create_demo_post( $key, $postarr ) {
+	$meta_key  = '_shapely_companion_demo';
+	$post_type = $postarr['post_type'];
+	$slug      = sanitize_title( $postarr['post_title'] );
+	$statuses  = array( 'publish', 'future', 'draft', 'pending', 'private' );
+
+	$tagged = get_posts(
 		array(
-			'post_type'              => 'page',
-			'title'                  => $title,
-			'post_status'            => array( 'publish', 'draft', 'pending', 'private' ),
+			'post_type'              => $post_type,
+			'post_status'            => $statuses,
+			'meta_key'               => $meta_key,
+			'meta_value'             => $key,
 			'posts_per_page'         => 1,
+			'orderby'                => 'ID',
+			'order'                  => 'ASC',
+			'fields'                 => 'ids',
 			'no_found_rows'          => true,
 			'update_post_term_cache' => false,
 			'update_post_meta_cache' => false,
-			'orderby'                => 'ID',
-			'order'                  => 'ASC',
 		)
 	);
 
-	if ( ! empty( $existing->posts ) ) {
-		$id = (int) $existing->posts[0]->ID;
+	$id = $tagged ? (int) $tagged[0] : 0;
+
+	if ( ! $id && '' !== $slug ) {
+		$by_slug = get_page_by_path( $slug, OBJECT, $post_type );
+		if ( $by_slug && in_array( $by_slug->post_status, $statuses, true ) ) {
+			$id = (int) $by_slug->ID;
+		}
+	}
+
+	if ( $id ) {
 		if ( 'publish' !== get_post_status( $id ) ) {
 			wp_update_post(
 				array(
@@ -101,17 +128,90 @@ function shapely_companion_get_or_create_page( $title, $content ) {
 				)
 			);
 		}
+		update_post_meta( $id, $meta_key, $key );
+
 		return $id;
 	}
 
-	return (int) wp_insert_post(
+	$postarr['post_status'] = 'publish';
+	$postarr['post_name']   = $slug;
+	$postarr['meta_input']  = array( $meta_key => $key );
+
+	$id = wp_insert_post( $postarr, true );
+
+	return is_wp_error( $id ) ? 0 : (int) $id;
+}
+
+/**
+ * Create (or reuse) the Front Page and Blog pages and make them the static
+ * front page and posts page.
+ *
+ * @param array $log Import log, appended to.
+ *
+ * @return bool False if either page could not be created.
+ */
+function shapely_companion_import_static_front_page( &$log ) {
+	$frontpage_id = shapely_companion_get_or_create_demo_post(
+		'front-page',
 		array(
-			'post_title'   => $title,
-			'post_status'  => 'publish',
 			'post_type'    => 'page',
-			'post_content' => $content,
+			'post_title'   => __( 'Front Page', 'shapely-companion' ),
+			'post_content' => 'This is your front page. Click edit to change this text.',
 		)
 	);
+	$log[] = 'Front page ID: ' . $frontpage_id;
+
+	$blog_id = shapely_companion_get_or_create_demo_post(
+		'blog',
+		array(
+			'post_type'    => 'page',
+			'post_title'   => __( 'Blog', 'shapely-companion' ),
+			'post_content' => 'This is your blog page.',
+		)
+	);
+	$log[] = 'Blog page ID: ' . $blog_id;
+
+	// wp_insert_post() reports failure as 0, never -1, which the old check tested for.
+	if ( ! $frontpage_id || ! $blog_id ) {
+		return false;
+	}
+
+	update_post_meta( $frontpage_id, '_wp_page_template', 'page-templates/template-home.php' );
+	$log[] = 'Template set for front page';
+
+	update_option( 'show_on_front', 'page' );
+	update_option( 'page_on_front', $frontpage_id );
+	update_option( 'page_for_posts', $blog_id );
+	$log[] = 'Front and blog pages set in WordPress settings';
+
+	return true;
+}
+
+/**
+ * Create (or reuse) the two sample blog posts.
+ *
+ * No post_category: wp_insert_post() files a post under the site's default
+ * category. The old hard-coded array( 1 ) assumed that was term 1.
+ *
+ * @param array $log Import log, appended to.
+ */
+function shapely_companion_import_sample_posts( &$log ) {
+	$posts = array(
+		'sample-post-1' => array(
+			'post_title'   => 'Sample Post 1',
+			'post_content' => 'This is a sample post with demo content.',
+		),
+		'sample-post-2' => array(
+			'post_title'   => 'Sample Post 2',
+			'post_content' => 'Another sample post with demo content.',
+		),
+	);
+
+	foreach ( $posts as $key => $postarr ) {
+		$postarr['post_type'] = 'post';
+
+		$log[] = 'Demo post ID: ' . shapely_companion_get_or_create_demo_post( $key, $postarr );
+	}
 }
 
 add_action( 'wp_ajax_shapely_companion_import_content', 'shapely_companion_import_content' );
@@ -179,100 +279,21 @@ function shapely_companion_import_content() {
 
 	$log = array();
 
-	if ( 'import-all' == $import_option ) {
-		$log[] = 'Starting import-all process';
+	if ( 'import-all' === $import_option || 'set-frontpage' === $import_option ) {
+		$log[] = 'Setting the static front page';
 
-		$frontpage_title = __( 'Front Page', 'shapely-companion' );
-		$blog_title      = __( 'Blog', 'shapely-companion' );
-
-		// Reuse the existing front page if the importer has already run.
-		$frontpage_id = shapely_companion_get_or_create_page(
-			$frontpage_title,
-			'This is your front page. Click edit to change this text.'
-		);
-		$log[] = 'Front page ID: ' . $frontpage_id;
-
-		// Reuse the existing blog page if the importer has already run.
-		$blog_id = shapely_companion_get_or_create_page( $blog_title, 'This is your blog page.' );
-		$log[] = 'Blog page ID: ' . $blog_id;
-
-		if ( -1 != $frontpage_id ) {
-			update_post_meta( $frontpage_id, '_wp_page_template', 'page-templates/template-home.php' );
-			$log[] = 'Template set for front page';
+		if ( ! shapely_companion_import_static_front_page( $log ) ) {
+			shapely_companion_import_error( 'Could not create the front page', 500 );
 		}
+	}
 
-		// Set pages as front and blog pages
-		update_option( 'show_on_front', 'page' );
-		update_option( 'page_on_front', $frontpage_id );
-		update_option( 'page_for_posts', $blog_id );
-		$log[] = 'Front and blog pages set in WordPress settings';
-
-		// Import widgets
+	if ( 'import-all' === $import_option || 'import-widgets' === $import_option ) {
 		shapely_companion_add_default_widgets();
 		$log[] = 'Default widgets imported';
+	}
 
-		// Create some demo posts for the blog
-		$demo_posts = array(
-			array(
-				'post_title'    => 'Sample Post 1',
-				'post_status'   => 'publish',
-				'post_type'     => 'post',
-				'post_content'  => 'This is a sample post with demo content.',
-				'post_category' => array( 1 ), // Default category
-			),
-			array(
-				'post_title'    => 'Sample Post 2',
-				'post_status'   => 'publish',
-				'post_type'     => 'post',
-				'post_content'  => 'Another sample post with demo content.',
-				'post_category' => array( 1 ), // Default category
-			),
-		);
-
-		foreach ( $demo_posts as $post_data ) {
-			$post_id = wp_insert_post( $post_data );
-			$log[] = 'Created demo post with ID: ' . $post_id;
-		}
-
-	} elseif ( 'import-widgets' == $import_option ) {
-		$log[] = 'Starting import-widgets process';
-		shapely_companion_add_default_widgets();
-		$log[] = 'Default widgets imported';
-	} elseif ( 'set-frontpage' == $import_option ) {
-		$log[] = 'Starting set-frontpage process';
-
-		$frontpage_title = __( 'Front Page', 'shapely-companion' );
-		$blog_title      = __( 'Blog', 'shapely-companion' );
-
-		$frontpage_id = wp_insert_post(
-			array(
-				'post_title'    => $frontpage_title,
-				'post_status'   => 'publish',
-				'post_type'     => 'page',
-				'post_content'  => 'This is your front page. Click edit to change this text.',
-			)
-		);
-		$log[] = 'Front page created with ID: ' . $frontpage_id;
-
-		$blog_id = wp_insert_post(
-			array(
-				'post_title'    => $blog_title,
-				'post_status'   => 'publish',
-				'post_type'     => 'page',
-				'post_content'  => 'This is your blog page.',
-			)
-		);
-		$log[] = 'Blog page created with ID: ' . $blog_id;
-
-		if ( -1 != $frontpage_id ) {
-			update_post_meta( $frontpage_id, '_wp_page_template', 'page-templates/template-home.php' );
-			$log[] = 'Template set for front page';
-		}
-
-		update_option( 'show_on_front', 'page' );
-		update_option( 'page_on_front', $frontpage_id );
-		update_option( 'page_for_posts', $blog_id );
-		$log[] = 'Front and blog pages set in WordPress settings';
+	if ( 'import-all' === $import_option ) {
+		shapely_companion_import_sample_posts( $log );
 	}
 
 	update_option( 'shapely_imported_demo', true );
