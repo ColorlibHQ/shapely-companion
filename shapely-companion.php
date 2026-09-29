@@ -93,12 +93,14 @@ function shapely_companion_init() {
 
 		/**
 		 * Load Metabox for Portfolio
+		 *
+		 * Same gate as the Portfolio widget in inc/shapely-widgets.php: Jetpack
+		 * 13+ no longer reports 'custom-content-types' as an active module even
+		 * with the portfolio enabled, so the old is_module_active() check hid
+		 * the "Custom Portfolio Link" box that the Portfolio widget still reads.
 		 */
-		if ( class_exists( 'Jetpack' ) && Jetpack::is_module_active( 'custom-content-types' ) ) {
-			$jetpack_portfolio = get_option( 'jetpack_portfolio' );
-			if ( $jetpack_portfolio ) {
-				require_once plugin_dir_path( __FILE__ ) . '/inc/shapely-metabox.php';
-			}
+		if ( post_type_exists( 'jetpack-portfolio' ) || get_option( 'jetpack_portfolio' ) ) {
+			require_once plugin_dir_path( __FILE__ ) . '/inc/shapely-metabox.php';
 		}
 	} else {
 		add_action( 'admin_notices', 'shapely_companion_admin_notice', 99 );
