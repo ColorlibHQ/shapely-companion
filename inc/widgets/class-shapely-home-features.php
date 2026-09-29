@@ -447,8 +447,6 @@ class Shapely_Home_Features extends WP_Widget {
 			'fa-glass'                => 'fa-glass',
 			'fa-globe'                => 'fa-globe',
 			'fa-google'               => 'fa-google',
-			'fa-google-plus'          => 'fa-google-plus',
-			'fa-google-plus-square'   => 'fa-google-plus-square',
 			'fa-google-wallet'        => 'fa-google-wallet',
 			'fa-graduation-cap'       => 'fa-graduation-cap',
 			'fa-gratipay'             => 'fa-gratipay',
