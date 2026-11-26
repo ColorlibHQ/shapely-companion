@@ -3,9 +3,8 @@
  * Plugin Name:       Shapely Companion
  * Plugin URI:        https://colorlib.com/wp/themes/shapely/
  * Description:       Shapely Companion is a companion plugin for Shapely theme.
- * Version:           1.2.13
+ * Version:           1.2.14
  * Requires at least: 6.4
- * Tested up to:      7.0
  * Requires PHP:      7.4
  * Author:            Colorlib
  * Author URI:        https://colorlib.com
@@ -19,7 +18,8 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-define( 'SHAPELY_COMPANION', '1.2.10' );
+// Keep in step with the Version header; tools/check-version.mjs enforces it.
+define( 'SHAPELY_COMPANION', '1.2.14' );
 
 /**
  * Initialize widgets and theme compatibility check.
@@ -93,19 +93,21 @@ function shapely_companion_init() {
 
 		/**
 		 * Load Metabox for Portfolio
+		 *
+		 * Same gate as the Portfolio widget in inc/shapely-widgets.php: Jetpack
+		 * 13+ no longer reports 'custom-content-types' as an active module even
+		 * with the portfolio enabled, so the old is_module_active() check hid
+		 * the "Custom Portfolio Link" box that the Portfolio widget still reads.
 		 */
-		if ( class_exists( 'Jetpack' ) && Jetpack::is_module_active( 'custom-content-types' ) ) {
-			$jetpack_portfolio = get_option( 'jetpack_portfolio' );
-			if ( $jetpack_portfolio ) {
-				require_once plugin_dir_path( __FILE__ ) . '/inc/shapely-metabox.php';
-			}
+		if ( post_type_exists( 'jetpack-portfolio' ) || get_option( 'jetpack_portfolio' ) ) {
+			require_once plugin_dir_path( __FILE__ ) . '/inc/shapely-metabox.php';
 		}
 	} else {
 		add_action( 'admin_notices', 'shapely_companion_admin_notice', 99 );
 		function shapely_companion_admin_notice() {
 		?>
 			<div class="notice-warning notice">
-				<p><?php printf( wp_kses_post( __( 'In order to use the <strong>Shapely Companion</strong> plugin you have to also install the %1$sShapely Theme%2$s', 'shapely-companion' ) ), '<a href="https://wordpress.org/themes/shapely/" target="_blank">', '</a>' ); ?></p>
+				<p><?php /* translators: 1: opening link tag to the Shapely theme, 2: closing link tag. */ printf( wp_kses_post( __( 'In order to use the <strong>Shapely Companion</strong> plugin you have to also install the %1$sShapely Theme%2$s', 'shapely-companion' ) ), '<a href="https://wordpress.org/themes/shapely/" target="_blank">', '</a>' ); ?></p>
 			</div>
 			<?php
 		}

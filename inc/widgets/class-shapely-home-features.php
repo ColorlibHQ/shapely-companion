@@ -127,9 +127,7 @@ class Shapely_Home_Features extends WP_Widget {
 				<?php echo esc_html__( 'Content ', 'shapely-companion' ); ?>
 			</label>
 
-			<textarea name="<?php echo esc_attr( $this->get_field_name( 'body_content' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'body_content' ) ); ?>" class="widefat">
-				<?php echo wp_kses_post( nl2br( $instance['body_content'] ) ); ?>
-			</textarea>
+			<textarea name="<?php echo esc_attr( $this->get_field_name( 'body_content' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'body_content' ) ); ?>" class="widefat"><?php echo esc_textarea( $instance['body_content'] ); ?></textarea>
 		</p>
 
 		<?php for ( $i = 1; $i < 4; $i ++ ) { ?>
@@ -175,9 +173,7 @@ class Shapely_Home_Features extends WP_Widget {
 			<p class="shapely-editor-container">
 				<label for="<?php echo esc_attr( $this->get_field_id( 'body_content' . $i ) ); ?>"><?php echo esc_html__( 'Content ', 'shapely-companion' ); ?></label>
 
-				<textarea name="<?php echo esc_attr( $this->get_field_name( 'body_content' . $i ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'body_content' . $i ) ); ?>" class="widefat">
-					<?php echo wp_kses_post( nl2br( $instance[ 'body_content' . $i ] ) ); ?>
-				</textarea>
+				<textarea name="<?php echo esc_attr( $this->get_field_name( 'body_content' . $i ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'body_content' . $i ) ); ?>" class="widefat"><?php echo esc_textarea( $instance[ 'body_content' . $i ] ); ?></textarea>
 			</p>
 			<?php
 }

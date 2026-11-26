@@ -95,7 +95,8 @@ class Shapely_Home_Contact extends WP_Widget {
 								echo '<p class="mb32">' . wp_kses_post( nl2br( $address ) ) . '</p>';
 							}
 
-							if ( 'on' == $socialicons ) {
+							// The icons come from the theme; skip them rather than fatal without it.
+							if ( 'on' == $socialicons && function_exists( 'shapely_social_icons' ) ) {
 								echo '<div class="social-icons sticky-sidebar-social">';
 								shapely_social_icons();
 								echo '</div>';
@@ -107,21 +108,18 @@ class Shapely_Home_Contact extends WP_Widget {
 							<?php
 							if ( '' != $contactform && is_numeric( $contactform ) ) {
 								$post = get_post( $contactform );
-								
-								// Log the contact form data for debugging
-								if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-									error_log( 'Shapely Contact Form Debug - Form ID: ' . $contactform );
-									error_log( 'Shapely Contact Form Debug - Post exists: ' . ( $post ? 'yes' : 'no' ) );
-									if ( $post ) {
-										error_log( 'Shapely Contact Form Debug - Post type: ' . $post->post_type );
-									}
-								}
-								
+
 								// Only proceed if post exists
 								if ( ! $post ) {
 									// Display a message for admins only
 									if ( current_user_can( 'manage_options' ) ) {
-										echo '<div class="alert alert-warning">Contact form with ID ' . esc_html( $contactform ) . ' does not exist. Please update this widget with a valid form.</div>';
+										echo '<div class="alert alert-warning">' . esc_html(
+											sprintf(
+												/* translators: %d: ID of the missing contact form post. */
+												__( 'Contact form with ID %d does not exist. Please update this widget with a valid form.', 'shapely-companion' ),
+												absint( $contactform )
+											)
+										) . '</div>';
 									}
 								} else {
 									// Post exists, check type
@@ -153,8 +151,7 @@ class Shapely_Home_Contact extends WP_Widget {
 	 */
 	function form( $instance ) {
 
-		parent::form( $instance );
-
+		// Not parent::form(): WP_Widget::form() prints "There are no options for this widget."
 		$instance        = wp_parse_args( $instance, $this->defaults );
 		$placeholder_url = plugins_url( 'shapely-companion/assets/img/placeholder-image.jpg' );
 
@@ -169,9 +166,7 @@ class Shapely_Home_Contact extends WP_Widget {
 			<label for="<?php echo esc_attr( $this->get_field_id( 'body_content' ) ); ?>">
 				<?php echo esc_html__( 'Subtitle ', 'shapely-companion' ); ?>
 			</label>
-			<textarea name="<?php echo esc_attr( $this->get_field_name( 'body_content' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'body_content' ) ); ?>" class="widefat">
-				<?php echo wp_kses_post( $instance['body_content'] ); ?>
-			</textarea>
+			<textarea name="<?php echo esc_attr( $this->get_field_name( 'body_content' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'body_content' ) ); ?>" class="widefat"><?php echo esc_textarea( $instance['body_content'] ); ?></textarea>
 		</p>
 
 		<p class="shapely-media-control" data-delegate-container="<?php echo esc_attr( $this->get_field_id( 'image_src' ) ); ?>">
@@ -235,9 +230,7 @@ class Shapely_Home_Contact extends WP_Widget {
 
 			<textarea
 				name="<?php echo esc_attr( $this->get_field_name( 'address' ) ); ?>"
-				id="<?php echo esc_attr( $this->get_field_id( 'address' ) ); ?>">
-				<?php echo wp_kses_post( $instance['address'] ); ?>
-			</textarea>
+				id="<?php echo esc_attr( $this->get_field_id( 'address' ) ); ?>"><?php echo esc_textarea( $instance['address'] ); ?></textarea>
 		</p>
 		<div class="checkbox_switch wp-clearfix">
 				<span class="customize-control-title onoffswitch_label">

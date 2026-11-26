@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Load the Nav Walker Edit
  */
@@ -30,8 +34,9 @@ function shapely_nav_menu_item_link_meta_box() {
 				<?php
 
 				if ( is_active_sidebar( 'sidebar-home' ) ) {
-					$sidebars = wp_get_sidebars_widgets();
-					$widgets = $sidebars['sidebar-home'];
+					// wp_get_sidebars_widgets() is private to core; read the option it wraps.
+					$sidebars = get_option( 'sidebars_widgets', array() );
+					$widgets  = ( is_array( $sidebars ) && isset( $sidebars['sidebar-home'] ) && is_array( $sidebars['sidebar-home'] ) ) ? $sidebars['sidebar-home'] : array();
 					foreach ( $widgets as $widget ) {
 						$widget_id = _get_widget_id_base( $widget );
 						if ( ! isset( $widgets_name[ $widget_id ] ) ) {
@@ -78,8 +83,9 @@ add_action( 'wp_update_nav_menu_item', 'shapely_update_menu_item', 10, 3 );
 
 function shapely_update_menu_item( $menu_id, $menu_item_db_id, $args ) {
 
-	if ( isset( $_POST['menu-item'] ) && count( $_POST['menu-item'] ) == 1 ) {
-		if ( isset( $_POST['menu-item']['-1'] ) ) {
+	// count() and array_map() throw a TypeError on PHP 8 if these are not arrays.
+	if ( isset( $_POST['menu-item'] ) && is_array( $_POST['menu-item'] ) && count( $_POST['menu-item'] ) == 1 ) {
+		if ( isset( $_POST['menu-item']['-1'] ) && is_array( $_POST['menu-item']['-1'] ) ) {
 			$menu_item = array_map( 'sanitize_text_field', wp_unslash( $_POST['menu-item']['-1'] ) );
 
 			if ( isset( $menu_item['menu-item-extra'] ) && 'shapely-section' == $menu_item['menu-item-extra'] ) {

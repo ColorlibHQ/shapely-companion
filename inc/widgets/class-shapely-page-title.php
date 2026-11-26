@@ -18,9 +18,19 @@ class Shapely_Page_Title extends WP_Widget {
 
 	function widget( $args, $instance ) {
 
+		/*
+		 * The title bar is rendered by the theme. This used to print the notice
+		 * below and then call shapely_top_callout() anyway, which is a fatal
+		 * "call to undefined function" whenever the theme is not providing it.
+		 * The notice is for whoever can fix it, not for visitors.
+		 */
 		if ( ! function_exists( 'shapely_top_callout' ) ) {
-			echo esc_html__( 'This widget works only with Shapely theme. Please install and activate it first.', 'shapely-companion' );
+			if ( current_user_can( 'edit_theme_options' ) ) {
+				echo esc_html__( 'This widget works only with Shapely theme. Please install and activate it first.', 'shapely-companion' );
+			}
+			return;
 		}
+
 		echo $args['before_widget']; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
 
 		?>

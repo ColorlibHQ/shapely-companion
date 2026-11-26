@@ -55,8 +55,15 @@ class Shapely_Recent_Posts extends WP_Widget {
 					'ignore_sticky_posts' => 1,
 				);
 
-				$featured_query      = new WP_Query( $featured_args );
-				$bootstrap_col_width = floor( 12 / $featured_query->post_count );
+				$featured_query = new WP_Query( $featured_args );
+
+				/*
+				 * Share the 12-column row between the posts. With no posts this
+				 * divided by zero -- a fatal DivisionByZeroError on PHP 8 on any
+				 * site without published posts -- and above 12 posts it gave
+				 * col-sm-0, which Bootstrap does not define.
+				 */
+				$bootstrap_col_width = $featured_query->post_count ? max( 1, (int) floor( 12 / $featured_query->post_count ) ) : 12;
 				if ( $featured_query->have_posts() ) :
 					?>
 
@@ -98,7 +105,8 @@ class Shapely_Recent_Posts extends WP_Widget {
 				<?php
 
 				endif;
-				wp_reset_query();
+				// wp_reset_query() is for query_posts(); this is a secondary WP_Query.
+				wp_reset_postdata();
 				?>
 
 			</div> <!-- end posts wrapper -->

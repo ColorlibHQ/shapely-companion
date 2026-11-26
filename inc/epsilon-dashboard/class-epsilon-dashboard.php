@@ -99,42 +99,20 @@ if ( ! class_exists( 'Epsilon_Dashboard' ) ) {
 			if ( isset( $wp_meta_boxes['dashboard']['normal']['core']['epsilon_dashboard'] ) ) {
 				return;
 			}
-			// Load SimplePie Instance
+			/*
+			 * fetch_feed() returns a SimplePie instance that is already set up
+			 * the WordPress way -- transient cache, WP_SimplePie_File, KSES
+			 * sanitising -- and already initialised. This used to reconfigure it
+			 * with set_cache_class( 'WP_Feed_Cache' ) and set_file_class() and
+			 * call init() a second time. Both setters are deprecated in the
+			 * SimplePie 1.8 current WordPress bundles and raise E_USER_DEPRECATED on
+			 * every dashboard load, and WP_Feed_Cache is a deprecated class that
+			 * is not even loaded, so the swap was silently refused anyway.
+			 */
 			$feed = fetch_feed( $this->feeds );
-			// TODO report error when is an error loading the feed
 			if ( is_wp_error( $feed ) ) {
 				return '';
 			}
-			$feed->enable_cache( true );
-			$feed->enable_order_by_date( true );
-			$feed->set_cache_class( 'WP_Feed_Cache' );
-			$feed->set_file_class( 'WP_SimplePie_File' );
-			$feed->set_cache_duration( apply_filters( 'wp_feed_cache_transient_lifetime', 7200, $this->feeds ) );
-			do_action_ref_array( 'wp_feed_options', array( $feed, $this->feeds ) );
-			$feed->strip_comments( true );
-			$feed->strip_htmltags( array(
-				'base',
-				'blink',
-				'body',
-				'doctype',
-				'embed',
-				'font',
-				'form',
-				'frame',
-				'frameset',
-				'html',
-				'iframe',
-				'input',
-				'marquee',
-				'meta',
-				'noscript',
-				'object',
-				'param',
-				'script',
-				'style',
-			) );
-			$feed->init();
-			$feed->handle_content_type();
 			$items = $feed->get_items( 0, 5 );
 			$this->items = array();
 			foreach ( (array) $items as $item ) {

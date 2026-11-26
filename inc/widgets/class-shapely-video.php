@@ -40,19 +40,19 @@ class Shapely_Video extends WP_Widget {
 				if ( empty( $instance['youtube_id'] ) ) {
 					$terminate = true;
 				}
-				wp_enqueue_script( 'ytbackground', plugins_url( 'assets/js/vendor/jquery.youtubebackground.js', dirname( dirname( __FILE__ ) ) ), array( 'jquery' ) );
+				wp_enqueue_script( 'ytbackground', plugins_url( 'assets/js/vendor/jquery.youtubebackground.js', dirname( dirname( __FILE__ ) ) ), array( 'jquery' ), SHAPELY_COMPANION );
 				break;
 			case 'vimeo':
 				if ( empty( $instance['vimeo_id'] ) ) {
 					$terminate = true;
 				}
-				wp_enqueue_script( 'vimeo-player', plugins_url( 'assets/js/vendor/player.min.js', dirname( dirname( __FILE__ ) ) ), array( 'jquery' ) );
+				wp_enqueue_script( 'vimeo-player', plugins_url( 'assets/js/vendor/player.min.js', dirname( dirname( __FILE__ ) ) ), array( 'jquery' ), SHAPELY_COMPANION );
 				break;
 			case 'upload':
 				if ( empty( $instance['video_id'] ) ) {
 					$terminate = true;
 				}
-				wp_enqueue_script( 'vide', plugins_url( 'assets/js/vendor/jquery.vide.min.js', dirname( dirname( __FILE__ ) ) ), array( 'jquery' ) );
+				wp_enqueue_script( 'vide', plugins_url( 'assets/js/vendor/jquery.vide.min.js', dirname( dirname( __FILE__ ) ) ), array( 'jquery' ), SHAPELY_COMPANION );
 				break;
 		}
 
@@ -69,32 +69,44 @@ class Shapely_Video extends WP_Widget {
 		<?php if ( 'upload' == $instance['video_type'] ) : ?>
 			<div class="video-widget col-xs-12 upload"
 				<?php echo ( ! empty( $instance['video_height'] ) && empty( $instance['full_height'] ) ) ? 'style="height:' . esc_attr( $instance['video_height'] ) . 'px"' : ''; ?> data-vide-bg="mp4:<?php echo ! empty( $instance['video_id'] ) ? esc_attr( $instance['video_id'] ) : ''; ?>, poster:<?php echo esc_url( $instance['image_src'] ); ?>" data-vide-options="loop: false, position: 0% 0% <?php echo ! empty( $instance['autoplay'] ) ? ',autoplay: true' : ',autoplay:false'; ?><?php echo ! empty( $instance['mute'] ) ? ',muted: true' : ',muted:false'; ?>">
-				<span class="video-controls">
-					<button class="play-button"><icon class="fa fa-play"></icon></button>
-					<button class="pause-button"><icon class="fa fa-pause"></icon></button>
-				</span>
+				<?php $this->video_controls(); ?>
 			</div>
 		<?php elseif ( 'youtube' == $instance['video_type'] ) : ?>
 			<div <?php echo ! empty( $instance['youtube_id'] ) ? 'data-video-id="' . esc_attr( $instance['youtube_id'] ) . '"' : ''; ?>
 				data-autoplay="<?php echo ! empty( $instance['autoplay'] ) ? '1' : '0'; ?>" data-mute="<?php echo ! empty( $instance['mute'] ) ? '1' : '0'; ?>" class="video-widget youtube"
 				<?php echo ( ! empty( $instance['video_height'] ) && empty( $instance['full_height'] ) ) ? 'style="height:' . esc_attr( $instance['video_height'] ) . 'px"' : ''; ?>>
-				<span class="video-controls">
-					<button class="play-button"><icon class="fa fa-play"></icon></button>
-					<button class="pause-button"><icon class="fa fa-pause"></icon></button>
-				</span>
+				<?php $this->video_controls(); ?>
 			</div>
 		<?php elseif ( 'vimeo' == $instance['video_type'] ) : ?>
 			<div <?php echo ! empty( $instance['vimeo_id'] ) ? 'data-video-id="' . esc_attr( $instance['vimeo_id'] ) . '"' : ''; ?>
 				data-autoplay="<?php echo ! empty( $instance['autoplay'] ) ? '1' : '0'; ?>" data-mute="<?php echo ! empty( $instance['mute'] ) ? '1' : '0'; ?>" class="video-widget vimeo"
 				<?php echo ( ! empty( $instance['video_height'] ) && empty( $instance['full_height'] ) ) ? 'style="height:' . esc_attr( $instance['video_height'] ) . 'px"' : ''; ?>>
 				<div id="shapely-<?php echo absint( rand( 1000, 9999 ) ); ?>" class="vimeo-holder"></div>
-				<span class="video-controls">
-					<button class="play-button"><icon class="fa fa-play"></icon></button>
-					<button class="pause-button"><icon class="fa fa-pause"></icon></button>
-				</span>
+				<?php $this->video_controls(); ?>
 			</div>
 		<?php
 		endif;
+	}
+
+	/**
+	 * Print the play / pause buttons.
+	 *
+	 * These used to be <icon class="fa fa-play"> -- not an HTML element, so the
+	 * buttons had no content a screen reader could announce and no accessible
+	 * name at all. The theme's CSS styles the buttons through
+	 * `.video-widget .video-controls button` and its script binds to the
+	 * .play-button / .pause-button classes, so both are kept as they were.
+	 *
+	 * "fa" stays alongside "fa-solid" so the glyphs still render on older
+	 * Shapely releases that bundled Font Awesome 4, which has no fa-solid.
+	 */
+	private function video_controls() {
+		?>
+		<span class="video-controls">
+			<button type="button" class="play-button" aria-label="<?php esc_attr_e( 'Play video', 'shapely-companion' ); ?>"><i class="fa fa-solid fa-play" aria-hidden="true"></i></button>
+			<button type="button" class="pause-button" aria-label="<?php esc_attr_e( 'Pause video', 'shapely-companion' ); ?>"><i class="fa fa-solid fa-pause" aria-hidden="true"></i></button>
+		</span>
+		<?php
 	}
 
 	/**

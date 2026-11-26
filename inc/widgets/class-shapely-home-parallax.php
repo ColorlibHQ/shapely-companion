@@ -20,7 +20,8 @@ class Shapely_Home_Parallax extends WP_Widget {
 		$this->defaults = array(
 			'title'         => '',
 			'image_src'     => '',
-			'image_pos'     => esc_html__( 'left', 'shapely-companion' ),
+			// A stored option value, not display text: a translated default matched no position.
+			'image_pos'     => 'left',
 			'body_content'  => '',
 			'button1'       => '',
 			'button2'       => '',
@@ -130,15 +131,6 @@ class Shapely_Home_Parallax extends WP_Widget {
 	 * @return string|void
 	 */
 	function form( $instance ) {
-		$allowed_tags           = wp_kses_allowed_html( 'post' );
-		$allowed_tags['iframe'] = array(
-			'width'           => array(),
-			'height'          => array(),
-			'src'             => array(),
-			'frameborder'     => array(),
-			'allowfullscreen' => array(),
-		);
-
 		$instance = wp_parse_args( $instance, $this->defaults );
 
 		$placeholder_url = plugins_url( 'shapely-companion/assets/img/placeholder-image.jpg' );
@@ -174,9 +166,7 @@ class Shapely_Home_Parallax extends WP_Widget {
 				<?php echo esc_html__( 'Content ', 'shapely-companion' ); ?>
 			</label>
 
-			<textarea name="<?php echo esc_attr( $this->get_field_name( 'body_content' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'body_content' ) ); ?>" class="widefat">
-				<?php echo wp_kses( nl2br( $instance['body_content'] ), $allowed_tags ); ?>
-			</textarea>
+			<textarea name="<?php echo esc_attr( $this->get_field_name( 'body_content' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'body_content' ) ); ?>" class="widefat"><?php echo esc_textarea( $instance['body_content'] ); ?></textarea>
 		</p>
 
 		<p>

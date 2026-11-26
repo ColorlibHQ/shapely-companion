@@ -1,6 +1,14 @@
 <?php
 
-if ( ! class_exists( 'Walker_Nav_Menu ' ) ) {
+/*
+ * The class name used to carry a trailing space ('Walker_Nav_Menu '), so this
+ * check always failed and the file returned here. The class below was still
+ * declared only because PHP binds a top-level class early when its parent is
+ * already loaded -- the Menus screen depended on a compiler detail, and would
+ * have shown "The Walker class named Shapely_Walker_Nav_Menu_Edit does not
+ * exist" without it.
+ */
+if ( ! class_exists( 'Walker_Nav_Menu' ) ) {
 	return;
 }
 
@@ -34,8 +42,11 @@ class Shapely_Walker_Nav_Menu_Edit extends Walker_Nav_Menu {
 				$original_title = false;
 			}
 		} elseif ( 'post_type' == $item->type ) {
+			// The linked post may have been deleted; reading ->ID off null warns on PHP 8.
 			$original_object = get_post( $item->object_id );
-			$original_title  = get_the_title( $original_object->ID );
+			if ( $original_object ) {
+				$original_title = get_the_title( $original_object->ID );
+			}
 		} elseif ( 'post_type_archive' == $item->type ) {
 			$original_object = get_post_type_object( $item->object );
 			if ( $original_object ) {
@@ -169,7 +180,7 @@ class Shapely_Walker_Nav_Menu_Edit extends Walker_Nav_Menu {
 			<div class="menu-item-actions description-wide submitbox">
 				<?php if ( 'custom' != $item->type && false !== $original_title ) : ?>
 					<p class="link-to-original">
-						<?php printf( esc_html__( 'Original: %s', 'shapely-companion' ), '<a href="' . esc_attr( $item->url ) . '">' . esc_html( $original_title ) . '</a>' ); ?>
+						<?php /* translators: %s: link to the original item. */ printf( esc_html__( 'Original: %s', 'shapely-companion' ), '<a href="' . esc_attr( $item->url ) . '">' . esc_html( $original_title ) . '</a>' ); ?>
 					</p>
 				<?php endif; ?>
 				<a class="item-delete submitdelete deletion" id="delete-<?php echo esc_attr( $item_id ); ?>" href="

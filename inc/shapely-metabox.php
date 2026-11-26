@@ -1,6 +1,8 @@
 <?php
 
-
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
 
 /* Fire our meta box setup function on the post editor screen. */
 add_action( 'load-post.php', 'shapely_companion_post_meta_boxes_setup' );
