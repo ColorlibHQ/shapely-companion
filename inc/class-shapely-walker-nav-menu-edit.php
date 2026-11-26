@@ -180,7 +180,7 @@ class Shapely_Walker_Nav_Menu_Edit extends Walker_Nav_Menu {
 			<div class="menu-item-actions description-wide submitbox">
 				<?php if ( 'custom' != $item->type && false !== $original_title ) : ?>
 					<p class="link-to-original">
-						<?php printf( esc_html__( 'Original: %s', 'shapely-companion' ), '<a href="' . esc_attr( $item->url ) . '">' . esc_html( $original_title ) . '</a>' ); ?>
+						<?php /* translators: %s: link to the original item. */ printf( esc_html__( 'Original: %s', 'shapely-companion' ), '<a href="' . esc_attr( $item->url ) . '">' . esc_html( $original_title ) . '</a>' ); ?>
 					</p>
 				<?php endif; ?>
 				<a class="item-delete submitdelete deletion" id="delete-<?php echo esc_attr( $item_id ); ?>" href="

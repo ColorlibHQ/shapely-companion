@@ -5,7 +5,6 @@
  * Description:       Shapely Companion is a companion plugin for Shapely theme.
  * Version:           1.2.14
  * Requires at least: 6.4
- * Tested up to:      7.1
  * Requires PHP:      7.4
  * Author:            Colorlib
  * Author URI:        https://colorlib.com
@@ -108,7 +107,7 @@ function shapely_companion_init() {
 		function shapely_companion_admin_notice() {
 		?>
 			<div class="notice-warning notice">
-				<p><?php printf( wp_kses_post( __( 'In order to use the <strong>Shapely Companion</strong> plugin you have to also install the %1$sShapely Theme%2$s', 'shapely-companion' ) ), '<a href="https://wordpress.org/themes/shapely/" target="_blank">', '</a>' ); ?></p>
+				<p><?php /* translators: 1: opening link tag to the Shapely theme, 2: closing link tag. */ printf( wp_kses_post( __( 'In order to use the <strong>Shapely Companion</strong> plugin you have to also install the %1$sShapely Theme%2$s', 'shapely-companion' ) ), '<a href="https://wordpress.org/themes/shapely/" target="_blank">', '</a>' ); ?></p>
 			</div>
 			<?php
 		}

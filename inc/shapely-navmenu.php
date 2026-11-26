@@ -1,5 +1,9 @@
 <?php
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 /**
  * Load the Nav Walker Edit
  */
@@ -30,8 +34,9 @@ function shapely_nav_menu_item_link_meta_box() {
 				<?php
 
 				if ( is_active_sidebar( 'sidebar-home' ) ) {
-					$sidebars = wp_get_sidebars_widgets();
-					$widgets = $sidebars['sidebar-home'];
+					// wp_get_sidebars_widgets() is private to core; read the option it wraps.
+					$sidebars = get_option( 'sidebars_widgets', array() );
+					$widgets  = ( is_array( $sidebars ) && isset( $sidebars['sidebar-home'] ) && is_array( $sidebars['sidebar-home'] ) ) ? $sidebars['sidebar-home'] : array();
 					foreach ( $widgets as $widget ) {
 						$widget_id = _get_widget_id_base( $widget );
 						if ( ! isset( $widgets_name[ $widget_id ] ) ) {
