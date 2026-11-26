@@ -32,7 +32,7 @@ class Shapely_Social extends WP_Widget {
 
 		$title = apply_filters( 'widget_title', $instance['title'] );
 
-		echo $args['before_widget']; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
+		echo $args['before_widget']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Markup from the theme's register_sidebar(); escaping would mangle it.
 		echo '<section class="shapely-social-links ' . esc_attr( $instance['alignment'] ) . '">';
 		if ( '' != $title ) {
 			echo '<h3 class="cfa-text">' . esc_html( $title ) . '</h3>';
@@ -56,7 +56,7 @@ class Shapely_Social extends WP_Widget {
 		);
 		echo '</section>';
 
-		echo $args['after_widget']; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
+		echo $args['after_widget']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Markup from the theme's register_sidebar(); escaping would mangle it.
 	}
 
 

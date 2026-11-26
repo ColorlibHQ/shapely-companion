@@ -48,7 +48,7 @@ class Shapely_Home_Parallax extends WP_Widget {
 
 		$instance = wp_parse_args( $instance, $this->defaults );
 
-		echo $args['before_widget']; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
+		echo $args['before_widget']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Markup from the theme's register_sidebar(); escaping would mangle it.
 
 		/* Classes */
 		$class1 = ( 'background-full' == $instance['image_pos'] ) ? 'cover fullscreen image-bg' : ( ( 'background-small' == $instance['image_pos'] ) ? 'small-screen image-bg p0' : ( ( 'right' == $instance['image_pos'] ) ? 'bg-secondary' : ( ( 'bottom' == $instance['image_pos'] ) ? 'bg-secondary pb0' : '' ) ) );
@@ -91,10 +91,16 @@ class Shapely_Home_Parallax extends WP_Widget {
 							<div class="<?php echo esc_attr( $class2 ); ?>">
 								<div class="<?php echo esc_attr( $class3 ); ?>">
 									<?php
-									echo ( '' != $instance['title'] ) ? ( ( 'background-full' == $instance['image_pos'] ) || ( 'background-small' == $instance['image_pos'] ) ) ? '<h1>' . wp_kses_post( $instance['title'] ) . '</h1>' : '<h3>' . wp_kses_post( $instance['title'] ) . '</h3>' : '';
+									if ( '' != $instance['title'] ) {
+										if ( 'background-full' == $instance['image_pos'] || 'background-small' == $instance['image_pos'] ) {
+											echo '<h1>' . wp_kses_post( $instance['title'] ) . '</h1>';
+										} else {
+											echo '<h3>' . wp_kses_post( $instance['title'] ) . '</h3>';
+										}
+									}
 									if ( '' != $instance['body_content'] ) {
 										echo '<div class="mb32">';
-										echo apply_filters( 'the_content', wp_kses( $instance['body_content'], $allowed_tags ) );
+										echo apply_filters( 'the_content', wp_kses( $instance['body_content'], $allowed_tags ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already run through wp_kses() with the allowed-tags list; the_content then expands shortcodes and embeds, whose markup would be stripped if escaped again.
 										echo '</div>';
 									}
 									echo ( '' != $instance['button1'] && '' != $instance['button1_link'] ) ? '<a class="btn btn-lg btn-filled" href="' . esc_url( $instance['button1_link'] ) . '">' . wp_kses_post( $instance['button1'] ) . '</a>' : '';
@@ -121,7 +127,7 @@ class Shapely_Home_Parallax extends WP_Widget {
 		<div class="clearfix"></div>
 		<?php
 
-		echo $args['after_widget']; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
+		echo $args['after_widget']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Markup from the theme's register_sidebar(); escaping would mangle it.
 	}
 
 

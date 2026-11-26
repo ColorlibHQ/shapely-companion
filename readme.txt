@@ -4,7 +4,7 @@ Tags: woocommerce, widgets, demo, companion, one page
 Requires at least: 6.4
 Requires PHP: 7.4
 Tested up to: 7.2
-Stable tag: 1.2.14
+Stable tag: 1.2.15
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -52,6 +52,11 @@ Currently it works only with Shapely theme.
 You can still use Shapely theme without this plugin but you won't be able to import demo content and use theme specific widgets that you see on front page of theme demo.
 
 == Changelog ==
+
+= 1.2.15 =
+* Cleared the remaining errors reported by the WordPress Plugin Check tool. Your widgets output the same markup as before.
+* The plugin header now declares GPL-3.0-or-later, matching readme.txt and the bundled license file; it previously said GPL-2.0+.
+* The Video widget saves its options with WordPress's own tag stripper, and the Vimeo placeholder ID and the dashboard news dates use WordPress-safe functions.
 
 = 1.2.14 =
 * Icon previews in the Features widget's settings are back. The plugin looked for Font Awesome in a folder the Shapely theme removed in 1.3.3; it now uses the theme's current copy.

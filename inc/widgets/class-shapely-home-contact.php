@@ -47,21 +47,19 @@ class Shapely_Home_Contact extends WP_Widget {
 		$contactform  = $instance['contactform'];
 		$socialicons  = $instance['socialicons'];
 
-		$atts  = '';
 		$class = '';
 		if ( '' != $image_src ) {
-			$atts  = 'data-parallax="scroll" data-image-src="' . esc_url( $image_src ) . '" class="parallax-window"';
 			$class = ' image-bg cover';
 		}
 
-		echo $args['before_widget']; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
+		echo $args['before_widget']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Markup from the theme's register_sidebar(); escaping would mangle it.
 		/**
 		 * Widget Content
 		 */
 		?>
 
 		<section class="contact-section<?php echo esc_attr( $class ); ?>">
-			<div <?php echo $atts; ?>>
+			<div <?php if ( '' != $image_src ) { ?>data-parallax="scroll" data-image-src="<?php echo esc_url( $image_src ); ?>" class="parallax-window"<?php } ?>>
 				<div class="container">
 					<div class="text-center">
 						<?php
@@ -140,7 +138,7 @@ class Shapely_Home_Contact extends WP_Widget {
 		<div class="clearfix"></div>
 		<?php
 
-		echo $args['after_widget']; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
+		echo $args['after_widget']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Markup from the theme's register_sidebar(); escaping would mangle it.
 	}
 
 

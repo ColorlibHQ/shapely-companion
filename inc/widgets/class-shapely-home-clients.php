@@ -34,7 +34,7 @@ class Shapely_Home_Clients extends WP_Widget {
 
 		$instance = wp_parse_args( $instance, $this->defaults );
 
-		echo $args['before_widget']; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
+		echo $args['before_widget']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Markup from the theme's register_sidebar(); escaping would mangle it.
 
 		if ( gettype( $instance['client_logo'] ) == 'object' ) {
 			$instance['client_logo'] = get_object_vars( $instance['client_logo'] );
@@ -97,7 +97,7 @@ class Shapely_Home_Clients extends WP_Widget {
 
 		<?php
 
-		echo $args['after_widget']; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
+		echo $args['after_widget']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Markup from the theme's register_sidebar(); escaping would mangle it.
 	}
 
 

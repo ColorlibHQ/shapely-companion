@@ -3,13 +3,13 @@
  * Plugin Name:       Shapely Companion
  * Plugin URI:        https://colorlib.com/wp/themes/shapely/
  * Description:       Shapely Companion is a companion plugin for Shapely theme.
- * Version:           1.2.14
+ * Version:           1.2.15
  * Requires at least: 6.4
  * Requires PHP:      7.4
  * Author:            Colorlib
  * Author URI:        https://colorlib.com
- * License:           GPL-2.0+
- * License URI:       https://www.gnu.org/licenses/gpl-2.0.txt
+ * License:           GPL-3.0-or-later
+ * License URI:       https://www.gnu.org/licenses/gpl-3.0.txt
  * Text Domain:       shapely-companion
  * Domain Path:       /languages
  */
@@ -19,7 +19,7 @@ if ( ! defined( 'WPINC' ) ) {
 }
 
 // Keep in step with the Version header; tools/check-version.mjs enforces it.
-define( 'SHAPELY_COMPANION', '1.2.14' );
+define( 'SHAPELY_COMPANION', '1.2.15' );
 
 /**
  * Initialize widgets and theme compatibility check.
