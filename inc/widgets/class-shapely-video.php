@@ -81,7 +81,7 @@ class Shapely_Video extends WP_Widget {
 			<div <?php echo ! empty( $instance['vimeo_id'] ) ? 'data-video-id="' . esc_attr( $instance['vimeo_id'] ) . '"' : ''; ?>
 				data-autoplay="<?php echo ! empty( $instance['autoplay'] ) ? '1' : '0'; ?>" data-mute="<?php echo ! empty( $instance['mute'] ) ? '1' : '0'; ?>" class="video-widget vimeo"
 				<?php echo ( ! empty( $instance['video_height'] ) && empty( $instance['full_height'] ) ) ? 'style="height:' . esc_attr( $instance['video_height'] ) . 'px"' : ''; ?>>
-				<div id="shapely-<?php echo absint( rand( 1000, 9999 ) ); ?>" class="vimeo-holder"></div>
+				<div id="shapely-<?php echo absint( wp_rand( 1000, 9999 ) ); ?>" class="vimeo-holder"></div>
 				<?php $this->video_controls(); ?>
 			</div>
 		<?php
@@ -240,15 +240,15 @@ class Shapely_Video extends WP_Widget {
 	public function update( $new_instance, $old_instance ) {
 		$instance = array();
 
-		$instance['youtube_id']   = ( ! empty( $new_instance['youtube_id'] ) ) ? strip_tags( $new_instance['youtube_id'] ) : '';
+		$instance['youtube_id']   = ( ! empty( $new_instance['youtube_id'] ) ) ? wp_strip_all_tags( $new_instance['youtube_id'] ) : '';
 		$instance['vimeo_id']     = ( ! empty( $new_instance['vimeo_id'] ) ) ? absint( $new_instance['vimeo_id'] ) : '';
 		$instance['video_id']     = ( ! empty( $new_instance['video_id'] ) ) ? esc_url_raw( $new_instance['video_id'] ) : '';
 		$instance['image_src']    = ( ! empty( $new_instance['image_src'] ) ) ? esc_url_raw( $new_instance['image_src'] ) : '';
 		$instance['video_height'] = ( ! empty( $new_instance['video_height'] ) ) ? absint( $new_instance['video_height'] ) : '';
-		$instance['autoplay']     = ( ! empty( $new_instance['autoplay'] ) ) ? strip_tags( $new_instance['autoplay'] ) : '';
-		$instance['mute']         = ( ! empty( $new_instance['mute'] ) ) ? strip_tags( $new_instance['mute'] ) : '';
-		$instance['video_type']   = ( ! empty( $new_instance['video_type'] ) ) ? strip_tags( $new_instance['video_type'] ) : '';
-		$instance['full_height']  = ( ! empty( $new_instance['full_height'] ) ) ? strip_tags( $new_instance['full_height'] ) : '';
+		$instance['autoplay']     = ( ! empty( $new_instance['autoplay'] ) ) ? wp_strip_all_tags( $new_instance['autoplay'] ) : '';
+		$instance['mute']         = ( ! empty( $new_instance['mute'] ) ) ? wp_strip_all_tags( $new_instance['mute'] ) : '';
+		$instance['video_type']   = ( ! empty( $new_instance['video_type'] ) ) ? wp_strip_all_tags( $new_instance['video_type'] ) : '';
+		$instance['full_height']  = ( ! empty( $new_instance['full_height'] ) ) ? wp_strip_all_tags( $new_instance['full_height'] ) : '';
 
 		return $instance;
 	}
