@@ -47,10 +47,8 @@ class Shapely_Home_Contact extends WP_Widget {
 		$contactform  = $instance['contactform'];
 		$socialicons  = $instance['socialicons'];
 
-		$atts  = '';
 		$class = '';
 		if ( '' != $image_src ) {
-			$atts  = 'data-parallax="scroll" data-image-src="' . esc_url( $image_src ) . '" class="parallax-window"';
 			$class = ' image-bg cover';
 		}
 
@@ -61,7 +59,7 @@ class Shapely_Home_Contact extends WP_Widget {
 		?>
 
 		<section class="contact-section<?php echo esc_attr( $class ); ?>">
-			<div <?php echo $atts; ?>>
+			<div <?php if ( '' != $image_src ) { ?>data-parallax="scroll" data-image-src="<?php echo esc_url( $image_src ); ?>" class="parallax-window"<?php } ?>>
 				<div class="container">
 					<div class="text-center">
 						<?php

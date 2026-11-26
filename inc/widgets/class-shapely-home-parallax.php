@@ -91,10 +91,16 @@ class Shapely_Home_Parallax extends WP_Widget {
 							<div class="<?php echo esc_attr( $class2 ); ?>">
 								<div class="<?php echo esc_attr( $class3 ); ?>">
 									<?php
-									echo ( '' != $instance['title'] ) ? ( ( 'background-full' == $instance['image_pos'] ) || ( 'background-small' == $instance['image_pos'] ) ) ? '<h1>' . wp_kses_post( $instance['title'] ) . '</h1>' : '<h3>' . wp_kses_post( $instance['title'] ) . '</h3>' : '';
+									if ( '' != $instance['title'] ) {
+										if ( 'background-full' == $instance['image_pos'] || 'background-small' == $instance['image_pos'] ) {
+											echo '<h1>' . wp_kses_post( $instance['title'] ) . '</h1>';
+										} else {
+											echo '<h3>' . wp_kses_post( $instance['title'] ) . '</h3>';
+										}
+									}
 									if ( '' != $instance['body_content'] ) {
 										echo '<div class="mb32">';
-										echo apply_filters( 'the_content', wp_kses( $instance['body_content'], $allowed_tags ) );
+										echo apply_filters( 'the_content', wp_kses( $instance['body_content'], $allowed_tags ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Already run through wp_kses() with the allowed-tags list; the_content then expands shortcodes and embeds, whose markup would be stripped if escaped again.
 										echo '</div>';
 									}
 									echo ( '' != $instance['button1'] && '' != $instance['button1_link'] ) ? '<a class="btn btn-lg btn-filled" href="' . esc_url( $instance['button1_link'] ) . '">' . wp_kses_post( $instance['button1'] ) . '</a>' : '';
