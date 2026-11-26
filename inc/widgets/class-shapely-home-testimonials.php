@@ -41,7 +41,7 @@ class Shapely_Home_Testimonials extends WP_Widget {
 			return;
 		}
 
-		echo $args['before_widget']; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
+		echo $args['before_widget']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Markup from the theme's register_sidebar(); escaping would mangle it.
 
 		/**
 		 * Widget Content
@@ -106,7 +106,7 @@ class Shapely_Home_Testimonials extends WP_Widget {
 		<?php
 		endif;
 		wp_reset_postdata();
-		echo $args['after_widget']; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
+		echo $args['after_widget']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Markup from the theme's register_sidebar(); escaping would mangle it.
 
 	}
 

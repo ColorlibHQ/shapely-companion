@@ -54,7 +54,7 @@ class Shapely_Home_Contact extends WP_Widget {
 			$class = ' image-bg cover';
 		}
 
-		echo $args['before_widget']; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
+		echo $args['before_widget']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Markup from the theme's register_sidebar(); escaping would mangle it.
 		/**
 		 * Widget Content
 		 */
@@ -140,7 +140,7 @@ class Shapely_Home_Contact extends WP_Widget {
 		<div class="clearfix"></div>
 		<?php
 
-		echo $args['after_widget']; // phpcs:ignore WordPress.XSS.EscapeOutput.OutputNotEscaped
+		echo $args['after_widget']; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Markup from the theme's register_sidebar(); escaping would mangle it.
 	}
 
 
