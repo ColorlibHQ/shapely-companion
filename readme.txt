@@ -3,7 +3,7 @@ Contributors: colorlibplugins, silkalns
 Tags: woocommerce, widgets, demo, companion, one page
 Requires at least: 6.4
 Requires PHP: 7.4
-Tested up to: 7.1
+Tested up to: 7.2
 Stable tag: 1.2.14
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -74,7 +74,7 @@ You can still use Shapely theme without this plugin but you won't be able to imp
 * The Contact widget no longer writes debugging lines to debug.log on every page view.
 * The Menus screen no longer logs warnings for menu items whose linked page or post has been deleted.
 * The plugin's scripts and styles now carry the plugin version, so browsers load the new files after an update instead of cached old ones.
-* Tested with WordPress 7.1 and PHP 8.5.
+* Tested with WordPress 7.2 and PHP 8.6.
 
 = 1.2.13 =
 * Stopped loading two stylesheets out of the Shapely theme's own directory. The plugin was pulling `assets/css/font-awesome.min.css` and the bundled Epsilon framework's stylesheet from wherever the theme happened to be installed -- both of which the theme has since removed, so both 404'd on the widgets and customizer screens. Font Awesome now points at the theme's current copy and only when it is actually present; the Epsilon stylesheet is gone along with the dead hooks that loaded it
