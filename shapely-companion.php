@@ -8,8 +8,8 @@
  * Requires PHP:      7.4
  * Author:            Colorlib
  * Author URI:        https://colorlib.com
- * License:           GPL-2.0+
- * License URI:       https://www.gnu.org/licenses/gpl-2.0.txt
+ * License:           GPL-3.0-or-later
+ * License URI:       https://www.gnu.org/licenses/gpl-3.0.txt
  * Text Domain:       shapely-companion
  * Domain Path:       /languages
  */
